@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Get an instant AI-powered cost estimate for your property maintenance or renovation project. Fishbeck Innovations — same-day proposals, Twin Cities." />
+  <title>Project Estimator — Fishbeck Innovations</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text">
+            <span class="logo-name">Fishbeck Innovations</span>
+            <span class="logo-tagline">Construction &amp; Property Maintenance</span>
+          </div>
+        </div>
+        <div class="header-badges">
+          <span class="badge">Licensed &amp; Insured</span>
+          <span class="badge badge-gold">Twin Cities, MN</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Get an Instant Project Estimate</h1>
+      <p class="hero-sub">Describe your project in plain English — we'll break it down into a detailed scope with cost ranges in seconds.</p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">Same Day</span>
+          <span class="stat-label">Proposal Turnaround</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">35–90%</span>
+          <span class="stat-label">Material Savings vs. Retail</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">10+</span>
+          <span class="stat-label">Years Twin Cities Experience</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main estimator -->
+  <main class="main-content">
+    <div class="container container-narrow">
+
+      <!-- Input card -->
+      <div class="card" id="input-card">
+        <div class="card-header">
+          <h2 class="card-title">Describe Your Project</h2>
+          <p class="card-hint">Be as specific as you like — property type, number of units, scope of work.</p>
+        </div>
+        <div class="card-body">
+          <div class="input-group">
+            <textarea
+              id="project-input"
+              class="project-textarea"
+              placeholder="Example: I have a 12-unit apartment building in St. Paul. I need to turn 4 units — full repaint, new LVP flooring, clean appliances, patch drywall, and replace cabinet hardware."
+              rows="5"
+              maxlength="1000"
+              aria-label="Project description"
+            ></textarea>
+            <div class="char-counter"><span id="char-count">0</span> / 1000</div>
+          </div>
+          <button id="estimate-btn" class="btn btn-primary" type="button">
+            <span class="btn-text">Get My Estimate</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading state -->
+      <div class="card card-loading hidden" id="loading-card" aria-live="polite" aria-busy="true">
+        <div class="loading-inner">
+          <div class="spinner" aria-hidden="true">
+            <div class="spinner-ring"></div>
+          </div>
+          <p class="loading-text">Analyzing your project…</p>
+          <p class="loading-sub">This usually takes 5–10 seconds.</p>
+        </div>
+      </div>
+
+      <!-- Clarification state -->
+      <div class="card hidden" id="clarification-card" aria-live="polite">
+        <div class="card-header clarification-header">
+          <svg class="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4M12 8h.01"/>
+          </svg>
+          <h2 class="card-title">A Little More Detail Needed</h2>
+        </div>
+        <div class="card-body">
+          <p id="clarification-message" class="clarification-message"></p>
+          <button id="clarification-back-btn" class="btn btn-secondary" type="button">Try Again</button>
+        </div>
+      </div>
+
+      <!-- Results state -->
+      <div class="hidden" id="results-section" aria-live="polite">
+
+        <!-- Summary banner -->
+        <div class="estimate-banner">
+          <div class="estimate-banner-inner">
+            <div>
+              <p class="banner-label">Estimated Project Range</p>
+              <p class="banner-range" id="banner-range">—</p>
+            </div>
+            <div class="banner-actions">
+              <button id="new-estimate-btn" class="btn btn-ghost btn-sm" type="button">New Estimate</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line items -->
+        <div class="card" id="line-items-card">
+          <div class="card-header">
+            <h2 class="card-title">Scope Breakdown</h2>
+          </div>
+          <div class="card-body p-0">
+            <table class="scope-table" id="scope-table">
+              <thead>
+                <tr>
+                  <th class="col-item">Item</th>
+                  <th class="col-range">Estimate Range</th>
+                </tr>
+              </thead>
+              <tbody id="scope-tbody">
+                <!-- Populated by JS -->
+              </tbody>
+              <tfoot>
+                <tr class="total-row" id="total-row">
+                  <td class="total-label">Total Estimate</td>
+                  <td class="total-range" id="total-range-cell">—</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="card hidden" id="notes-card">
+          <div class="card-header">
+            <h2 class="card-title">Notes &amp; Assumptions</h2>
+          </div>
+          <div class="card-body">
+            <p id="notes-text" class="notes-text"></p>
+          </div>
+        </div>
+
+        <!-- Out of scope -->
+        <div class="card hidden" id="out-of-scope-card">
+          <div class="card-header">
+            <h2 class="card-title">Outside Our Core Services</h2>
+            <p class="card-hint">We flagged these items — mention them when you request a proposal.</p>
+          </div>
+          <div class="card-body">
+            <ul id="out-of-scope-list" class="oos-list"></ul>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-block">
+          <div class="cta-inner">
+            <div class="cta-text">
+              <h3 class="cta-title">Ready for a Same-Day Proposal?</h3>
+              <p class="cta-sub">Our team reviews every estimate personally and typically sends a formal proposal within hours.</p>
+            </div>
+            <a href="mailto:jimmy@fishbeckinnovations.com?subject=Project%20Proposal%20Request" class="btn btn-gold btn-lg">
+              Request My Proposal
+              <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+      </div><!-- /results-section -->
+
+      <!-- Error state -->
+      <div class="card card-error hidden" id="error-card" aria-live="assertive">
+        <div class="card-header">
+          <svg class="icon-error" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M15 9l-6 6M9 9l6 6"/>
+          </svg>
+          <h2 class="card-title">Something Went Wrong</h2>
+        </div>
+        <div class="card-body">
+          <p id="error-message" class="error-message">We couldn't generate your estimate. Please try again.</p>
+          <button id="error-retry-btn" class="btn btn-secondary" type="button">Try Again</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">
+        &copy; 2025 Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash;
+        <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a>
+      </p>
+      <p class="footer-disclaimer">
+        Estimates are AI-generated ranges based on typical Twin Cities project costs. Final pricing is determined during a formal proposal.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/js/estimator.js"></script>
+</body>
+</html>
