@@ -2,30 +2,32 @@
 // Client-side logic for the Fishbeck Project Estimator
 // Handles: form interaction, API call, result rendering, state management
 
-(function () {
+function createEstimator(doc, opts) {
   'use strict';
+  opts = opts || {};
+  const fetchImpl = opts.fetch || (typeof fetch !== 'undefined' ? fetch : null);
 
   // --- DOM refs ---
-  const textarea = document.getElementById('project-input');
-  const charCount = document.getElementById('char-count');
-  const estimateBtn = document.getElementById('estimate-btn');
-  const inputCard = document.getElementById('input-card');
-  const loadingCard = document.getElementById('loading-card');
-  const clarificationCard = document.getElementById('clarification-card');
-  const clarificationMsg = document.getElementById('clarification-message');
-  const clarificationBackBtn = document.getElementById('clarification-back-btn');
-  const resultsSection = document.getElementById('results-section');
-  const bannerRange = document.getElementById('banner-range');
-  const scopeTbody = document.getElementById('scope-tbody');
-  const totalRangeCell = document.getElementById('total-range-cell');
-  const notesCard = document.getElementById('notes-card');
-  const notesText = document.getElementById('notes-text');
-  const outOfScopeCard = document.getElementById('out-of-scope-card');
-  const outOfScopeList = document.getElementById('out-of-scope-list');
-  const newEstimateBtn = document.getElementById('new-estimate-btn');
-  const errorCard = document.getElementById('error-card');
-  const errorMessage = document.getElementById('error-message');
-  const errorRetryBtn = document.getElementById('error-retry-btn');
+  const textarea = doc.getElementById('project-input');
+  const charCount = doc.getElementById('char-count');
+  const estimateBtn = doc.getElementById('estimate-btn');
+  const inputCard = doc.getElementById('input-card');
+  const loadingCard = doc.getElementById('loading-card');
+  const clarificationCard = doc.getElementById('clarification-card');
+  const clarificationMsg = doc.getElementById('clarification-message');
+  const clarificationBackBtn = doc.getElementById('clarification-back-btn');
+  const resultsSection = doc.getElementById('results-section');
+  const bannerRange = doc.getElementById('banner-range');
+  const scopeTbody = doc.getElementById('scope-tbody');
+  const totalRangeCell = doc.getElementById('total-range-cell');
+  const notesCard = doc.getElementById('notes-card');
+  const notesText = doc.getElementById('notes-text');
+  const outOfScopeCard = doc.getElementById('out-of-scope-card');
+  const outOfScopeList = doc.getElementById('out-of-scope-list');
+  const newEstimateBtn = doc.getElementById('new-estimate-btn');
+  const errorCard = doc.getElementById('error-card');
+  const errorMessage = doc.getElementById('error-message');
+  const errorRetryBtn = doc.getElementById('error-retry-btn');
 
   // --- State ---
   const STATES = {
@@ -98,7 +100,7 @@
     // Line items
     scopeTbody.innerHTML = '';
     (estimate.line_items || []).forEach(function (item) {
-      const tr = document.createElement('tr');
+      const tr = doc.createElement('tr');
       tr.innerHTML =
         '<td>' +
           '<div class="item-label">' + escHtml(item.label) + '</div>' +
@@ -124,7 +126,7 @@
     if (oos.length > 0) {
       outOfScopeList.innerHTML = '';
       oos.forEach(function (item) {
-        const li = document.createElement('li');
+        const li = doc.createElement('li');
         li.textContent = item;
         outOfScopeList.appendChild(li);
       });
@@ -134,13 +136,15 @@
     }
 
     // Scroll to results
-    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (typeof resultsSection.scrollIntoView === 'function') {
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   // --- XSS prevention ---
   function escHtml(str) {
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
+    const div = doc.createElement('div');
+    div.appendChild(doc.createTextNode(str));
     return div.innerHTML;
   }
 
@@ -168,7 +172,7 @@
     estimateBtn.classList.add('is-loading');
 
     try {
-      const response = await fetch('/api/estimate', {
+      const response = await fetchImpl('/api/estimate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input })
@@ -226,4 +230,20 @@
     setState(STATES.INPUT);
   });
 
-})();
+  return {
+    STATES: STATES,
+    fmt: fmt,
+    fmtRange: fmtRange,
+    escHtml: escHtml,
+    setState: setState,
+    renderResults: renderResults,
+    submitEstimate: submitEstimate,
+    getCurrentState: function () { return currentState; }
+  };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { createEstimator: createEstimator };
+} else {
+  createEstimator(document);
+}
