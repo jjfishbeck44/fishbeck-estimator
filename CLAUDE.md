@@ -78,7 +78,7 @@ No build step required. Vercel serves `public/` as static files and `api/` as se
 - **CommonJS** (`require`/`module.exports`) on the backend
 - **IIFE pattern** with `'use strict'` on the frontend
 - **No linter or formatter configured** — match the existing code style
-- **No semicolons enforced** — mixed usage, follow surrounding code
+- **Semicolons used consistently** — all source files use semicolons, follow the same convention
 
 ### Naming
 - `camelCase` for functions and variables
@@ -93,9 +93,9 @@ No build step required. Vercel serves `public/` as static files and `api/` as se
 
 - **Fail-open rate limiting:** If Upstash is misconfigured, requests are allowed through so the estimator keeps working during setup.
 - **25s timeout via `Promise.race`:** Stays within Vercel's 30s function limit. Throws typed `api_timeout` error.
-- **Typed error codes in API responses:** `rate_limited`, `missing_input`, `input_too_long`, `api_timeout`, `invalid_json`, `internal_error`.
+- **Typed error codes in API responses:** `method_not_allowed`, `rate_limited`, `missing_input`, `input_too_long`, `api_timeout`, `invalid_json`, `internal_error`.
 - **XSS prevention:** Frontend uses `escHtml()` to sanitize all user-provided text before rendering.
-- **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON with `status`, `line_items`, `totals`, `notes`, and `out_of_scope` fields.
+- **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON with `status`, `clarification_message`, `line_items`, `total_low`, `total_high`, `notes`, and `out_of_scope` fields.
 
 ## Deployment
 
