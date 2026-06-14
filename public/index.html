@@ -230,9 +230,12 @@
 
       <!-- Recent estimates -->
       <div class="card hidden" id="history-card">
-        <div class="card-header">
-          <h2 class="card-title">Recent Estimates</h2>
-          <p class="card-hint">Click any estimate to view it again.</p>
+        <div class="card-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+          <div>
+            <h2 class="card-title">Recent Estimates</h2>
+            <p class="card-hint">Click any estimate to view it again.</p>
+          </div>
+          <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
         </div>
         <div class="card-body p-0">
           <div id="history-list" class="history-list"></div>
@@ -261,7 +264,7 @@
   <footer class="site-footer">
     <div class="container">
       <p class="footer-text">
-        &copy; 2025 Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash;
+        &copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash;
         <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a>
       </p>
       <p class="footer-disclaimer">

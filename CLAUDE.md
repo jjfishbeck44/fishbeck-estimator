@@ -77,6 +77,7 @@ lib/
   ratelimit.js         # Upstash sliding-window rate limiter (fails open)
 public/
   index.html           # Single-page app (form, results table, loading states)
+  favicon.svg          # SVG favicon (FI logo, navy + gold)
   css/style.css        # Custom design system (navy #1B3A5C, gold #C8963E)
   js/estimator.js      # Frontend logic (IIFE, state machine, fetch API)
 tests/
@@ -148,6 +149,10 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting).
 - **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen so users can revisit past estimates.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
+- **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
+- **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call.
+- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data.
+- **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
 
 ## Updating Pricing
 

@@ -31,8 +31,10 @@
   var errorRetryBtn = document.getElementById('error-retry-btn');
   var historyCard = document.getElementById('history-card');
   var historyList = document.getElementById('history-list');
+  var clearHistoryBtn = document.getElementById('clear-history-btn');
   var templatesEl = document.getElementById('templates');
   var loadingText = document.getElementById('loading-text');
+  var footerYear = document.getElementById('footer-year');
 
   // --- Constants ---
   var STATES = {
@@ -406,7 +408,14 @@
     });
   });
 
+  // --- Clear history ---
+  clearHistoryBtn.addEventListener('click', function () {
+    try { localStorage.removeItem(HISTORY_KEY); } catch {}
+    renderHistory();
+  });
+
   // --- Init ---
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
   renderHistory();
 
 })();
