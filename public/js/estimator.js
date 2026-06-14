@@ -23,6 +23,8 @@
   var outOfScopeCard = document.getElementById('out-of-scope-card');
   var outOfScopeList = document.getElementById('out-of-scope-list');
   var newEstimateBtn = document.getElementById('new-estimate-btn');
+  var printBtn = document.getElementById('print-btn');
+  var copyBtn = document.getElementById('copy-btn');
   var proposalLink = document.getElementById('proposal-link');
   var errorCard = document.getElementById('error-card');
   var errorMessage = document.getElementById('error-message');
@@ -158,7 +160,7 @@
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // --- Email proposal link ---
+  // --- Format estimate as plain text ---
   function buildEstimateText(est) {
     var lines = ['Fishbeck Innovations — Project Estimate', ''];
     if (lastInput) {
@@ -181,9 +183,12 @@
       lines.push('Outside core services:');
       oos.forEach(function (item) { lines.push('  - ' + item); });
     }
+    lines.push('');
+    lines.push('This is an AI-generated estimate. Contact jimmy@fishbeckinnovations.com for a formal proposal.');
     return lines.join('\n');
   }
 
+  // --- Email proposal link ---
   function updateProposalLink(estimate) {
     var body = buildEstimateText(estimate);
     body += '\n\n---\nI would like to request a formal proposal for this project. Please contact me to discuss details.';
@@ -225,7 +230,7 @@
     }
     show(historyCard);
     historyList.innerHTML = '';
-    history.forEach(function (entry, index) {
+    history.forEach(function (entry) {
       var item = document.createElement('div');
       item.className = 'history-item';
       item.setAttribute('role', 'button');
@@ -348,6 +353,22 @@
 
   errorRetryBtn.addEventListener('click', function () {
     setState(STATES.INPUT);
+  });
+
+  // --- Print ---
+  printBtn.addEventListener('click', function () {
+    window.print();
+  });
+
+  // --- Copy estimate to clipboard ---
+  copyBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    var text = buildEstimateText(lastEstimate);
+    navigator.clipboard.writeText(text).then(function () {
+      var originalHtml = copyBtn.innerHTML;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(function () { copyBtn.innerHTML = originalHtml; }, 1500);
+    });
   });
 
   // --- Init ---
