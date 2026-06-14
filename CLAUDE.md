@@ -146,7 +146,8 @@ No CI pipeline is configured — run tests locally before pushing.
 - **25s timeout via `Promise.race`:** Stays within Vercel's 30s function limit. Throws typed `api_timeout` error.
 - **XSS prevention:** Frontend uses `escHtml()` to sanitize all user-provided text before rendering.
 - **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON matching the response schema above. Model: `claude-sonnet-4-6`, `max_tokens: 1024`.
-- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting).
+- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting, drywall, exterior work).
+- **Draft persistence:** Input text saved to `sessionStorage` (key: `fishbeck_draft`) so refreshing the page doesn't lose work. Cleared on successful estimate or new estimate.
 - **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen so users can revisit past estimates.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 - **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
@@ -170,4 +171,6 @@ All pricing ranges and service categories live in `lib/prompt.js`. Edit the `PRI
 - **Function timeout:** 30 seconds (configured in `vercel.json`)
 - **CORS:** Open (`*`) for API routes
 - **CSP:** `frame-ancestors *.fishbeckinnovations.com`
+- **Security headers:** `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`
+- **Static caching:** CSS/JS cached 1 day with `stale-while-revalidate`, favicon cached 1 week
 - **Full guide:** See `DEPLOY.md`

@@ -106,12 +106,12 @@ All tests run locally with mocked dependencies -- no API keys needed, no network
 
 ## Updating Pricing
 
-All pricing lives in one file: `lib/prompt.js`. Open it and edit the `PRICING REFERENCE` section:
+All pricing lives in one file: `lib/prompt.js`. Open it and edit the `PRICING REFERENCE` section. Pricing is organized by category (unit turns, bathroom, kitchen, roofing, demolition, flooring & painting, drywall, fixtures, exterior, general):
 
 ```
-- Unit turn, standard (paint touch-up, clean, patch, hardware): $800-$1,500 per unit
-- Unit turn, heavy (flooring, full repaint, appliances): $1,500-$3,500 per unit
-- Bathroom remodel, cosmetic: $2,500-$5,000 per bath
+Unit Turns:
+- Unit turn, standard (paint touch-up, clean, patch, hardware): $800–$1,500 per unit
+- Unit turn, heavy (flooring, full repaint, appliances): $1,500–$3,500 per unit
 ...
 ```
 
