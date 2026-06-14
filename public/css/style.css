@@ -506,6 +506,29 @@ body {
 .footer-link:hover { color: #C8963E; }
 .footer-disclaimer { font-size: 0.75rem; color: rgba(255,255,255,0.4); max-width: 560px; margin: 0 auto; }
 
+/* --- Action buttons (results) --- */
+.banner-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: rgba(255,255,255,0.8);
+  transition: background 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+
+.btn-icon:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.btn-icon svg { width: 15px; height: 15px; flex-shrink: 0; }
+
 /* --- Utility --- */
 .hidden { display: none !important; }
 
@@ -516,8 +539,35 @@ body {
   .stat-divider { display: none; }
   .stat { padding: 0; }
   .estimate-banner-inner { flex-direction: column; align-items: flex-start; }
+  .banner-actions { width: 100%; }
   .cta-inner { flex-direction: column; }
   .btn-gold.btn-lg { width: 100%; justify-content: center; }
   .scope-table thead th, .scope-table tbody td, .total-row td { padding: 0.75rem 1rem; }
   .header-badges { display: none; }
+}
+
+/* --- Print styles --- */
+@media print {
+  body { background: #fff; font-size: 11pt; }
+
+  .site-header { position: static; box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .hero, .site-footer, #input-card, #loading-card, #clarification-card, #error-card,
+  .banner-actions, .cta-block { display: none !important; }
+
+  .main-content { padding: 0; }
+  .container, .container-narrow { max-width: 100%; padding: 0; }
+
+  .card { box-shadow: none; border: 1px solid #ddd; break-inside: avoid; }
+
+  .estimate-banner {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+    border-radius: 0;
+    margin-bottom: 1rem;
+  }
+
+  .scope-table { font-size: 10pt; }
+  .scope-table tbody tr:hover { background: transparent; }
+
+  #results-section { display: block !important; }
 }

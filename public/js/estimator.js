@@ -23,6 +23,8 @@
   const outOfScopeCard = document.getElementById('out-of-scope-card');
   const outOfScopeList = document.getElementById('out-of-scope-list');
   const newEstimateBtn = document.getElementById('new-estimate-btn');
+  const printBtn = document.getElementById('print-btn');
+  const copyBtn = document.getElementById('copy-btn');
   const errorCard = document.getElementById('error-card');
   const errorMessage = document.getElementById('error-message');
   const errorRetryBtn = document.getElementById('error-retry-btn');
@@ -37,6 +39,7 @@
   };
 
   let currentState = STATES.INPUT;
+  let lastEstimate = null;
 
   // --- Utilities ---
   function fmt(n) {
@@ -79,6 +82,7 @@
 
       case STATES.RESULTS:
         show(resultsSection);
+        lastEstimate = data;
         renderResults(data);
         break;
 
@@ -174,10 +178,15 @@
         body: JSON.stringify({ input })
       });
 
-      const data = await response.json();
+      var data;
+      try {
+        data = await response.json();
+      } catch {
+        setState(STATES.ERROR, { message: 'The server returned an unexpected response. Please try again.' });
+        return;
+      }
 
       if (!response.ok) {
-        // Handle typed API errors
         if (response.status === 429) {
           setState(STATES.ERROR, { message: 'You\'ve made too many requests. Please wait a minute and try again.' });
         } else if (data.error === 'input_too_long') {
@@ -188,7 +197,6 @@
         return;
       }
 
-      // Success
       if (data.status === 'clarification_needed') {
         setState(STATES.CLARIFICATION, { message: data.clarification_message });
       } else {
@@ -224,6 +232,45 @@
 
   errorRetryBtn.addEventListener('click', function () {
     setState(STATES.INPUT);
+  });
+
+  // --- Print ---
+  printBtn.addEventListener('click', function () {
+    window.print();
+  });
+
+  // --- Copy estimate to clipboard ---
+  function buildEstimateText(est) {
+    var lines = ['Fishbeck Innovations — Project Estimate', ''];
+    (est.line_items || []).forEach(function (item) {
+      lines.push(item.label + ': ' + fmtRange(item.range_low, item.range_high));
+      lines.push('  ' + item.description);
+    });
+    lines.push('');
+    lines.push('Total: ' + fmtRange(est.total_low, est.total_high));
+    if (est.notes) {
+      lines.push('');
+      lines.push('Notes: ' + est.notes);
+    }
+    var oos = est.out_of_scope || [];
+    if (oos.length > 0) {
+      lines.push('');
+      lines.push('Outside our core services:');
+      oos.forEach(function (item) { lines.push('  - ' + item); });
+    }
+    lines.push('');
+    lines.push('This is an AI-generated estimate. Contact jimmy@fishbeckinnovations.com for a formal proposal.');
+    return lines.join('\n');
+  }
+
+  copyBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    var text = buildEstimateText(lastEstimate);
+    navigator.clipboard.writeText(text).then(function () {
+      var originalHtml = copyBtn.innerHTML;
+      copyBtn.textContent = 'Copied!';
+      setTimeout(function () { copyBtn.innerHTML = originalHtml; }, 1500);
+    });
   });
 
 })();
