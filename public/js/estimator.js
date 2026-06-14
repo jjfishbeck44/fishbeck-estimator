@@ -92,6 +92,11 @@
     else if (len > 750) counter.classList.add('warn');
   }
 
+  function autoResize() {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.max(130, textarea.scrollHeight) + 'px';
+  }
+
   // --- State machine ---
   function startLoadingMessages() {
     var idx = 0;
@@ -191,6 +196,10 @@
     }
 
     updateProposalLink(estimate);
+
+    resultsSection.classList.remove('fade-up');
+    void resultsSection.offsetWidth;
+    resultsSection.classList.add('fade-up');
 
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     bannerRange.setAttribute('tabindex', '-1');
@@ -303,8 +312,11 @@
     });
   }
 
-  // --- Character counter ---
-  textarea.addEventListener('input', updateCharCount);
+  // --- Character counter & auto-resize ---
+  textarea.addEventListener('input', function () {
+    updateCharCount();
+    autoResize();
+  });
 
   // --- Example templates ---
   templatesEl.addEventListener('click', function (e) {
@@ -388,6 +400,7 @@
 
   newEstimateBtn.addEventListener('click', function () {
     textarea.value = '';
+    textarea.style.height = '';
     charCount.textContent = '0';
     setState(STATES.INPUT);
   });
