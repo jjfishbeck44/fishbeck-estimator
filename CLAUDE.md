@@ -151,8 +151,13 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 - **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
 - **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call.
-- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data.
+- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button.
 - **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
+- **Dark mode:** Automatic via `prefers-color-scheme: dark` media query. Full color scheme for all elements. Print styles force light colors regardless of mode.
+- **Auto-resize textarea:** Grows as user types, resets on new estimate.
+- **Fade-in animation:** Results section slides up with a subtle CSS animation.
+- **Response validation:** `num()` helper safely coerces non-numeric values in cost ranges to prevent `$NaN` display.
+- **Error logging:** API catch block logs `console.error('[estimate]', ...)` for production debugging.
 
 ## Updating Pricing
 
