@@ -76,6 +76,7 @@ fishbeck-estimator/
 |
 |-- public/
 |   |-- index.html          # The web page users see
+|   |-- favicon.svg         # Browser tab icon (FI logo)
 |   |-- css/style.css       # Styling (navy + gold brand colors)
 |   |-- js/estimator.js     # Frontend behavior (form, loading, results)
 |
@@ -127,6 +128,19 @@ After saving, commit and push to `master`. Vercel auto-deploys in about 30 secon
 | Claude API | ~$0.01-$0.02 per estimate |
 
 At 100 estimates per month, expect roughly **$1-2/month** total.
+
+---
+
+## Features
+
+- **Example templates** — One-click project examples (unit turns, kitchen remodel, etc.) so users don't start from a blank page
+- **Estimate history** — Last 10 estimates saved locally, viewable and clearable from the input screen
+- **Print and copy** — Print button with clean print styles, copy button for plain-text clipboard
+- **Smart proposal email** — "Request My Proposal" pre-fills the email with the full formatted estimate
+- **Loading progress** — Rotating messages during the 5-10 second AI processing time
+- **Keyboard shortcut** — Ctrl+Enter submits the form
+- **Accessibility** — Skip-to-content link, focus management, ARIA attributes, screen reader support
+- **SEO** — Open Graph tags, JSON-LD structured data, favicon
 
 ---
 
