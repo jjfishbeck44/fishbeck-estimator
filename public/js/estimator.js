@@ -47,6 +47,7 @@
 
   var HISTORY_KEY = 'fishbeck_estimates';
   var MAX_HISTORY = 10;
+  var DRAFT_KEY = 'fishbeck_draft';
   var LOADING_MESSAGES = [
     'Analyzing your project…',
     'Reviewing scope of work…',
@@ -312,10 +313,31 @@
     });
   }
 
+  // --- Draft persistence ---
+  function saveDraft() {
+    try { sessionStorage.setItem(DRAFT_KEY, textarea.value); } catch {}
+  }
+
+  function restoreDraft() {
+    try {
+      var draft = sessionStorage.getItem(DRAFT_KEY);
+      if (draft && !textarea.value) {
+        textarea.value = draft;
+        updateCharCount();
+        autoResize();
+      }
+    } catch {}
+  }
+
+  function clearDraft() {
+    try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
+  }
+
   // --- Character counter & auto-resize ---
   textarea.addEventListener('input', function () {
     updateCharCount();
     autoResize();
+    saveDraft();
   });
 
   // --- Example templates ---
@@ -324,6 +346,8 @@
     if (!chip) return;
     textarea.value = chip.getAttribute('data-template');
     updateCharCount();
+    autoResize();
+    saveDraft();
     textarea.focus();
   });
 
@@ -373,6 +397,7 @@
       if (data.status === 'clarification_needed') {
         setState(STATES.CLARIFICATION, { message: data.clarification_message });
       } else {
+        clearDraft();
         saveToHistory(input, data);
         setState(STATES.RESULTS, data);
       }
@@ -402,6 +427,7 @@
     textarea.value = '';
     textarea.style.height = '';
     charCount.textContent = '0';
+    clearDraft();
     setState(STATES.INPUT);
   });
 
@@ -441,6 +467,7 @@
 
   // --- Init ---
   if (footerYear) footerYear.textContent = new Date().getFullYear();
+  restoreDraft();
   renderHistory();
 
 })();
