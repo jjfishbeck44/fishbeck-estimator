@@ -32,6 +32,7 @@
   var historyCard = document.getElementById('history-card');
   var historyList = document.getElementById('history-list');
   var templatesEl = document.getElementById('templates');
+  var loadingText = document.getElementById('loading-text');
 
   // --- Constants ---
   var STATES = {
@@ -44,10 +45,18 @@
 
   var HISTORY_KEY = 'fishbeck_estimates';
   var MAX_HISTORY = 10;
+  var LOADING_MESSAGES = [
+    'Analyzing your project…',
+    'Reviewing scope of work…',
+    'Looking up pricing…',
+    'Building cost breakdown…',
+    'Almost there…'
+  ];
 
   var currentState = STATES.INPUT;
   var lastEstimate = null;
   var lastInput = '';
+  var loadingInterval = null;
 
   // --- Utilities ---
   function fmt(n) {
@@ -77,8 +86,23 @@
   }
 
   // --- State machine ---
+  function startLoadingMessages() {
+    var idx = 0;
+    loadingText.textContent = LOADING_MESSAGES[0];
+    if (loadingInterval) clearInterval(loadingInterval);
+    loadingInterval = setInterval(function () {
+      idx = Math.min(idx + 1, LOADING_MESSAGES.length - 1);
+      loadingText.textContent = LOADING_MESSAGES[idx];
+    }, 2500);
+  }
+
   function setState(newState, data) {
     currentState = newState;
+
+    if (loadingInterval) {
+      clearInterval(loadingInterval);
+      loadingInterval = null;
+    }
 
     hide(inputCard);
     hide(loadingCard);
@@ -95,6 +119,7 @@
 
       case STATES.LOADING:
         show(loadingCard);
+        startLoadingMessages();
         break;
 
       case STATES.CLARIFICATION:

@@ -384,6 +384,17 @@ body {
 .btn-primary:hover { background: #254D7A; box-shadow: 0 4px 14px rgba(27,58,92,0.2); }
 .btn-primary:disabled { background: #9CA3AF; cursor: not-allowed; box-shadow: none; transform: none; }
 
+.btn-shortcut {
+  font-size: 0.72rem;
+  font-weight: 500;
+  opacity: 0.5;
+  margin-left: 0.25rem;
+}
+
+@media (max-width: 600px) {
+  .btn-shortcut { display: none; }
+}
+
 .btn-gold {
   background: #C8963E;
   color: #fff;
