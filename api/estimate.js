@@ -8,6 +8,26 @@ const { buildSystemPrompt } = require('../lib/prompt');
 
 const MAX_INPUT_LENGTH = 1000;
 
+function normalizeEstimate(raw) {
+  const status = raw.status === 'clarification_needed' ? 'clarification_needed' : 'estimate';
+  return {
+    status,
+    clarification_message: raw.clarification_message || null,
+    line_items: Array.isArray(raw.line_items)
+      ? raw.line_items.map(item => ({
+          label: String(item.label || ''),
+          description: String(item.description || ''),
+          range_low: Number(item.range_low) || 0,
+          range_high: Number(item.range_high) || 0
+        }))
+      : [],
+    total_low: Number(raw.total_low) || 0,
+    total_high: Number(raw.total_high) || 0,
+    notes: raw.notes || null,
+    out_of_scope: Array.isArray(raw.out_of_scope) ? raw.out_of_scope.map(String) : []
+  };
+}
+
 module.exports = async function handler(req, res) {
   // CORS preflight
   if (req.method === 'OPTIONS') {
@@ -38,7 +58,8 @@ module.exports = async function handler(req, res) {
   // Call Claude
   try {
     const systemPrompt = buildSystemPrompt();
-    const estimate = await callClaude(input.trim(), systemPrompt);
+    const raw = await callClaude(input.trim(), systemPrompt);
+    const estimate = normalizeEstimate(raw);
     return res.status(200).json(estimate);
   } catch (err) {
     console.error('[estimate]', err.message || err);
