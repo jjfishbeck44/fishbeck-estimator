@@ -145,6 +145,9 @@ No CI pipeline is configured — run tests locally before pushing.
 - **25s timeout via `Promise.race`:** Stays within Vercel's 30s function limit. Throws typed `api_timeout` error.
 - **XSS prevention:** Frontend uses `escHtml()` to sanitize all user-provided text before rendering.
 - **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON matching the response schema above. Model: `claude-sonnet-4-6`, `max_tokens: 1024`.
+- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting).
+- **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen so users can revisit past estimates.
+- **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 
 ## Updating Pricing
 

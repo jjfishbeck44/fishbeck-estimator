@@ -6,29 +6,33 @@
   'use strict';
 
   // --- DOM refs ---
-  const textarea = document.getElementById('project-input');
-  const charCount = document.getElementById('char-count');
-  const estimateBtn = document.getElementById('estimate-btn');
-  const inputCard = document.getElementById('input-card');
-  const loadingCard = document.getElementById('loading-card');
-  const clarificationCard = document.getElementById('clarification-card');
-  const clarificationMsg = document.getElementById('clarification-message');
-  const clarificationBackBtn = document.getElementById('clarification-back-btn');
-  const resultsSection = document.getElementById('results-section');
-  const bannerRange = document.getElementById('banner-range');
-  const scopeTbody = document.getElementById('scope-tbody');
-  const totalRangeCell = document.getElementById('total-range-cell');
-  const notesCard = document.getElementById('notes-card');
-  const notesText = document.getElementById('notes-text');
-  const outOfScopeCard = document.getElementById('out-of-scope-card');
-  const outOfScopeList = document.getElementById('out-of-scope-list');
-  const newEstimateBtn = document.getElementById('new-estimate-btn');
-  const errorCard = document.getElementById('error-card');
-  const errorMessage = document.getElementById('error-message');
-  const errorRetryBtn = document.getElementById('error-retry-btn');
+  var textarea = document.getElementById('project-input');
+  var charCount = document.getElementById('char-count');
+  var estimateBtn = document.getElementById('estimate-btn');
+  var inputCard = document.getElementById('input-card');
+  var loadingCard = document.getElementById('loading-card');
+  var clarificationCard = document.getElementById('clarification-card');
+  var clarificationMsg = document.getElementById('clarification-message');
+  var clarificationBackBtn = document.getElementById('clarification-back-btn');
+  var resultsSection = document.getElementById('results-section');
+  var bannerRange = document.getElementById('banner-range');
+  var scopeTbody = document.getElementById('scope-tbody');
+  var totalRangeCell = document.getElementById('total-range-cell');
+  var notesCard = document.getElementById('notes-card');
+  var notesText = document.getElementById('notes-text');
+  var outOfScopeCard = document.getElementById('out-of-scope-card');
+  var outOfScopeList = document.getElementById('out-of-scope-list');
+  var newEstimateBtn = document.getElementById('new-estimate-btn');
+  var proposalLink = document.getElementById('proposal-link');
+  var errorCard = document.getElementById('error-card');
+  var errorMessage = document.getElementById('error-message');
+  var errorRetryBtn = document.getElementById('error-retry-btn');
+  var historyCard = document.getElementById('history-card');
+  var historyList = document.getElementById('history-list');
+  var templatesEl = document.getElementById('templates');
 
-  // --- State ---
-  const STATES = {
+  // --- Constants ---
+  var STATES = {
     INPUT: 'input',
     LOADING: 'loading',
     RESULTS: 'results',
@@ -36,7 +40,12 @@
     ERROR: 'error'
   };
 
-  let currentState = STATES.INPUT;
+  var HISTORY_KEY = 'fishbeck_estimates';
+  var MAX_HISTORY = 10;
+
+  var currentState = STATES.INPUT;
+  var lastEstimate = null;
+  var lastInput = '';
 
   // --- Utilities ---
   function fmt(n) {
@@ -44,17 +53,31 @@
   }
 
   function fmtRange(low, high) {
-    return fmt(low) + ' \u2013 ' + fmt(high);
+    return fmt(low) + ' – ' + fmt(high);
   }
 
   function show(el) { el.classList.remove('hidden'); }
   function hide(el) { el.classList.add('hidden'); }
 
+  function escHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  function updateCharCount() {
+    var len = textarea.value.length;
+    charCount.textContent = len;
+    var counter = charCount.closest('.char-counter') || charCount.parentElement;
+    counter.classList.remove('warn', 'error');
+    if (len > 900) counter.classList.add('error');
+    else if (len > 750) counter.classList.add('warn');
+  }
+
   // --- State machine ---
   function setState(newState, data) {
     currentState = newState;
 
-    // Hide everything first
     hide(inputCard);
     hide(loadingCard);
     hide(clarificationCard);
@@ -64,6 +87,7 @@
     switch (newState) {
       case STATES.INPUT:
         show(inputCard);
+        renderHistory();
         textarea.focus();
         break;
 
@@ -79,6 +103,7 @@
 
       case STATES.RESULTS:
         show(resultsSection);
+        lastEstimate = data;
         renderResults(data);
         break;
 
@@ -92,13 +117,11 @@
 
   // --- Render results ---
   function renderResults(estimate) {
-    // Banner
     bannerRange.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
-    // Line items
     scopeTbody.innerHTML = '';
     (estimate.line_items || []).forEach(function (item) {
-      const tr = document.createElement('tr');
+      var tr = document.createElement('tr');
       tr.innerHTML =
         '<td>' +
           '<div class="item-label">' + escHtml(item.label) + '</div>' +
@@ -108,10 +131,8 @@
       scopeTbody.appendChild(tr);
     });
 
-    // Total
     totalRangeCell.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
-    // Notes
     if (estimate.notes) {
       notesText.textContent = estimate.notes;
       show(notesCard);
@@ -119,12 +140,11 @@
       hide(notesCard);
     }
 
-    // Out of scope
-    const oos = estimate.out_of_scope || [];
+    var oos = estimate.out_of_scope || [];
     if (oos.length > 0) {
       outOfScopeList.innerHTML = '';
       oos.forEach(function (item) {
-        const li = document.createElement('li');
+        var li = document.createElement('li');
         li.textContent = item;
         outOfScopeList.appendChild(li);
       });
@@ -133,51 +153,155 @@
       hide(outOfScopeCard);
     }
 
-    // Scroll to results
+    updateProposalLink(estimate);
+
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // --- XSS prevention ---
-  function escHtml(str) {
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
-    return div.innerHTML;
+  // --- Email proposal link ---
+  function buildEstimateText(est) {
+    var lines = ['Fishbeck Innovations — Project Estimate', ''];
+    if (lastInput) {
+      lines.push('Project description: ' + lastInput);
+      lines.push('');
+    }
+    (est.line_items || []).forEach(function (item) {
+      lines.push(item.label + ': ' + fmtRange(item.range_low, item.range_high));
+      lines.push('  ' + item.description);
+    });
+    lines.push('');
+    lines.push('Total: ' + fmtRange(est.total_low, est.total_high));
+    if (est.notes) {
+      lines.push('');
+      lines.push('Notes: ' + est.notes);
+    }
+    var oos = est.out_of_scope || [];
+    if (oos.length > 0) {
+      lines.push('');
+      lines.push('Outside core services:');
+      oos.forEach(function (item) { lines.push('  - ' + item); });
+    }
+    return lines.join('\n');
+  }
+
+  function updateProposalLink(estimate) {
+    var body = buildEstimateText(estimate);
+    body += '\n\n---\nI would like to request a formal proposal for this project. Please contact me to discuss details.';
+    var href = 'mailto:jimmy@fishbeckinnovations.com'
+      + '?subject=' + encodeURIComponent('Project Proposal Request')
+      + '&body=' + encodeURIComponent(body);
+    proposalLink.href = href;
+  }
+
+  // --- Estimate history (localStorage) ---
+  function getHistory() {
+    try {
+      return JSON.parse(localStorage.getItem(HISTORY_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveToHistory(input, estimate) {
+    var history = getHistory();
+    history.unshift({
+      input: input,
+      estimate: estimate,
+      timestamp: Date.now()
+    });
+    if (history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    } catch {
+      // localStorage full or unavailable
+    }
+  }
+
+  function renderHistory() {
+    var history = getHistory();
+    if (history.length === 0) {
+      hide(historyCard);
+      return;
+    }
+    show(historyCard);
+    historyList.innerHTML = '';
+    history.forEach(function (entry, index) {
+      var item = document.createElement('div');
+      item.className = 'history-item';
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+
+      var date = new Date(entry.timestamp);
+      var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+      item.innerHTML =
+        '<div class="history-input">' + escHtml(entry.input) + '</div>' +
+        '<div class="history-meta">' +
+          '<span class="history-range">' + fmtRange(entry.estimate.total_low, entry.estimate.total_high) + '</span>' +
+          '<span class="history-date">' + dateStr + '</span>' +
+        '</div>';
+
+      item.addEventListener('click', function () {
+        lastInput = entry.input;
+        textarea.value = entry.input;
+        updateCharCount();
+        setState(STATES.RESULTS, entry.estimate);
+      });
+
+      item.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          lastInput = entry.input;
+          textarea.value = entry.input;
+          updateCharCount();
+          setState(STATES.RESULTS, entry.estimate);
+        }
+      });
+
+      historyList.appendChild(item);
+    });
   }
 
   // --- Character counter ---
-  textarea.addEventListener('input', function () {
-    const len = textarea.value.length;
-    charCount.textContent = len;
-    const counter = charCount.closest('.char-counter') || charCount.parentElement;
-    counter.classList.remove('warn', 'error');
-    if (len > 900) counter.classList.add('error');
-    else if (len > 750) counter.classList.add('warn');
+  textarea.addEventListener('input', updateCharCount);
+
+  // --- Example templates ---
+  templatesEl.addEventListener('click', function (e) {
+    var chip = e.target.closest('.template-chip');
+    if (!chip) return;
+    textarea.value = chip.getAttribute('data-template');
+    updateCharCount();
+    textarea.focus();
   });
 
   // --- Submit ---
   async function submitEstimate() {
-    const input = textarea.value.trim();
+    var input = textarea.value.trim();
     if (!input) {
       textarea.focus();
       return;
     }
 
-    // Set loading state
+    lastInput = input;
     setState(STATES.LOADING);
     estimateBtn.disabled = true;
     estimateBtn.classList.add('is-loading');
 
     try {
-      const response = await fetch('/api/estimate', {
+      var response = await fetch('/api/estimate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ input })
+        body: JSON.stringify({ input: input })
       });
 
-      const data = await response.json();
+      var data;
+      try {
+        data = await response.json();
+      } catch {
+        setState(STATES.ERROR, { message: 'The server returned an unexpected response. Please try again.' });
+        return;
+      }
 
       if (!response.ok) {
-        // Handle typed API errors
         if (response.status === 429) {
           setState(STATES.ERROR, { message: 'You\'ve made too many requests. Please wait a minute and try again.' });
         } else if (data.error === 'input_too_long') {
@@ -188,10 +312,10 @@
         return;
       }
 
-      // Success
       if (data.status === 'clarification_needed') {
         setState(STATES.CLARIFICATION, { message: data.clarification_message });
       } else {
+        saveToHistory(input, data);
         setState(STATES.RESULTS, data);
       }
 
@@ -225,5 +349,8 @@
   errorRetryBtn.addEventListener('click', function () {
     setState(STATES.INPUT);
   });
+
+  // --- Init ---
+  renderHistory();
 
 })();
