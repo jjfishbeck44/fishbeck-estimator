@@ -1,0 +1,45 @@
+Subject: IFB 2026-114 — Government Center Renovation Phase II
+Agency: Dakota County
+Posted: 2026-06-11
+Due: 2026-07-22 14:00 CDT
+
+--- Notification body ---
+
+Dakota County is soliciting bids for Phase II renovation of the Dakota
+County Government Center, Hastings campus. Scope includes mechanical
+systems upgrade, partial interior refresh, and accessibility improvements.
+Estimated value $1.2M – $1.8M.
+
+Performance and payment bonds 100% required. AIA A201 general conditions.
+Prevailing wage applies. Mandatory pre-bid meeting and site walk
+2026-06-25 at 10:00 AM. Bidders must demonstrate $5M general aggregate
+liability and prior experience on at least three projects of similar
+size.
+
+--- Spec excerpt ---
+
+DIVISION 23 — HVAC
+- Replace 3 existing rooftop units with 25-ton high-efficiency RTUs
+- Replace VAV boxes (qty 42) and rebalance air distribution
+- Replace 4,200 linear feet of supply ductwork
+- New BAS controls integration with existing Honeywell platform
+
+DIVISION 26 — ELECTRICAL
+- Replace main switchgear (2000A service)
+- New emergency generator (250 kW)
+- LED retrofit throughout (qty 380 fixtures)
+
+DIVISION 22 — PLUMBING
+- Replace 14 ADA-compliant restroom fixtures
+- New hot water recirculation system
+
+DIVISION 09 — FINISHES (minor portion of total scope)
+- Repaint affected ceilings and walls after mechanical work,
+  contractor's choice of low-VOC interior latex
+- Replace floor tile in 3 corridors with district-standard VCT
+  (Armstrong Standard Excelon, color VC-149, or approved equal)
+- Patch drywall as required from mechanical/electrical demolition
+
+GENERAL CONDITIONS
+- Single prime contract; subcontracting requires prior county approval
+- Substantial completion required by 2026-12-15
