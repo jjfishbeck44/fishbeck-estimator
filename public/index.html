@@ -76,6 +76,16 @@
             ></textarea>
             <div class="char-counter"><span id="char-count">0</span> / 1000</div>
           </div>
+          <div class="templates" id="templates">
+            <p class="templates-label">Try an example:</p>
+            <div class="template-chips">
+              <button type="button" class="template-chip" data-template="I have a 6-unit apartment building in Minneapolis. I need to turn 3 units — full repaint, new LVP flooring, clean appliances, and replace cabinet hardware.">Unit Turns</button>
+              <button type="button" class="template-chip" data-template="I need a full kitchen remodel in a single-family rental in St. Paul. Gut the existing kitchen — new cabinets, countertops, flooring, and hardware.">Kitchen Remodel</button>
+              <button type="button" class="template-chip" data-template="I have a duplex in Bloomington. Both units need cosmetic bathroom remodels — new vanities, fixtures, and tile refinishing.">Bathroom Remodel</button>
+              <button type="button" class="template-chip" data-template="I need a roof inspection on a 1,500 sq ft single-family home in Eagan. If repairs are needed, patch any problem areas.">Roof Inspection</button>
+              <button type="button" class="template-chip" data-template="I have an 8-unit building in Richfield. Need all common areas and 4 units repainted — walls and trim.">Interior Painting</button>
+            </div>
+          </div>
           <button id="estimate-btn" class="btn btn-primary" type="button">
             <span class="btn-text">Get My Estimate</span>
             <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -189,7 +199,7 @@
               <h3 class="cta-title">Ready for a Same-Day Proposal?</h3>
               <p class="cta-sub">Our team reviews every estimate personally and typically sends a formal proposal within hours.</p>
             </div>
-            <a href="mailto:jimmy@fishbeckinnovations.com?subject=Project%20Proposal%20Request" class="btn btn-gold btn-lg">
+            <a id="proposal-link" href="mailto:jimmy@fishbeckinnovations.com?subject=Project%20Proposal%20Request" class="btn btn-gold btn-lg">
               Request My Proposal
               <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -199,6 +209,17 @@
         </div>
 
       </div><!-- /results-section -->
+
+      <!-- Recent estimates -->
+      <div class="card hidden" id="history-card">
+        <div class="card-header">
+          <h2 class="card-title">Recent Estimates</h2>
+          <p class="card-hint">Click any estimate to view it again.</p>
+        </div>
+        <div class="card-body p-0">
+          <div id="history-list" class="history-list"></div>
+        </div>
+      </div>
 
       <!-- Error state -->
       <div class="card card-error hidden" id="error-card" aria-live="assertive">
