@@ -4,7 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Get an instant AI-powered cost estimate for your property maintenance or renovation project. Fishbeck Innovations — same-day proposals, Twin Cities." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Project Estimator — Fishbeck Innovations" />
+  <meta property="og:description" content="Describe your project in plain English and get an instant, detailed cost estimate. Unit turns, remodels, roofing, painting, and more." />
+  <meta property="og:type" content="website" />
   <title>Project Estimator — Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -88,6 +93,7 @@
           </div>
           <button id="estimate-btn" class="btn btn-primary" type="button">
             <span class="btn-text">Get My Estimate</span>
+            <span class="btn-shortcut">Ctrl+Enter</span>
             <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
               <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
             </svg>
@@ -101,7 +107,7 @@
           <div class="spinner" aria-hidden="true">
             <div class="spinner-ring"></div>
           </div>
-          <p class="loading-text">Analyzing your project…</p>
+          <p class="loading-text" id="loading-text">Analyzing your project…</p>
           <p class="loading-sub">This usually takes 5–10 seconds.</p>
         </div>
       </div>
