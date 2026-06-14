@@ -41,6 +41,7 @@ module.exports = async function handler(req, res) {
     const estimate = await callClaude(input.trim(), systemPrompt);
     return res.status(200).json(estimate);
   } catch (err) {
+    console.error('[estimate]', err.message || err);
     if (err.message === 'api_timeout') {
       return res.status(500).json({ error: 'api_timeout', message: 'The estimate took too long. Please try again.' });
     }

@@ -66,7 +66,12 @@
   }
 
   function fmtRange(low, high) {
-    return fmt(low) + ' – ' + fmt(high);
+    return fmt(num(low)) + ' – ' + fmt(num(high));
+  }
+
+  function num(v) {
+    var n = Number(v);
+    return isFinite(n) ? n : 0;
   }
 
   function show(el) { el.classList.remove('hidden'); }
@@ -148,17 +153,20 @@
   function renderResults(estimate) {
     bannerRange.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
-    scopeTbody.innerHTML = '';
+    var fragment = document.createDocumentFragment();
     (estimate.line_items || []).forEach(function (item) {
+      if (!item || !item.label) return;
       var tr = document.createElement('tr');
       tr.innerHTML =
         '<td>' +
           '<div class="item-label">' + escHtml(item.label) + '</div>' +
-          '<div class="item-desc">' + escHtml(item.description) + '</div>' +
+          '<div class="item-desc">' + escHtml(item.description || '') + '</div>' +
         '</td>' +
         '<td class="item-range">' + fmtRange(item.range_low, item.range_high) + '</td>';
-      scopeTbody.appendChild(tr);
+      fragment.appendChild(tr);
     });
+    scopeTbody.innerHTML = '';
+    scopeTbody.appendChild(fragment);
 
     totalRangeCell.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
@@ -404,7 +412,11 @@
     navigator.clipboard.writeText(text).then(function () {
       var originalHtml = copyBtn.innerHTML;
       copyBtn.textContent = 'Copied!';
-      setTimeout(function () { copyBtn.innerHTML = originalHtml; }, 1500);
+      copyBtn.setAttribute('aria-label', 'Copied to clipboard');
+      setTimeout(function () {
+        copyBtn.innerHTML = originalHtml;
+        copyBtn.setAttribute('aria-label', '');
+      }, 1500);
     });
   });
 
