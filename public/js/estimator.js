@@ -183,6 +183,8 @@
     updateProposalLink(estimate);
 
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    bannerRange.setAttribute('tabindex', '-1');
+    bannerRange.focus({ preventScroll: true });
   }
 
   // --- Format estimate as plain text ---
@@ -307,6 +309,10 @@
   async function submitEstimate() {
     var input = textarea.value.trim();
     if (!input) {
+      textarea.classList.add('shake');
+      textarea.addEventListener('animationend', function () {
+        textarea.classList.remove('shake');
+      }, { once: true });
       textarea.focus();
       return;
     }
@@ -377,6 +383,10 @@
   });
 
   errorRetryBtn.addEventListener('click', function () {
+    if (lastInput && textarea.value.trim() === lastInput) {
+      submitEstimate();
+      return;
+    }
     setState(STATES.INPUT);
   });
 
