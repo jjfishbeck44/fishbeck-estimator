@@ -14,18 +14,26 @@ is plumbing.
 ```
 bid-scorer/
 ├── lib/
-│   ├── prompt.js        System prompt for Claude (the scoring rubric)
-│   ├── scoreBid.js      scoreBid(bid, opts) — calls Claude, returns JSON
-│   └── sources.json     Registry of Tier 1 / Tier 2 / Tier 3 source plans
-├── fixtures/            Synthetic bid notifications for testing
-│   ├── mpha-unit-turn.txt        — should score "bid" (high spec flex)
-│   ├── mndot-rigid-spec.txt      — should score "skip" (hard SKU lockdown)
-│   ├── school-summer-paint.txt   — should score "bid" (flexible specs)
-│   └── county-hvac-mixed.txt     — should score "review" or "skip"
+│   ├── prompt.js            System prompt for Claude (the scoring rubric)
+│   ├── scoreBid.js          scoreBid(bid, opts) — calls Claude, returns JSON
+│   ├── parseNotification.js Heuristic email parser (subject/agency/due/links)
+│   ├── extractPdfSpec.js    Fetches + parses spec PDFs (pdf-parse pluggable)
+│   ├── dedupeStore.js       File-backed dedupe (memory backend for tests)
+│   ├── sources.js           Notification source adapters (fixtures/array/imap)
+│   ├── senders.js           Digest sender adapters (stdout/file/resend/collect)
+│   ├── digest.js            HTML + plain-text morning digest renderer
+│   ├── processBatch.js      Simple parse→score→digest pipeline (no I/O)
+│   ├── runDaily.js          Full orchestrator (source→dedupe→spec→score→send)
+│   └── sources.json         Tier 1/2/3 source registry (data)
+├── fixtures/                Synthetic bid notifications for testing
+│   ├── *.txt                Structured fixtures for the scorer
+│   └── emails/*.eml         Realistic email-shape fixtures for the parser
+├── samples/digest.html      Rendered preview of the morning digest
 ├── scripts/
-│   └── score-fixture.js Runs Claude on fixtures and prints results
-└── tests/
-    └── scoreBid.test.js Unit tests with mocked Anthropic SDK
+│   ├── score-fixture.js     Run Claude on .txt fixtures (needs API key)
+│   ├── generate-sample-digest.js  Hand-written sample digest (no API key)
+│   └── daily.js             End-to-end dry run: fixtures → score → file sender
+└── tests/                   12 suites, 114 tests
 ```
 
 ## The scoring rubric
@@ -58,21 +66,29 @@ ANTHROPIC_API_KEY=sk-ant-... node bid-scorer/scripts/score-fixture.js mpha-unit-
 ANTHROPIC_API_KEY=sk-ant-... node bid-scorer/scripts/score-fixture.js   # all fixtures
 ```
 
-## What's NOT here yet (next steps when at a desktop)
+## End-to-end dry run (no IMAP, no Resend)
 
-1. **Email ingestion.** An IMAP poller that reads a dedicated inbox
-   (e.g. `bids@fishbeckinnovations.com`), pulls new notification messages,
-   downloads attached/linked spec PDFs, and feeds them through `scoreBid`.
-2. **PDF text extraction.** `pdf-parse` to convert linked spec PDFs into
-   the `specText` field.
-3. **Persistence.** Postgres (Neon free tier) to store scored bids and
-   avoid re-scoring the same one twice. Every record carries `tenant_id`
-   from day one so Tier 3 SaaS is a flip-the-switch upgrade.
-4. **Digest email.** Resend or Postmark sends a 7am summary of the day's
-   "bid" and "review" verdicts.
-5. **Hosting.** Railway ($5/mo) — Vercel serverless doesn't fit because
+```bash
+ANTHROPIC_API_KEY=sk-ant-... node bid-scorer/scripts/daily.js
+```
+
+Reads `.eml` fixtures from `bid-scorer/fixtures/emails/`, scores each via
+Claude, dedupes against `bid-scorer/.cache/seen.json`, and writes the
+rendered HTML + text digest to `bid-scorer/.cache/digests/`. Running it
+again should report all entries as duplicates (no Claude calls).
+
+## What's NOT here yet (still needs desktop setup)
+
+1. **IMAP source wiring.** `lib/sources.js` includes a stub `imapSource()`
+   — install `imapflow` and wire IMAP credentials when ready to go live.
+2. **Resend sender wiring.** `lib/senders.js` includes a stub
+   `resendSender()` — install `resend` and set `RESEND_API_KEY`.
+3. **Postgres dedupe backend.** `lib/dedupeStore.js` already abstracts
+   over a backend interface; swap the JSON file backend for a Postgres
+   backend when scaling beyond Fishbeck-internal use.
+4. **Hosting.** Railway ($5/mo) — Vercel serverless doesn't fit because
    the IMAP poller is a long-running process.
-6. **Mailing list subscriptions.** See `lib/sources.json` for the full
+5. **Mailing list subscriptions.** See `lib/sources.json` for the full
    Tier 1 / Tier 2 list. ~30 min total to subscribe at each.
 
 ## Tiered expansion plan (from sources.json)
