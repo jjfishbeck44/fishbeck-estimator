@@ -148,15 +148,17 @@ No CI pipeline is configured — run tests locally before pushing.
 - **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON matching the response schema above. Model: `claude-sonnet-4-6`, `max_tokens: 1024`.
 - **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting, drywall, exterior work).
 - **Draft persistence:** Input text saved to `sessionStorage` (key: `fishbeck_draft`) so refreshing the page doesn't lose work. Cleared on successful estimate or new estimate.
-- **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen so users can revisit past estimates.
+- **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen with date+time and individual delete buttons. Click to revisit.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 - **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
 - **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call. Animated progress bar fills to 90% over 12s with decelerating ease.
 - **Network retry:** `fetchWithRetry` automatically retries once after 1.5s on network failure before showing the error state.
 - **PWA manifest:** `manifest.json` enables "Add to Home Screen" on mobile devices.
 - **SEO files:** `robots.txt` blocks `/api/` from crawlers and references `sitemap.xml`.
-- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button.
+- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button. Escape key dismisses error/clarification states.
 - **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
+- **Estimate timestamp:** Results view shows when the estimate was generated (date + time).
+- **Share button:** Uses Web Share API on mobile for native sharing, clipboard fallback on desktop.
 - **Dark mode:** Automatic via `prefers-color-scheme: dark` media query. Full color scheme for all elements. Print styles force light colors regardless of mode.
 - **Auto-resize textarea:** Grows as user types, resets on new estimate.
 - **Fade-in animation:** Results section slides up with a subtle CSS animation.
