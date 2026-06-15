@@ -25,6 +25,7 @@
   var newEstimateBtn = document.getElementById('new-estimate-btn');
   var printBtn = document.getElementById('print-btn');
   var copyBtn = document.getElementById('copy-btn');
+  var shareBtn = document.getElementById('share-btn');
   var proposalLink = document.getElementById('proposal-link');
   var errorCard = document.getElementById('error-card');
   var errorMessage = document.getElementById('error-message');
@@ -472,6 +473,24 @@
         copyBtn.setAttribute('aria-label', '');
       }, 1500);
     });
+  });
+
+  // --- Share estimate ---
+  shareBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    var text = buildEstimateText(lastEstimate);
+    if (navigator.share) {
+      navigator.share({
+        title: 'Fishbeck Innovations — Project Estimate',
+        text: text
+      }).catch(function () {});
+    } else {
+      navigator.clipboard.writeText(text).then(function () {
+        var originalHtml = shareBtn.innerHTML;
+        shareBtn.textContent = 'Copied!';
+        setTimeout(function () { shareBtn.innerHTML = originalHtml; }, 1500);
+      });
+    }
   });
 
   // --- Clear history ---
