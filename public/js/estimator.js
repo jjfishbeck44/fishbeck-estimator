@@ -34,6 +34,7 @@
   var clearHistoryBtn = document.getElementById('clear-history-btn');
   var templatesEl = document.getElementById('templates');
   var loadingText = document.getElementById('loading-text');
+  var progressFill = document.getElementById('progress-fill');
   var footerYear = document.getElementById('footer-year');
 
   // --- Constants ---
@@ -111,6 +112,11 @@
   function startLoadingMessages() {
     var idx = 0;
     loadingText.textContent = LOADING_MESSAGES[0];
+    progressFill.style.transition = 'none';
+    progressFill.style.width = '0%';
+    void progressFill.offsetWidth;
+    progressFill.style.transition = 'width 12s cubic-bezier(0.1, 0.5, 0.1, 1)';
+    progressFill.style.width = '90%';
     if (loadingInterval) clearInterval(loadingInterval);
     loadingInterval = setInterval(function () {
       idx = Math.min(idx + 1, LOADING_MESSAGES.length - 1);

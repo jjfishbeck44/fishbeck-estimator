@@ -226,6 +226,22 @@ body {
 
 .loading-sub { font-size: 0.85rem; color: #6B7280; }
 
+.progress-bar {
+  width: 200px;
+  height: 4px;
+  background: #E5E9EF;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #1B3A5C, #C8963E);
+  border-radius: 2px;
+  transition: width 0.5s ease;
+}
+
 /* Error card */
 .card-error .card-header {
   display: flex;
@@ -828,4 +844,6 @@ body {
   .spinner-ring { border-color: #374151; border-top-color: #60A5FA; }
   .loading-text { color: #93C5FD; }
   .loading-sub { color: #6B7280; }
+  .progress-bar { background: #374151; }
+  .progress-fill { background: linear-gradient(90deg, #60A5FA, #C8963E); }
 }
