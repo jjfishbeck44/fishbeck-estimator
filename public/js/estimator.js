@@ -93,6 +93,15 @@
     else if (len > 750) counter.classList.add('warn');
   }
 
+  async function fetchWithRetry(url, opts) {
+    try {
+      return await fetch(url, opts);
+    } catch (firstErr) {
+      await new Promise(function (r) { setTimeout(r, 1500); });
+      return fetch(url, opts);
+    }
+  }
+
   function autoResize() {
     textarea.style.height = 'auto';
     textarea.style.height = Math.max(130, textarea.scrollHeight) + 'px';
@@ -369,7 +378,7 @@
     estimateBtn.classList.add('is-loading');
 
     try {
-      var response = await fetch('/api/estimate', {
+      var response = await fetchWithRetry('/api/estimate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input: input })
