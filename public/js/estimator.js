@@ -18,6 +18,7 @@
   var bannerRange = document.getElementById('banner-range');
   var scopeTbody = document.getElementById('scope-tbody');
   var totalRangeCell = document.getElementById('total-range-cell');
+  var estimateTimestamp = document.getElementById('estimate-timestamp');
   var notesCard = document.getElementById('notes-card');
   var notesText = document.getElementById('notes-text');
   var outOfScopeCard = document.getElementById('out-of-scope-card');
@@ -214,6 +215,11 @@
 
     updateProposalLink(estimate);
 
+    var now = new Date();
+    estimateTimestamp.textContent = 'Estimated ' + now.toLocaleDateString('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric'
+    }) + ' at ' + now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+
     resultsSection.classList.remove('fade-up');
     void resultsSection.offsetWidth;
     resultsSection.classList.add('fade-up');
@@ -285,6 +291,26 @@
     }
   }
 
+  function removeFromHistory(index) {
+    var history = getHistory();
+    history.splice(index, 1);
+    try {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    } catch {}
+    renderHistory();
+  }
+
+  function formatTimestamp(ts) {
+    var date = new Date(ts);
+    var now = new Date();
+    var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    if (date.getFullYear() !== now.getFullYear()) {
+      dateStr += ', ' + date.getFullYear();
+    }
+    var timeStr = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    return dateStr + ' · ' + timeStr;
+  }
+
   function renderHistory() {
     var history = getHistory();
     if (history.length === 0) {
@@ -293,34 +319,43 @@
     }
     show(historyCard);
     historyList.innerHTML = '';
-    history.forEach(function (entry) {
+    history.forEach(function (entry, idx) {
       var item = document.createElement('div');
       item.className = 'history-item';
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
 
-      var date = new Date(entry.timestamp);
-      var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
       item.innerHTML =
-        '<div class="history-input">' + escHtml(entry.input) + '</div>' +
-        '<div class="history-meta">' +
-          '<span class="history-range">' + fmtRange(entry.estimate.total_low, entry.estimate.total_high) + '</span>' +
-          '<span class="history-date">' + dateStr + '</span>' +
-        '</div>';
+        '<div class="history-content">' +
+          '<div class="history-input">' + escHtml(entry.input) + '</div>' +
+          '<div class="history-meta">' +
+            '<span class="history-range">' + fmtRange(entry.estimate.total_low, entry.estimate.total_high) + '</span>' +
+            '<span class="history-date">' + formatTimestamp(entry.timestamp) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<button class="history-delete" title="Remove" aria-label="Remove estimate" type="button">&times;</button>';
 
-      item.addEventListener('click', function () {
+      var deleteBtn = item.querySelector('.history-delete');
+      deleteBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        removeFromHistory(idx);
+      });
+
+      item.addEventListener('click', function (e) {
+        if (e.target.closest('.history-delete')) return;
         lastInput = entry.input;
         textarea.value = entry.input;
         updateCharCount();
+        autoResize();
         setState(STATES.RESULTS, entry.estimate);
       });
 
       item.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') {
+        if (e.key === 'Enter' && !e.target.closest('.history-delete')) {
           lastInput = entry.input;
           textarea.value = entry.input;
           updateCharCount();
+          autoResize();
           setState(STATES.RESULTS, entry.estimate);
         }
       });
@@ -437,6 +472,14 @@
 
   clarificationBackBtn.addEventListener('click', function () {
     setState(STATES.INPUT);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      if (currentState === STATES.ERROR || currentState === STATES.CLARIFICATION) {
+        setState(STATES.INPUT);
+      }
+    }
   });
 
   newEstimateBtn.addEventListener('click', function () {
