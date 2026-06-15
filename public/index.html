@@ -12,6 +12,7 @@
   <meta property="og:type" content="website" />
   <title>Project Estimator — Fishbeck Innovations</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="/css/style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -124,6 +125,9 @@
             <div class="spinner-ring"></div>
           </div>
           <p class="loading-text" id="loading-text">Analyzing your project…</p>
+          <div class="progress-bar" aria-hidden="true">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
           <p class="loading-sub">This usually takes 5–10 seconds.</p>
         </div>
       </div>
@@ -161,6 +165,10 @@
               <button id="copy-btn" class="btn-icon" type="button" title="Copy estimate to clipboard">
                 <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"/><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"/></svg>
                 Copy
+              </button>
+              <button id="share-btn" class="btn-icon" type="button" title="Share estimate">
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/></svg>
+                Share
               </button>
               <button id="new-estimate-btn" class="btn btn-ghost btn-sm" type="button">New Estimate</button>
             </div>

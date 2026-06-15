@@ -127,6 +127,38 @@ describe('POST /api/estimate', () => {
     expect(res.body.out_of_scope).toEqual([]);
   });
 
+  test('preserves clarification_needed status through normalization', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'clarification_needed',
+      clarification_message: 'What type of property?',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq();
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('clarification_needed');
+    expect(res.body.clarification_message).toBe('What type of property?');
+    expect(res.body.notes).toBeNull();
+  });
+
+  test('trims input before passing to Claude', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq({ body: { input: '  paint 3 units  ' } });
+    const res = makeRes();
+    await handler(req, res);
+    expect(callClaude).toHaveBeenCalledWith('paint 3 units', expect.any(String));
+  });
+
   test('returns 500 on api_timeout', async () => {
     checkRateLimit.mockResolvedValue({ allowed: true });
     callClaude.mockRejectedValue(new Error('api_timeout'));

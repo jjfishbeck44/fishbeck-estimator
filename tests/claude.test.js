@@ -91,4 +91,37 @@ describe('callClaude', () => {
     await expect(callPromise).rejects.toThrow('api_timeout');
     jest.useRealTimers();
   });
+
+  test('throws invalid_json when response content is empty', async () => {
+    mockCreate.mockResolvedValue({ content: [{ text: '' }] });
+    await expect(callClaude('input', 'prompt')).rejects.toThrow('invalid_json');
+  });
+
+  test('throws invalid_json when content array is empty', async () => {
+    mockCreate.mockResolvedValue({ content: [] });
+    await expect(callClaude('input', 'prompt')).rejects.toThrow();
+  });
+
+  test('passes correct model and max_tokens to Anthropic', async () => {
+    mockCreate.mockResolvedValue({
+      content: [{ text: '{"status":"estimate","line_items":[],"total_low":0,"total_high":0}' }]
+    });
+    await callClaude('test input', 'test prompt');
+    expect(mockCreate).toHaveBeenCalledWith(expect.objectContaining({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 1024,
+      system: 'test prompt',
+      messages: [{ role: 'user', content: 'test input' }]
+    }));
+  });
+
+  test('reuses Anthropic client across calls (singleton)', async () => {
+    const callsBefore = Anthropic.mock.calls.length;
+    mockCreate.mockResolvedValue({
+      content: [{ text: '{"status":"estimate","line_items":[],"total_low":0,"total_high":0}' }]
+    });
+    await callClaude('input1', 'prompt');
+    await callClaude('input2', 'prompt');
+    expect(Anthropic.mock.calls.length - callsBefore).toBeLessThanOrEqual(1);
+  });
 });

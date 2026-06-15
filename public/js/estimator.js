@@ -25,6 +25,7 @@
   var newEstimateBtn = document.getElementById('new-estimate-btn');
   var printBtn = document.getElementById('print-btn');
   var copyBtn = document.getElementById('copy-btn');
+  var shareBtn = document.getElementById('share-btn');
   var proposalLink = document.getElementById('proposal-link');
   var errorCard = document.getElementById('error-card');
   var errorMessage = document.getElementById('error-message');
@@ -34,6 +35,7 @@
   var clearHistoryBtn = document.getElementById('clear-history-btn');
   var templatesEl = document.getElementById('templates');
   var loadingText = document.getElementById('loading-text');
+  var progressFill = document.getElementById('progress-fill');
   var footerYear = document.getElementById('footer-year');
 
   // --- Constants ---
@@ -93,6 +95,15 @@
     else if (len > 750) counter.classList.add('warn');
   }
 
+  async function fetchWithRetry(url, opts) {
+    try {
+      return await fetch(url, opts);
+    } catch (firstErr) {
+      await new Promise(function (r) { setTimeout(r, 1500); });
+      return fetch(url, opts);
+    }
+  }
+
   function autoResize() {
     textarea.style.height = 'auto';
     textarea.style.height = Math.max(130, textarea.scrollHeight) + 'px';
@@ -102,6 +113,11 @@
   function startLoadingMessages() {
     var idx = 0;
     loadingText.textContent = LOADING_MESSAGES[0];
+    progressFill.style.transition = 'none';
+    progressFill.style.width = '0%';
+    void progressFill.offsetWidth;
+    progressFill.style.transition = 'width 12s cubic-bezier(0.1, 0.5, 0.1, 1)';
+    progressFill.style.width = '90%';
     if (loadingInterval) clearInterval(loadingInterval);
     loadingInterval = setInterval(function () {
       idx = Math.min(idx + 1, LOADING_MESSAGES.length - 1);
@@ -369,7 +385,7 @@
     estimateBtn.classList.add('is-loading');
 
     try {
-      var response = await fetch('/api/estimate', {
+      var response = await fetchWithRetry('/api/estimate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input: input })
@@ -457,6 +473,24 @@
         copyBtn.setAttribute('aria-label', '');
       }, 1500);
     });
+  });
+
+  // --- Share estimate ---
+  shareBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    var text = buildEstimateText(lastEstimate);
+    if (navigator.share) {
+      navigator.share({
+        title: 'Fishbeck Innovations — Project Estimate',
+        text: text
+      }).catch(function () {});
+    } else {
+      navigator.clipboard.writeText(text).then(function () {
+        var originalHtml = shareBtn.innerHTML;
+        shareBtn.textContent = 'Copied!';
+        setTimeout(function () { shareBtn.innerHTML = originalHtml; }, 1500);
+      });
+    }
   });
 
   // --- Clear history ---

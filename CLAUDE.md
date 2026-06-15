@@ -151,7 +151,10 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen so users can revisit past estimates.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 - **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
-- **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call.
+- **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call. Animated progress bar fills to 90% over 12s with decelerating ease.
+- **Network retry:** `fetchWithRetry` automatically retries once after 1.5s on network failure before showing the error state.
+- **PWA manifest:** `manifest.json` enables "Add to Home Screen" on mobile devices.
+- **SEO files:** `robots.txt` blocks `/api/` from crawlers and references `sitemap.xml`.
 - **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button.
 - **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
 - **Dark mode:** Automatic via `prefers-color-scheme: dark` media query. Full color scheme for all elements. Print styles force light colors regardless of mode.
