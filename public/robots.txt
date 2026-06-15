@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://estimate.fishbeckinnovations.com/sitemap.xml

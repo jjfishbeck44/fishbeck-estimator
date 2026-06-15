@@ -76,15 +76,22 @@ lib/
   prompt.js            # System prompt with pricing reference data (pure data, no I/O)
   ratelimit.js         # Upstash sliding-window rate limiter (fails open)
 public/
-  index.html           # Single-page app (form, results table, loading states)
-  favicon.svg          # SVG favicon (FI logo, navy + gold)
-  css/style.css        # Custom design system (navy #1B3A5C, gold #C8963E)
-  js/estimator.js      # Frontend logic (IIFE, state machine, fetch API)
+  index.html                    # Single-page estimator app (form, results, loading states)
+  mulch-calculator.html         # Mulch/material calculator tool (template for new tools)
+  tools.html                    # Tools hub landing page (grid of calculators)
+  robots.txt                    # Allows indexing, points to sitemap
+  sitemap.xml                   # Lists estimator + tool URLs
+  favicon.svg                   # SVG favicon (FI logo, navy + gold)
+  css/style.css                 # Custom design system (navy #1B3A5C, gold #C8963E)
+  js/estimator.js               # Estimator frontend logic (IIFE, state machine, fetch API)
+  js/mulch-calculator.js        # Mulch tool UI logic (IIFE, localStorage history)
+  js/calculators/mulch-math.js  # Pure mulch math (UMD: browser global + CommonJS for Jest)
 tests/
   estimate.test.js     # Handler tests (mocked deps)
   claude.test.js       # Claude wrapper tests (mocked SDK)
   prompt.test.js       # System prompt content validation
   ratelimit.test.js    # Rate limiter tests (fail-open behavior)
+  mulch-math.test.js   # Mulch math unit tests (pure functions, no mocks)
 ```
 
 ## Development Setup
@@ -153,6 +160,30 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call.
 - **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data.
 - **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
+
+## Calculator Tools
+
+Standalone, client-side construction calculators (mulch, paint, drywall, etc.) live alongside
+the estimator. They are pure static pages — no API, no build step — and follow one repeatable
+template, first established by the **Mulch Calculator**. To add a new tool, clone the pattern:
+
+1. **Math module** — `public/js/calculators/<tool>-math.js`. Pure functions, no DOM. Use the
+   UMD guard from `mulch-math.js` so the file works as a browser global (`window.FCalc.<tool>`)
+   **and** is `require()`-able by Jest. Name and comment all magic numbers/constants.
+2. **Page** — `public/<tool>-calculator.html`. Reuse the header/hero/footer markup and the
+   existing design-system classes (`.card`, `.btn`, `.form-row`/`.form-field`/`.form-input`,
+   `.result-grid`/`.result-stat`, `.cta-block`). Give it a unique `<title>`, meta description,
+   OG tags, a `<link rel="canonical">`, and JSON-LD (`@type: "SoftwareApplication"`). Include a
+   short "How it's calculated" section for SEO.
+3. **UI logic** — `public/js/<tool>-calculator.js`. IIFE + `'use strict'`, mirroring
+   `mulch-calculator.js`: read inputs, call the math module, render results, persist a capped
+   localStorage history (key `fishbeck_<tool>_calcs`, max 10, try/catch wrapped).
+4. **Lead hand-off** — every tool ends with a "Get a Real Quote" CTA whose link is
+   `/?prefill=<encodeURIComponent(projectDescription)>`. `estimator.js` reads the `prefill`
+   query param on load and pre-populates the textarea, turning calculator traffic into leads.
+5. **Wire it up** — add the tool to the `tools.html` grid, `sitemap.xml`, and a clean-URL
+   rewrite in `vercel.json` (e.g. `/tools/<tool>-calculator` → `/<tool>-calculator.html`).
+6. **Test** — add `tests/<tool>-math.test.js` asserting the math (Jest node env, no DOM/mocks).
 
 ## Updating Pricing
 

@@ -665,6 +665,194 @@ body {
 .btn-icon:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .btn-icon svg { width: 15px; height: 15px; flex-shrink: 0; }
 
+/* --- Header nav (logo link + primary nav) --- */
+.logo { text-decoration: none; color: inherit; }
+
+.header-nav { display: flex; gap: 0.25rem; flex-wrap: wrap; }
+
+.nav-link {
+  padding: 0.4rem 0.85rem;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+
+.nav-link:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.nav-link-active { background: rgba(200,150,62,0.25); color: #F0BC5E; }
+
+/* --- Calculator form --- */
+.mode-toggle { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+
+.mode-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+
+.mode-option:hover { border-color: #1B3A5C; }
+.mode-option input { accent-color: #1B3A5C; cursor: pointer; }
+
+.form-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.form-field { flex: 1; min-width: 160px; display: flex; flex-direction: column; }
+
+.form-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.4rem;
+}
+
+.label-optional { font-weight: 400; color: #9CA3AF; }
+
+.form-input {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 2px solid #E5E9EF;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #1A1A2E;
+  background: #FAFBFC;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #1B3A5C;
+  box-shadow: 0 0 0 3px rgba(27,58,92,0.08);
+  background: #fff;
+}
+
+.field-hint { font-size: 0.75rem; color: #9CA3AF; margin-top: 0.35rem; }
+
+.calc-error {
+  background: #FEF2F2;
+  border-left: 3px solid #DC2626;
+  border-radius: 0 6px 6px 0;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.85rem;
+  color: #B91C1C;
+  margin-bottom: 1rem;
+}
+
+/* --- Calculator results --- */
+.result-grid {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+
+.result-stat {
+  flex: 1;
+  min-width: 130px;
+  background: #F9FAFB;
+  border: 1px solid #E5E9EF;
+  border-radius: 10px;
+  padding: 1.1rem 1rem;
+  text-align: center;
+}
+
+.result-stat-primary {
+  background: linear-gradient(135deg, #1B3A5C, #254D7A);
+  border-color: transparent;
+}
+
+.result-num {
+  display: block;
+  font-size: clamp(1.8rem, 5vw, 2.4rem);
+  font-weight: 700;
+  color: #1B3A5C;
+  line-height: 1.05;
+}
+
+.result-stat-primary .result-num { color: #C8963E; }
+
+.result-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6B7280;
+  margin-top: 0.35rem;
+}
+
+.result-stat-primary .result-label { color: rgba(255,255,255,0.75); }
+
+.result-note { font-size: 0.9rem; color: #374151; line-height: 1.6; }
+
+/* --- Prose / formula (how-it-works) --- */
+.prose { font-size: 0.92rem; color: #374151; line-height: 1.7; margin-bottom: 0.85rem; }
+.prose:last-child { margin-bottom: 0; }
+
+.formula {
+  background: #F0F4F8;
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  color: #1B3A5C;
+  text-align: center;
+  margin-bottom: 0.85rem;
+}
+
+/* --- Tools hub grid --- */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06);
+  padding: 1.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+a.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(27,58,92,0.14);
+}
+
+.tool-icon { font-size: 1.75rem; line-height: 1; margin-bottom: 0.75rem; }
+
+.tool-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #1B3A5C;
+  margin-bottom: 0.4rem;
+}
+
+.tool-desc {
+  font-size: 0.87rem;
+  color: #6B7280;
+  line-height: 1.55;
+  flex: 1;
+  margin-bottom: 0.9rem;
+}
+
+.tool-go { font-size: 0.85rem; font-weight: 600; color: #C8963E; }
+.tool-go-soon { color: #9CA3AF; }
+.tool-card-soon { opacity: 0.7; }
+
 /* --- Utility --- */
 .hidden { display: none !important; }
 

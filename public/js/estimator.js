@@ -414,8 +414,25 @@
     renderHistory();
   });
 
+  // --- Prefill from calculator tools (e.g. /?prefill=...) ---
+  function applyPrefill() {
+    var params;
+    try {
+      params = new URLSearchParams(window.location.search);
+    } catch {
+      return;
+    }
+    var prefill = params.get('prefill');
+    if (!prefill) return;
+    textarea.value = prefill.slice(0, 1000);
+    updateCharCount();
+    textarea.focus();
+    textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
   // --- Init ---
   if (footerYear) footerYear.textContent = new Date().getFullYear();
   renderHistory();
+  applyPrefill();
 
 })();

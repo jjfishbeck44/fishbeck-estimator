@@ -25,6 +25,8 @@
     }
   ],
   "rewrites": [
-    { "source": "/estimate", "destination": "/index.html" }
+    { "source": "/estimate", "destination": "/index.html" },
+    { "source": "/tools", "destination": "/tools.html" },
+    { "source": "/tools/mulch-calculator", "destination": "/mulch-calculator.html" }
   ]
 }
