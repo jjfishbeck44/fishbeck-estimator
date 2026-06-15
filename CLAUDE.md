@@ -146,13 +146,19 @@ No CI pipeline is configured — run tests locally before pushing.
 - **25s timeout via `Promise.race`:** Stays within Vercel's 30s function limit. Throws typed `api_timeout` error.
 - **XSS prevention:** Frontend uses `escHtml()` to sanitize all user-provided text before rendering.
 - **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON matching the response schema above. Model: `claude-sonnet-4-6`, `max_tokens: 1024`.
-- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting).
+- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting, drywall, exterior work).
+- **Draft persistence:** Input text saved to `sessionStorage` (key: `fishbeck_draft`) so refreshing the page doesn't lose work. Cleared on successful estimate or new estimate.
 - **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen so users can revisit past estimates.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 - **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
 - **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call.
-- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data.
+- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button.
 - **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
+- **Dark mode:** Automatic via `prefers-color-scheme: dark` media query. Full color scheme for all elements. Print styles force light colors regardless of mode.
+- **Auto-resize textarea:** Grows as user types, resets on new estimate.
+- **Fade-in animation:** Results section slides up with a subtle CSS animation.
+- **Response validation:** `num()` helper safely coerces non-numeric values in cost ranges to prevent `$NaN` display.
+- **Error logging:** API catch block logs `console.error('[estimate]', ...)` for production debugging.
 
 ## Updating Pricing
 
@@ -165,4 +171,6 @@ All pricing ranges and service categories live in `lib/prompt.js`. Edit the `PRI
 - **Function timeout:** 30 seconds (configured in `vercel.json`)
 - **CORS:** Open (`*`) for API routes
 - **CSP:** `frame-ancestors *.fishbeckinnovations.com`
+- **Security headers:** `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`
+- **Static caching:** CSS/JS cached 1 day with `stale-while-revalidate`, favicon cached 1 week
 - **Full guide:** See `DEPLOY.md`

@@ -47,6 +47,7 @@
 
   var HISTORY_KEY = 'fishbeck_estimates';
   var MAX_HISTORY = 10;
+  var DRAFT_KEY = 'fishbeck_draft';
   var LOADING_MESSAGES = [
     'Analyzing your project…',
     'Reviewing scope of work…',
@@ -66,7 +67,12 @@
   }
 
   function fmtRange(low, high) {
-    return fmt(low) + ' – ' + fmt(high);
+    return fmt(num(low)) + ' – ' + fmt(num(high));
+  }
+
+  function num(v) {
+    var n = Number(v);
+    return isFinite(n) ? n : 0;
   }
 
   function show(el) { el.classList.remove('hidden'); }
@@ -85,6 +91,11 @@
     counter.classList.remove('warn', 'error');
     if (len > 900) counter.classList.add('error');
     else if (len > 750) counter.classList.add('warn');
+  }
+
+  function autoResize() {
+    textarea.style.height = 'auto';
+    textarea.style.height = Math.max(130, textarea.scrollHeight) + 'px';
   }
 
   // --- State machine ---
@@ -148,17 +159,20 @@
   function renderResults(estimate) {
     bannerRange.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
-    scopeTbody.innerHTML = '';
+    var fragment = document.createDocumentFragment();
     (estimate.line_items || []).forEach(function (item) {
+      if (!item || !item.label) return;
       var tr = document.createElement('tr');
       tr.innerHTML =
         '<td>' +
           '<div class="item-label">' + escHtml(item.label) + '</div>' +
-          '<div class="item-desc">' + escHtml(item.description) + '</div>' +
+          '<div class="item-desc">' + escHtml(item.description || '') + '</div>' +
         '</td>' +
         '<td class="item-range">' + fmtRange(item.range_low, item.range_high) + '</td>';
-      scopeTbody.appendChild(tr);
+      fragment.appendChild(tr);
     });
+    scopeTbody.innerHTML = '';
+    scopeTbody.appendChild(fragment);
 
     totalRangeCell.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
@@ -183,6 +197,10 @@
     }
 
     updateProposalLink(estimate);
+
+    resultsSection.classList.remove('fade-up');
+    void resultsSection.offsetWidth;
+    resultsSection.classList.add('fade-up');
 
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     bannerRange.setAttribute('tabindex', '-1');
@@ -295,8 +313,32 @@
     });
   }
 
-  // --- Character counter ---
-  textarea.addEventListener('input', updateCharCount);
+  // --- Draft persistence ---
+  function saveDraft() {
+    try { sessionStorage.setItem(DRAFT_KEY, textarea.value); } catch {}
+  }
+
+  function restoreDraft() {
+    try {
+      var draft = sessionStorage.getItem(DRAFT_KEY);
+      if (draft && !textarea.value) {
+        textarea.value = draft;
+        updateCharCount();
+        autoResize();
+      }
+    } catch {}
+  }
+
+  function clearDraft() {
+    try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
+  }
+
+  // --- Character counter & auto-resize ---
+  textarea.addEventListener('input', function () {
+    updateCharCount();
+    autoResize();
+    saveDraft();
+  });
 
   // --- Example templates ---
   templatesEl.addEventListener('click', function (e) {
@@ -304,6 +346,8 @@
     if (!chip) return;
     textarea.value = chip.getAttribute('data-template');
     updateCharCount();
+    autoResize();
+    saveDraft();
     textarea.focus();
   });
 
@@ -353,6 +397,7 @@
       if (data.status === 'clarification_needed') {
         setState(STATES.CLARIFICATION, { message: data.clarification_message });
       } else {
+        clearDraft();
         saveToHistory(input, data);
         setState(STATES.RESULTS, data);
       }
@@ -380,7 +425,9 @@
 
   newEstimateBtn.addEventListener('click', function () {
     textarea.value = '';
+    textarea.style.height = '';
     charCount.textContent = '0';
+    clearDraft();
     setState(STATES.INPUT);
   });
 
@@ -404,7 +451,11 @@
     navigator.clipboard.writeText(text).then(function () {
       var originalHtml = copyBtn.innerHTML;
       copyBtn.textContent = 'Copied!';
-      setTimeout(function () { copyBtn.innerHTML = originalHtml; }, 1500);
+      copyBtn.setAttribute('aria-label', 'Copied to clipboard');
+      setTimeout(function () {
+        copyBtn.innerHTML = originalHtml;
+        copyBtn.setAttribute('aria-label', '');
+      }, 1500);
     });
   });
 
@@ -416,6 +467,7 @@
 
   // --- Init ---
   if (footerYear) footerYear.textContent = new Date().getFullYear();
+  restoreDraft();
   renderHistory();
 
 })();

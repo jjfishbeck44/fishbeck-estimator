@@ -107,6 +107,26 @@ describe('POST /api/estimate', () => {
     expect(res.body).toEqual(fakeEstimate);
   });
 
+  test('normalizes malformed Claude response', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      total_low: '1200',
+      total_high: null,
+      line_items: [{ label: 'Patch', range_low: 'bad' }]
+    });
+    const req = makeReq();
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.total_low).toBe(1200);
+    expect(res.body.total_high).toBe(0);
+    expect(res.body.line_items[0].range_low).toBe(0);
+    expect(res.body.line_items[0].description).toBe('');
+    expect(res.body.notes).toBeNull();
+    expect(res.body.out_of_scope).toEqual([]);
+  });
+
   test('returns 500 on api_timeout', async () => {
     checkRateLimit.mockResolvedValue({ allowed: true });
     callClaude.mockRejectedValue(new Error('api_timeout'));

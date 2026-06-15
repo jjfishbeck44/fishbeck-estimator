@@ -106,12 +106,12 @@ All tests run locally with mocked dependencies -- no API keys needed, no network
 
 ## Updating Pricing
 
-All pricing lives in one file: `lib/prompt.js`. Open it and edit the `PRICING REFERENCE` section:
+All pricing lives in one file: `lib/prompt.js`. Open it and edit the `PRICING REFERENCE` section. Pricing is organized by category (unit turns, bathroom, kitchen, roofing, demolition, flooring & painting, drywall, fixtures, exterior, general):
 
 ```
-- Unit turn, standard (paint touch-up, clean, patch, hardware): $800-$1,500 per unit
-- Unit turn, heavy (flooring, full repaint, appliances): $1,500-$3,500 per unit
-- Bathroom remodel, cosmetic: $2,500-$5,000 per bath
+Unit Turns:
+- Unit turn, standard (paint touch-up, clean, patch, hardware): $800–$1,500 per unit
+- Unit turn, heavy (flooring, full repaint, appliances): $1,500–$3,500 per unit
 ...
 ```
 
@@ -137,9 +137,12 @@ At 100 estimates per month, expect roughly **$1-2/month** total.
 - **Estimate history** — Last 10 estimates saved locally, viewable and clearable from the input screen
 - **Print and copy** — Print button with clean print styles, copy button for plain-text clipboard
 - **Smart proposal email** — "Request My Proposal" pre-fills the email with the full formatted estimate
+- **Dark mode** — Automatic dark theme based on system preference, with print styles that always use light colors
+- **Auto-resize textarea** — Input field grows as you type, no manual resizing needed
 - **Loading progress** — Rotating messages during the 5-10 second AI processing time
 - **Keyboard shortcut** — Ctrl+Enter submits the form
-- **Accessibility** — Skip-to-content link, focus management, ARIA attributes, screen reader support
+- **Mobile-optimized** — Responsive layout with touch-friendly targets, prevents iOS auto-zoom
+- **Accessibility** — Skip-to-content link, focus management, ARIA attributes, screen reader feedback
 - **SEO** — Open Graph tags, JSON-LD structured data, favicon
 
 ---
