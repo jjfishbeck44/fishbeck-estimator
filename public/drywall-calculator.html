@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free drywall calculator — enter your room size or wall/ceiling area to get the number of sheets, screws, joint compound, and tape you need. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Drywall Calculator — How Many Sheets Do I Need? | Fishbeck Innovations" />
+  <meta property="og:description" content="Enter your room dimensions or total area to get drywall sheets, screws, joint compound, and tape. Free tool from Fishbeck Innovations." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/drywall-calculator" />
+  <title>Drywall Calculator — How Many Sheets Do I Need? | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Drywall Calculator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Calculate how many drywall sheets, screws, joint compound, and tape you need based on room size or total area.",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Fishbeck Innovations LLC",
+      "areaServed": "Twin Cities, Minnesota",
+      "email": "jimmy@fishbeckinnovations.com",
+      "url": "https://fishbeckinnovations.com"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text">
+            <span class="logo-name">Fishbeck Innovations</span>
+            <span class="logo-tagline">Construction &amp; Property Maintenance</span>
+          </div>
+        </a>
+        <nav class="header-nav" aria-label="Primary">
+          <a href="/" class="nav-link">Estimator</a>
+          <a href="/tools" class="nav-link nav-link-active">Tools</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Drywall Calculator</h1>
+      <p class="hero-sub">How many sheets of drywall do you need? Enter your room size and we’ll figure out sheets, screws, joint compound, and tape.</p>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="container container-narrow">
+
+      <!-- Input card -->
+      <div class="card" id="calc-card">
+        <div class="card-header">
+          <h2 class="card-title">Your Space</h2>
+          <p class="card-hint">Enter room dimensions or total drywall area, then pick a sheet size.</p>
+        </div>
+        <div class="card-body">
+
+          <div class="mode-toggle" role="radiogroup" aria-label="How do you want to enter the area?">
+            <label class="mode-option">
+              <input type="radio" name="area-mode" value="room" checked />
+              <span>Room size</span>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="area-mode" value="area" />
+              <span>Total area</span>
+            </label>
+          </div>
+
+          <!-- Room mode -->
+          <div id="room-group">
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="length-input">Length (ft)</label>
+                <input class="form-input" id="length-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 12" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="width-input">Width (ft)</label>
+                <input class="form-input" id="width-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 12" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="height-input">Ceiling height (ft)</label>
+                <input class="form-input" id="height-input" type="number" inputmode="decimal" min="0" step="any" value="8" />
+              </div>
+            </div>
+            <label class="check-row">
+              <input type="checkbox" id="ceiling-checkbox" />
+              <span>Include the ceiling</span>
+            </label>
+          </div>
+
+          <!-- Area mode -->
+          <div id="area-group" class="form-row hidden">
+            <div class="form-field">
+              <label class="form-label" for="area-input">Total drywall area (sq ft)</label>
+              <input class="form-input" id="area-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 528" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="sheet-select">Sheet size</label>
+              <select class="form-input" id="sheet-select">
+                <option value="32" selected>4 &times; 8 ft (32 sq ft)</option>
+                <option value="36">4 &times; 9 ft (36 sq ft)</option>
+                <option value="40">4 &times; 10 ft (40 sq ft)</option>
+                <option value="48">4 &times; 12 ft (48 sq ft)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="waste-input">Waste allowance (%)</label>
+              <input class="form-input" id="waste-input" type="number" inputmode="numeric" min="0" step="any" value="10" />
+              <p class="field-hint">10% covers cuts and offcuts.</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label>
+              <input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" />
+              <p class="field-hint">Used only to pre-fill your quote request.</p>
+            </div>
+          </div>
+
+          <p id="calc-error" class="calc-error hidden"></p>
+
+          <button id="calc-btn" class="btn btn-primary" type="button">
+            <span class="btn-text">Calculate Drywall</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header">
+          <h2 class="card-title">What You Need</h2>
+          <p class="card-hint" id="result-area">—</p>
+        </div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary">
+              <span class="result-num" id="result-sheets">—</span>
+              <span class="result-label">sheets</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-num" id="result-screws">—</span>
+              <span class="result-label">screws</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-num" id="result-compound">—</span>
+              <span class="result-label">gal compound</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-num" id="result-tape">—</span>
+              <span class="result-label">ft of tape</span>
+            </div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <!-- Quote CTA -->
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text">
+            <h3 class="cta-title">Want it hung and finished for you?</h3>
+            <p class="cta-sub">Get a same-day quote to hang, tape, and finish your drywall — we’ll pre-fill the details for you.</p>
+          </div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">
+            Get a Real Quote
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- How it's calculated -->
+      <div class="card" id="how-card">
+        <div class="card-header">
+          <h2 class="card-title">How the Drywall Calculator Works</h2>
+        </div>
+        <div class="card-body">
+          <p class="prose">For a room, wall area is the perimeter times the ceiling height: <strong>2 &times; (length + width) &times; height</strong>, plus the ceiling (length &times; width) if you include it. We add your waste allowance, then divide by the sheet size and round up:</p>
+          <p class="formula">sheets = &lceil; area &times; (1 + waste%) &divide; sheet sq ft &rceil;</p>
+          <p class="prose">Materials are rule-of-thumb estimates: about 32 screws per 4&times;8 sheet, roughly 1 gallon of joint compound per ~108 sq ft, and about 370 ft of tape per 1,000 sq ft. Round up to standard package sizes and keep a little extra on hand.</p>
+        </div>
+      </div>
+
+      <!-- Recent calcs -->
+      <div class="card hidden" id="history-card">
+        <div class="card-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+          <div>
+            <h2 class="card-title">Recent Calculations</h2>
+            <p class="card-hint">Click any entry to load it again.</p>
+          </div>
+          <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
+        </div>
+        <div class="card-body p-0">
+          <div id="history-list" class="history-list"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">
+        &copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash;
+        <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a>
+      </p>
+      <p class="footer-disclaimer">
+        Results are estimates for planning. Actual material needs vary with layout, openings, and finish level.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/drywall-math.js"></script>
+  <script src="/js/drywall-calculator.js"></script>
+</body>
+</html>

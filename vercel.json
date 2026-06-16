@@ -27,6 +27,8 @@
   "rewrites": [
     { "source": "/estimate", "destination": "/index.html" },
     { "source": "/tools", "destination": "/tools.html" },
-    { "source": "/tools/mulch-calculator", "destination": "/mulch-calculator.html" }
+    { "source": "/tools/mulch-calculator", "destination": "/mulch-calculator.html" },
+    { "source": "/tools/paint-calculator", "destination": "/paint-calculator.html" },
+    { "source": "/tools/drywall-calculator", "destination": "/drywall-calculator.html" }
   ]
 }

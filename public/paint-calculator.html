@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free paint calculator — enter your room size or wall area, coats, and doors/windows to get exactly how many gallons of paint you need. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Paint Calculator — How Much Paint Do I Need? | Fishbeck Innovations" />
+  <meta property="og:description" content="Enter your room dimensions or wall area, number of coats, and door/window count to get gallons of paint needed. Free tool from Fishbeck Innovations." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/paint-calculator" />
+  <title>Paint Calculator — How Much Paint Do I Need? | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Paint Calculator",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Calculate how many gallons of paint you need based on room size or wall area, number of coats, and door/window deductions.",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Fishbeck Innovations LLC",
+      "areaServed": "Twin Cities, Minnesota",
+      "email": "jimmy@fishbeckinnovations.com",
+      "url": "https://fishbeckinnovations.com"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text">
+            <span class="logo-name">Fishbeck Innovations</span>
+            <span class="logo-tagline">Construction &amp; Property Maintenance</span>
+          </div>
+        </a>
+        <nav class="header-nav" aria-label="Primary">
+          <a href="/" class="nav-link">Estimator</a>
+          <a href="/tools" class="nav-link nav-link-active">Tools</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Paint Calculator</h1>
+      <p class="hero-sub">How much paint do you need? Enter your room size, coats, and doors/windows to get the exact number of gallons — without overbuying.</p>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="container container-narrow">
+
+      <!-- Input card -->
+      <div class="card" id="calc-card">
+        <div class="card-header">
+          <h2 class="card-title">Your Walls</h2>
+          <p class="card-hint">Enter room dimensions or total wall area, then your coats.</p>
+        </div>
+        <div class="card-body">
+
+          <div class="mode-toggle" role="radiogroup" aria-label="How do you want to enter the area?">
+            <label class="mode-option">
+              <input type="radio" name="area-mode" value="room" checked />
+              <span>Room size</span>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="area-mode" value="area" />
+              <span>Total wall area</span>
+            </label>
+          </div>
+
+          <!-- Room mode -->
+          <div id="room-group">
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label" for="length-input">Length (ft)</label>
+                <input class="form-input" id="length-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 12" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="width-input">Width (ft)</label>
+                <input class="form-input" id="width-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 12" />
+              </div>
+              <div class="form-field">
+                <label class="form-label" for="height-input">Ceiling height (ft)</label>
+                <input class="form-input" id="height-input" type="number" inputmode="decimal" min="0" step="any" value="8" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Area mode -->
+          <div id="area-group" class="form-row hidden">
+            <div class="form-field">
+              <label class="form-label" for="wallarea-input">Total wall area (sq ft)</label>
+              <input class="form-input" id="wallarea-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 384" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="doors-input">Doors</label>
+              <input class="form-input" id="doors-input" type="number" inputmode="numeric" min="0" step="1" value="1" />
+              <p class="field-hint">~21 sq ft each, deducted.</p>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="windows-input">Windows</label>
+              <input class="form-input" id="windows-input" type="number" inputmode="numeric" min="0" step="1" value="1" />
+              <p class="field-hint">~15 sq ft each, deducted.</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="coats-input">Coats</label>
+              <input class="form-input" id="coats-input" type="number" inputmode="numeric" min="1" step="1" value="2" />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="coverage-input">Coverage (sq ft/gallon)</label>
+              <input class="form-input" id="coverage-input" type="number" inputmode="numeric" min="1" step="any" value="350" />
+              <p class="field-hint">350 is typical; check the can.</p>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label>
+              <input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" />
+              <p class="field-hint">Used only to pre-fill your quote request.</p>
+            </div>
+          </div>
+
+          <p id="calc-error" class="calc-error hidden"></p>
+
+          <button id="calc-btn" class="btn btn-primary" type="button">
+            <span class="btn-text">Calculate Paint</span>
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header">
+          <h2 class="card-title">What You Need</h2>
+          <p class="card-hint" id="result-area">—</p>
+        </div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary">
+              <span class="result-num" id="result-gallons">—</span>
+              <span class="result-label">gallons to buy</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-num" id="result-raw">—</span>
+              <span class="result-label">gallons needed</span>
+            </div>
+            <div class="result-stat">
+              <span class="result-num" id="result-paintable">—</span>
+              <span class="result-label">sq ft to paint</span>
+            </div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <!-- Quote CTA -->
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text">
+            <h3 class="cta-title">Rather not pick up a brush?</h3>
+            <p class="cta-sub">Get a same-day quote to paint it for you — we’ll pre-fill the details so it’s one click.</p>
+          </div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">
+            Get a Real Quote
+            <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- How it's calculated -->
+      <div class="card" id="how-card">
+        <div class="card-header">
+          <h2 class="card-title">How the Paint Calculator Works</h2>
+        </div>
+        <div class="card-body">
+          <p class="prose">We start with your wall area — for a room, that’s the perimeter times the ceiling height: <strong>2 &times; (length + width) &times; height</strong>. Then we subtract about 21 sq ft per door and 15 sq ft per window to get the area you’ll actually paint.</p>
+          <p class="formula">gallons = (paintable sq ft &times; coats) &divide; coverage per gallon</p>
+          <p class="prose">One gallon typically covers about 350 sq ft per coat on primed walls. We round up to whole gallons. New drywall, bold color changes, or rough textures soak up more, so consider a primer coat or a little extra.</p>
+        </div>
+      </div>
+
+      <!-- Recent calcs -->
+      <div class="card hidden" id="history-card">
+        <div class="card-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+          <div>
+            <h2 class="card-title">Recent Calculations</h2>
+            <p class="card-hint">Click any entry to load it again.</p>
+          </div>
+          <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
+        </div>
+        <div class="card-body p-0">
+          <div id="history-list" class="history-list"></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">
+        &copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash;
+        <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a>
+      </p>
+      <p class="footer-disclaimer">
+        Results are estimates for planning. Actual paint needs vary with surface, color change, and application method.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/paint-math.js"></script>
+  <script src="/js/paint-calculator.js"></script>
+</body>
+</html>
