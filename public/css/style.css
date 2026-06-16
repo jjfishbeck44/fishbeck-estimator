@@ -616,6 +616,14 @@ body {
 .total-label { color: #1A1A2E; }
 .total-range { text-align: right; color: #1B3A5C; font-size: 1.1rem; }
 
+/* --- Project summary --- */
+.project-summary-text {
+  color: #374151;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  font-style: italic;
+}
+
 /* --- Estimate timestamp --- */
 .estimate-timestamp {
   padding: 0.5rem 1.5rem 0.75rem;
@@ -854,6 +862,7 @@ body {
   .total-range { color: #93C5FD; }
 
   .notes-text { color: #D1D5DB; }
+  .project-summary-text { color: #D1D5DB; }
   .error-message { color: #D1D5DB; }
   .clarification-message { color: #D1D5DB; }
 

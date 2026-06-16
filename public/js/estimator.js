@@ -15,6 +15,8 @@
   var clarificationMsg = document.getElementById('clarification-message');
   var clarificationBackBtn = document.getElementById('clarification-back-btn');
   var resultsSection = document.getElementById('results-section');
+  var projectSummaryCard = document.getElementById('project-summary-card');
+  var projectSummaryText = document.getElementById('project-summary-text');
   var bannerRange = document.getElementById('banner-range');
   var scopeTbody = document.getElementById('scope-tbody');
   var totalRangeCell = document.getElementById('total-range-cell');
@@ -175,6 +177,13 @@
   // --- Render results ---
   function renderResults(estimate) {
     bannerRange.textContent = fmtRange(estimate.total_low, estimate.total_high);
+
+    if (lastInput) {
+      projectSummaryText.textContent = lastInput;
+      show(projectSummaryCard);
+    } else {
+      hide(projectSummaryCard);
+    }
 
     var fragment = document.createDocumentFragment();
     (estimate.line_items || []).forEach(function (item) {
@@ -538,6 +547,7 @@
 
   // --- Clear history ---
   clearHistoryBtn.addEventListener('click', function () {
+    if (!confirm('Clear all estimate history?')) return;
     try { localStorage.removeItem(HISTORY_KEY); } catch {}
     renderHistory();
   });
