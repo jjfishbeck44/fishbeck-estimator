@@ -151,6 +151,8 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen with date+time and individual delete buttons. Click to revisit.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 - **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
+- **CSV export:** Download button exports estimate as `fishbeck-estimate.csv` spreadsheet with Item, Description, Low, High columns.
+- **Reduced motion:** `prefers-reduced-motion: reduce` media query disables all CSS animations and transitions for users who prefer reduced motion.
 - **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call. Animated progress bar fills to 90% over 12s with decelerating ease.
 - **Network retry:** `fetchWithRetry` automatically retries once after 1.5s on network failure before showing the error state.
 - **PWA manifest:** `manifest.json` enables "Add to Home Screen" on mobile devices.
