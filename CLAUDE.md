@@ -157,6 +157,7 @@ No CI pipeline is configured — run tests locally before pushing.
 - **SEO files:** `robots.txt` blocks `/api/` from crawlers and references `sitemap.xml`.
 - **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button. Escape key dismisses error/clarification states.
 - **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
+- **Re-estimate:** "Re-estimate" button in results view re-submits the same project description for a fresh estimate.
 - **Estimate timestamp:** Results view shows when the estimate was generated (date + time).
 - **Share button:** Uses Web Share API on mobile for native sharing, clipboard fallback on desktop.
 - **Dark mode:** Automatic via `prefers-color-scheme: dark` media query. Full color scheme for all elements. Print styles force light colors regardless of mode.
