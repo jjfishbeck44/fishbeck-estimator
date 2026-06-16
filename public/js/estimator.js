@@ -30,6 +30,7 @@
   var printBtn = document.getElementById('print-btn');
   var copyBtn = document.getElementById('copy-btn');
   var shareBtn = document.getElementById('share-btn');
+  var downloadCsvBtn = document.getElementById('download-csv-btn');
   var proposalLink = document.getElementById('proposal-link');
   var errorCard = document.getElementById('error-card');
   var errorMessage = document.getElementById('error-message');
@@ -271,6 +272,32 @@
     lines.push('');
     lines.push('This is an AI-generated estimate. Contact jimmy@fishbeckinnovations.com for a formal proposal.');
     return lines.join('\n');
+  }
+
+  // --- Export estimate as CSV ---
+  function buildEstimateCsv(est) {
+    var rows = [['Item', 'Description', 'Low', 'High']];
+    (est.line_items || []).forEach(function (item) {
+      rows.push([
+        '"' + (item.label || '').replace(/"/g, '""') + '"',
+        '"' + (item.description || '').replace(/"/g, '""') + '"',
+        num(item.range_low),
+        num(item.range_high)
+      ]);
+    });
+    rows.push(['Total', '', num(est.total_low), num(est.total_high)]);
+    return rows.map(function (r) { return r.join(','); }).join('\n');
+  }
+
+  function downloadCsv(est) {
+    var csv = buildEstimateCsv(est);
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'fishbeck-estimate.csv';
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   // --- Email proposal link ---
@@ -541,6 +568,12 @@
         copyBtn.setAttribute('aria-label', '');
       }, 1500);
     });
+  });
+
+  // --- Download CSV ---
+  downloadCsvBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    downloadCsv(lastEstimate);
   });
 
   // --- Share estimate ---
