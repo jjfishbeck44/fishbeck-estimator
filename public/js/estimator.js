@@ -15,6 +15,8 @@
   var clarificationMsg = document.getElementById('clarification-message');
   var clarificationBackBtn = document.getElementById('clarification-back-btn');
   var resultsSection = document.getElementById('results-section');
+  var projectSummaryCard = document.getElementById('project-summary-card');
+  var projectSummaryText = document.getElementById('project-summary-text');
   var bannerRange = document.getElementById('banner-range');
   var scopeTbody = document.getElementById('scope-tbody');
   var totalRangeCell = document.getElementById('total-range-cell');
@@ -24,6 +26,7 @@
   var outOfScopeCard = document.getElementById('out-of-scope-card');
   var outOfScopeList = document.getElementById('out-of-scope-list');
   var newEstimateBtn = document.getElementById('new-estimate-btn');
+  var reEstimateBtn = document.getElementById('re-estimate-btn');
   var printBtn = document.getElementById('print-btn');
   var copyBtn = document.getElementById('copy-btn');
   var shareBtn = document.getElementById('share-btn');
@@ -176,6 +179,13 @@
   function renderResults(estimate) {
     bannerRange.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
+    if (lastInput) {
+      projectSummaryText.textContent = lastInput;
+      show(projectSummaryCard);
+    } else {
+      hide(projectSummaryCard);
+    }
+
     var fragment = document.createDocumentFragment();
     (estimate.line_items || []).forEach(function (item) {
       if (!item || !item.label) return;
@@ -214,6 +224,12 @@
     }
 
     updateProposalLink(estimate);
+
+    if (lastInput) {
+      show(reEstimateBtn);
+    } else {
+      hide(reEstimateBtn);
+    }
 
     var now = new Date();
     estimateTimestamp.textContent = 'Estimated ' + now.toLocaleDateString('en-US', {
@@ -482,6 +498,15 @@
     }
   });
 
+  reEstimateBtn.addEventListener('click', function () {
+    if (lastInput) {
+      textarea.value = lastInput;
+      updateCharCount();
+      autoResize();
+      submitEstimate();
+    }
+  });
+
   newEstimateBtn.addEventListener('click', function () {
     textarea.value = '';
     textarea.style.height = '';
@@ -538,6 +563,7 @@
 
   // --- Clear history ---
   clearHistoryBtn.addEventListener('click', function () {
+    if (!confirm('Clear all estimate history?')) return;
     try { localStorage.removeItem(HISTORY_KEY); } catch {}
     renderHistory();
   });
