@@ -26,6 +26,7 @@
   var outOfScopeCard = document.getElementById('out-of-scope-card');
   var outOfScopeList = document.getElementById('out-of-scope-list');
   var newEstimateBtn = document.getElementById('new-estimate-btn');
+  var reEstimateBtn = document.getElementById('re-estimate-btn');
   var printBtn = document.getElementById('print-btn');
   var copyBtn = document.getElementById('copy-btn');
   var shareBtn = document.getElementById('share-btn');
@@ -223,6 +224,12 @@
     }
 
     updateProposalLink(estimate);
+
+    if (lastInput) {
+      show(reEstimateBtn);
+    } else {
+      hide(reEstimateBtn);
+    }
 
     var now = new Date();
     estimateTimestamp.textContent = 'Estimated ' + now.toLocaleDateString('en-US', {
@@ -488,6 +495,15 @@
       if (currentState === STATES.ERROR || currentState === STATES.CLARIFICATION) {
         setState(STATES.INPUT);
       }
+    }
+  });
+
+  reEstimateBtn.addEventListener('click', function () {
+    if (lastInput) {
+      textarea.value = lastInput;
+      updateCharCount();
+      autoResize();
+      submitEstimate();
     }
   });
 
