@@ -280,6 +280,30 @@ body {
   line-height: 1.65;
 }
 
+/* --- Project name input --- */
+.name-group { margin-bottom: 0.75rem; }
+
+.project-name-input {
+  width: 100%;
+  padding: 0.65rem 1rem;
+  border: 2px solid #E5E9EF;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.88rem;
+  color: #1A1A2E;
+  background: #FAFBFC;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-name-input:focus {
+  outline: none;
+  border-color: #1B3A5C;
+  box-shadow: 0 0 0 3px rgba(27,58,92,0.08);
+  background: #fff;
+}
+
+.project-name-input::placeholder { color: #9CA3AF; }
+
 /* --- Textarea --- */
 .input-group { position: relative; margin-bottom: 1rem; }
 
@@ -415,8 +439,22 @@ body {
 .history-delete:focus-visible { opacity: 1; outline: 2px solid #1B3A5C; outline-offset: 2px; }
 .history-item:hover { background: #F9FAFB; }
 
-.history-input {
+.history-text {
   flex: 1;
+  min-width: 0;
+}
+
+.history-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1B3A5C;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 0.1rem;
+}
+
+.history-input {
   font-size: 0.88rem;
   color: #374151;
   overflow: hidden;
@@ -534,6 +572,13 @@ body {
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
+}
+
+.banner-project-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.15rem;
 }
 
 .banner-label {
@@ -727,6 +772,54 @@ body {
 .btn-icon:hover { background: rgba(255,255,255,0.1); color: #fff; }
 .btn-icon svg { width: 15px; height: 15px; flex-shrink: 0; }
 
+/* --- Confirm modal --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 300;
+  padding: 1rem;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+}
+
+.modal-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1B3A5C;
+  margin-bottom: 0.5rem;
+}
+
+.modal-message {
+  font-size: 0.88rem;
+  color: #374151;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.btn-danger {
+  background: #DC2626;
+  color: #fff;
+  border-color: transparent;
+}
+.btn-danger:hover { background: #B91C1C; }
+
 /* --- Entrance animation --- */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
@@ -734,6 +827,16 @@ body {
 }
 
 .fade-up { animation: fadeUp 0.35s ease-out both; }
+
+/* --- Reduced motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .progress-fill { transition: none !important; }
+}
 
 /* --- Utility --- */
 .hidden { display: none !important; }
@@ -786,6 +889,7 @@ body {
     margin-bottom: 1rem;
   }
 
+  .banner-project-name { color: #fff !important; }
   .scope-table { font-size: 10pt; }
   .scope-table thead th { background: #F9FAFB !important; color: #6B7280 !important; }
   .scope-table tbody tr:hover { background: transparent; }
@@ -807,6 +911,18 @@ body {
   .card { background: #1F2937; box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.15); }
   .card-title { color: #93C5FD; }
   .card-hint { color: #9CA3AF; }
+
+  .project-name-input {
+    background: #111827;
+    border-color: #374151;
+    color: #E5E7EB;
+  }
+  .project-name-input:focus {
+    border-color: #60A5FA;
+    box-shadow: 0 0 0 3px rgba(96,165,250,0.15);
+    background: #1F2937;
+  }
+  .project-name-input::placeholder { color: #6B7280; }
 
   .project-textarea {
     background: #111827;
@@ -873,6 +989,7 @@ body {
 
   .history-item { border-bottom-color: #374151; }
   .history-item:hover { background: #111827; }
+  .history-name { color: #93C5FD; }
   .history-input { color: #D1D5DB; }
   .history-delete { color: #6B7280; }
   .history-delete:hover { background: #7F1D1D; color: #FCA5A5; }
@@ -885,6 +1002,11 @@ body {
     color: #9CA3AF;
   }
   .btn-clear:hover { background: #7F1D1D; color: #FCA5A5; border-color: #991B1B; }
+
+  .modal-overlay { background: rgba(0,0,0,0.6); }
+  .modal { background: #1F2937; }
+  .modal-title { color: #93C5FD; }
+  .modal-message { color: #D1D5DB; }
 
   .card-error .icon-error { color: #F87171; }
 

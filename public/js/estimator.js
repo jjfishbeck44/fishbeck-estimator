@@ -6,6 +6,7 @@
   'use strict';
 
   // --- DOM refs ---
+  var projectNameInput = document.getElementById('project-name');
   var textarea = document.getElementById('project-input');
   var charCount = document.getElementById('char-count');
   var estimateBtn = document.getElementById('estimate-btn');
@@ -29,7 +30,9 @@
   var reEstimateBtn = document.getElementById('re-estimate-btn');
   var printBtn = document.getElementById('print-btn');
   var copyBtn = document.getElementById('copy-btn');
+  var bannerProjectName = document.getElementById('banner-project-name');
   var shareBtn = document.getElementById('share-btn');
+  var downloadCsvBtn = document.getElementById('download-csv-btn');
   var proposalLink = document.getElementById('proposal-link');
   var errorCard = document.getElementById('error-card');
   var errorMessage = document.getElementById('error-message');
@@ -40,6 +43,9 @@
   var templatesEl = document.getElementById('templates');
   var loadingText = document.getElementById('loading-text');
   var progressFill = document.getElementById('progress-fill');
+  var confirmModal = document.getElementById('confirm-modal');
+  var confirmOkBtn = document.getElementById('confirm-ok');
+  var confirmCancelBtn = document.getElementById('confirm-cancel');
   var footerYear = document.getElementById('footer-year');
 
   // --- Constants ---
@@ -65,6 +71,7 @@
   var currentState = STATES.INPUT;
   var lastEstimate = null;
   var lastInput = '';
+  var lastProjectName = '';
   var loadingInterval = null;
 
   // --- Utilities ---
@@ -179,6 +186,13 @@
   function renderResults(estimate) {
     bannerRange.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
+    if (lastProjectName) {
+      bannerProjectName.textContent = lastProjectName;
+      show(bannerProjectName);
+    } else {
+      hide(bannerProjectName);
+    }
+
     if (lastInput) {
       projectSummaryText.textContent = lastInput;
       show(projectSummaryCard);
@@ -248,8 +262,11 @@
   // --- Format estimate as plain text ---
   function buildEstimateText(est) {
     var lines = ['Fishbeck Innovations — Project Estimate', ''];
+    if (lastProjectName) {
+      lines.push('Project: ' + lastProjectName);
+    }
     if (lastInput) {
-      lines.push('Project description: ' + lastInput);
+      lines.push('Description: ' + lastInput);
       lines.push('');
     }
     (est.line_items || []).forEach(function (item) {
@@ -273,6 +290,32 @@
     return lines.join('\n');
   }
 
+  // --- Export estimate as CSV ---
+  function buildEstimateCsv(est) {
+    var rows = [['Item', 'Description', 'Low', 'High']];
+    (est.line_items || []).forEach(function (item) {
+      rows.push([
+        '"' + (item.label || '').replace(/"/g, '""') + '"',
+        '"' + (item.description || '').replace(/"/g, '""') + '"',
+        num(item.range_low),
+        num(item.range_high)
+      ]);
+    });
+    rows.push(['Total', '', num(est.total_low), num(est.total_high)]);
+    return rows.map(function (r) { return r.join(','); }).join('\n');
+  }
+
+  function downloadCsv(est) {
+    var csv = buildEstimateCsv(est);
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'fishbeck-estimate.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   // --- Email proposal link ---
   function updateProposalLink(estimate) {
     var body = buildEstimateText(estimate);
@@ -292,13 +335,15 @@
     }
   }
 
-  function saveToHistory(input, estimate) {
+  function saveToHistory(input, estimate, projectName) {
     var history = getHistory();
-    history.unshift({
+    var entry = {
       input: input,
       estimate: estimate,
       timestamp: Date.now()
-    });
+    };
+    if (projectName) entry.name = projectName;
+    history.unshift(entry);
     if (history.length > MAX_HISTORY) history = history.slice(0, MAX_HISTORY);
     try {
       localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
@@ -341,9 +386,16 @@
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
 
+      var nameHtml = entry.name
+        ? '<div class="history-name">' + escHtml(entry.name) + '</div>'
+        : '';
+
       item.innerHTML =
         '<div class="history-content">' +
-          '<div class="history-input">' + escHtml(entry.input) + '</div>' +
+          '<div class="history-text">' +
+            nameHtml +
+            '<div class="history-input">' + escHtml(entry.input) + '</div>' +
+          '</div>' +
           '<div class="history-meta">' +
             '<span class="history-range">' + fmtRange(entry.estimate.total_low, entry.estimate.total_high) + '</span>' +
             '<span class="history-date">' + formatTimestamp(entry.timestamp) + '</span>' +
@@ -360,7 +412,9 @@
       item.addEventListener('click', function (e) {
         if (e.target.closest('.history-delete')) return;
         lastInput = entry.input;
+        lastProjectName = entry.name || '';
         textarea.value = entry.input;
+        projectNameInput.value = lastProjectName;
         updateCharCount();
         autoResize();
         setState(STATES.RESULTS, entry.estimate);
@@ -369,7 +423,9 @@
       item.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && !e.target.closest('.history-delete')) {
           lastInput = entry.input;
+          lastProjectName = entry.name || '';
           textarea.value = entry.input;
+          projectNameInput.value = lastProjectName;
           updateCharCount();
           autoResize();
           setState(STATES.RESULTS, entry.estimate);
@@ -381,8 +437,13 @@
   }
 
   // --- Draft persistence ---
+  var DRAFT_NAME_KEY = 'fishbeck_draft_name';
+
   function saveDraft() {
-    try { sessionStorage.setItem(DRAFT_KEY, textarea.value); } catch {}
+    try {
+      sessionStorage.setItem(DRAFT_KEY, textarea.value);
+      sessionStorage.setItem(DRAFT_NAME_KEY, projectNameInput.value);
+    } catch {}
   }
 
   function restoreDraft() {
@@ -393,11 +454,18 @@
         updateCharCount();
         autoResize();
       }
+      var draftName = sessionStorage.getItem(DRAFT_NAME_KEY);
+      if (draftName && !projectNameInput.value) {
+        projectNameInput.value = draftName;
+      }
     } catch {}
   }
 
   function clearDraft() {
-    try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
+    try {
+      sessionStorage.removeItem(DRAFT_KEY);
+      sessionStorage.removeItem(DRAFT_NAME_KEY);
+    } catch {}
   }
 
   // --- Character counter & auto-resize ---
@@ -406,6 +474,8 @@
     autoResize();
     saveDraft();
   });
+
+  projectNameInput.addEventListener('input', saveDraft);
 
   // --- Example templates ---
   templatesEl.addEventListener('click', function (e) {
@@ -431,6 +501,7 @@
     }
 
     lastInput = input;
+    lastProjectName = projectNameInput.value.trim();
     setState(STATES.LOADING);
     estimateBtn.disabled = true;
     estimateBtn.classList.add('is-loading');
@@ -465,7 +536,7 @@
         setState(STATES.CLARIFICATION, { message: data.clarification_message });
       } else {
         clearDraft();
-        saveToHistory(input, data);
+        saveToHistory(input, data, lastProjectName);
         setState(STATES.RESULTS, data);
       }
 
@@ -492,7 +563,9 @@
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
-      if (currentState === STATES.ERROR || currentState === STATES.CLARIFICATION) {
+      if (!confirmModal.classList.contains('hidden')) {
+        hideConfirm();
+      } else if (currentState === STATES.ERROR || currentState === STATES.CLARIFICATION) {
         setState(STATES.INPUT);
       }
     }
@@ -509,6 +582,7 @@
 
   newEstimateBtn.addEventListener('click', function () {
     textarea.value = '';
+    projectNameInput.value = '';
     textarea.style.height = '';
     charCount.textContent = '0';
     clearDraft();
@@ -543,6 +617,12 @@
     });
   });
 
+  // --- Download CSV ---
+  downloadCsvBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    downloadCsv(lastEstimate);
+  });
+
   // --- Share estimate ---
   shareBtn.addEventListener('click', function () {
     if (!lastEstimate) return;
@@ -561,11 +641,37 @@
     }
   });
 
+  // --- Confirm modal ---
+  var confirmCallback = null;
+
+  function showConfirm(onConfirm) {
+    confirmCallback = onConfirm;
+    show(confirmModal);
+    confirmOkBtn.focus();
+  }
+
+  function hideConfirm() {
+    hide(confirmModal);
+    confirmCallback = null;
+  }
+
+  confirmOkBtn.addEventListener('click', function () {
+    if (confirmCallback) confirmCallback();
+    hideConfirm();
+  });
+
+  confirmCancelBtn.addEventListener('click', hideConfirm);
+
+  confirmModal.addEventListener('click', function (e) {
+    if (e.target === confirmModal) hideConfirm();
+  });
+
   // --- Clear history ---
   clearHistoryBtn.addEventListener('click', function () {
-    if (!confirm('Clear all estimate history?')) return;
-    try { localStorage.removeItem(HISTORY_KEY); } catch {}
-    renderHistory();
+    showConfirm(function () {
+      try { localStorage.removeItem(HISTORY_KEY); } catch {}
+      renderHistory();
+    });
   });
 
   // --- Init ---

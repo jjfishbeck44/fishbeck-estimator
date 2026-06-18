@@ -86,6 +86,16 @@
           <p class="card-hint">Be as specific as you like — property type, number of units, scope of work.</p>
         </div>
         <div class="card-body">
+          <div class="name-group">
+            <input
+              id="project-name"
+              class="project-name-input"
+              type="text"
+              placeholder="e.g. 123 Main St, Smith duplex, Building C"
+              maxlength="80"
+              aria-label="Project name (optional)"
+            />
+          </div>
           <div class="input-group">
             <textarea
               id="project-input"
@@ -155,6 +165,7 @@
         <div class="estimate-banner">
           <div class="estimate-banner-inner">
             <div>
+              <p class="banner-project-name hidden" id="banner-project-name"></p>
               <p class="banner-label">Estimated Project Range</p>
               <p class="banner-range" id="banner-range">—</p>
             </div>
@@ -170,6 +181,10 @@
               <button id="share-btn" class="btn-icon" type="button" title="Share estimate">
                 <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"/></svg>
                 Share
+              </button>
+              <button id="download-csv-btn" class="btn-icon" type="button" title="Download as spreadsheet">
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                CSV
               </button>
               <button id="re-estimate-btn" class="btn btn-ghost btn-sm hidden" type="button">Re-estimate</button>
               <button id="new-estimate-btn" class="btn btn-ghost btn-sm" type="button">New Estimate</button>
@@ -297,6 +312,18 @@
       </p>
     </div>
   </footer>
+
+  <!-- Confirm modal -->
+  <div class="modal-overlay hidden" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+    <div class="modal">
+      <h3 class="modal-title" id="confirm-title">Clear History</h3>
+      <p class="modal-message" id="confirm-message">Remove all saved estimates? This can't be undone.</p>
+      <div class="modal-actions">
+        <button id="confirm-cancel" class="btn btn-secondary btn-sm" type="button">Cancel</button>
+        <button id="confirm-ok" class="btn btn-danger btn-sm" type="button">Clear All</button>
+      </div>
+    </div>
+  </div>
 
   <script src="/js/estimator.js"></script>
 </body>

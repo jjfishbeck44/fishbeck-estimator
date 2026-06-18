@@ -136,14 +136,21 @@ At 100 estimates per month, expect roughly **$1-2/month** total.
 - **Example templates** — One-click project examples (unit turns, kitchen remodel, etc.) so users don't start from a blank page
 - **Estimate history** — Last 10 estimates saved locally, viewable and clearable from the input screen
 - **Print and copy** — Print button with clean print styles, copy button for plain-text clipboard
+- **CSV export** — Download the estimate as a `.csv` spreadsheet for accounting or record-keeping
 - **Smart proposal email** — "Request My Proposal" pre-fills the email with the full formatted estimate
+- **Share button** — Native sharing on mobile (Web Share API), clipboard fallback on desktop
+- **Re-estimate** — One-click button to re-submit the same description for a fresh estimate
+- **Project summary** — Results view shows the original project description for context
 - **Dark mode** — Automatic dark theme based on system preference, with print styles that always use light colors
 - **Auto-resize textarea** — Input field grows as you type, no manual resizing needed
-- **Loading progress** — Rotating messages during the 5-10 second AI processing time
-- **Keyboard shortcut** — Ctrl+Enter submits the form
+- **Loading progress** — Animated progress bar with rotating messages during the 5-10 second AI processing time
+- **Network retry** — Automatic retry on network failure before showing an error
+- **Draft persistence** — Refreshing the page doesn't lose your in-progress description
+- **Keyboard shortcuts** — Ctrl+Enter submits, Escape dismisses errors
 - **Mobile-optimized** — Responsive layout with touch-friendly targets, prevents iOS auto-zoom
-- **Accessibility** — Skip-to-content link, focus management, ARIA attributes, screen reader feedback
-- **SEO** — Open Graph tags, JSON-LD structured data, favicon
+- **Accessibility** — Skip-to-content link, focus management, ARIA attributes, reduced-motion support
+- **PWA support** — Add to Home Screen on mobile devices
+- **SEO** — Open Graph tags, JSON-LD structured data, sitemap, robots.txt
 
 ---
 
