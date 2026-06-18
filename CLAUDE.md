@@ -152,6 +152,10 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
 - **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
 - **CSV export:** Download button exports estimate as `fishbeck-estimate.csv` spreadsheet with Item, Description, Low, High columns.
+- **Project name labels:** Optional project name field (e.g., "123 Main St") saved with estimates, shown in banner and history.
+- **Styled confirm modal:** Custom modal replaces native `confirm()` for clearing history. Dismissible via Cancel, Escape, or backdrop click.
+- **Cost breakdown chart:** Horizontal bar chart visualizing relative cost of each line item. Auto-hidden for single-item estimates.
+- **FAQ accordion:** Five common questions about estimates, service area, and Fishbeck's capabilities. Uses native `<details>` elements.
 - **Reduced motion:** `prefers-reduced-motion: reduce` media query disables all CSS animations and transitions for users who prefer reduced motion.
 - **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call. Animated progress bar fills to 90% over 12s with decelerating ease.
 - **Network retry:** `fetchWithRetry` automatically retries once after 1.5s on network failure before showing the error state.

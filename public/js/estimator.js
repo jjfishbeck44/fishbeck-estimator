@@ -22,6 +22,8 @@
   var scopeTbody = document.getElementById('scope-tbody');
   var totalRangeCell = document.getElementById('total-range-cell');
   var estimateTimestamp = document.getElementById('estimate-timestamp');
+  var chartCard = document.getElementById('chart-card');
+  var chartBars = document.getElementById('chart-bars');
   var notesCard = document.getElementById('notes-card');
   var notesText = document.getElementById('notes-text');
   var outOfScopeCard = document.getElementById('out-of-scope-card');
@@ -217,6 +219,8 @@
 
     totalRangeCell.textContent = fmtRange(estimate.total_low, estimate.total_high);
 
+    renderChart(estimate.line_items);
+
     if (estimate.notes) {
       notesText.textContent = estimate.notes;
       show(notesCard);
@@ -257,6 +261,42 @@
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     bannerRange.setAttribute('tabindex', '-1');
     bannerRange.focus({ preventScroll: true });
+  }
+
+  // --- Cost breakdown chart ---
+  var CHART_COLORS = ['#1B3A5C', '#2563EB', '#C8963E', '#059669', '#7C3AED', '#DC2626', '#D97706', '#0891B2', '#4F46E5', '#BE185D'];
+
+  function renderChart(items) {
+    chartBars.innerHTML = '';
+    var valid = (items || []).filter(function (item) { return item && num(item.range_high) > 0; });
+    if (valid.length < 2) {
+      hide(chartCard);
+      return;
+    }
+    show(chartCard);
+    var maxHigh = 0;
+    valid.forEach(function (item) {
+      var h = num(item.range_high);
+      if (h > maxHigh) maxHigh = h;
+    });
+    if (maxHigh === 0) { hide(chartCard); return; }
+
+    valid.forEach(function (item, i) {
+      var low = num(item.range_low);
+      var high = num(item.range_high);
+      var pct = Math.round((high / maxHigh) * 100);
+      var color = CHART_COLORS[i % CHART_COLORS.length];
+
+      var row = document.createElement('div');
+      row.className = 'chart-row';
+      row.innerHTML =
+        '<div class="chart-label">' + escHtml(item.label) + '</div>' +
+        '<div class="chart-track">' +
+          '<div class="chart-fill" style="width:' + pct + '%;background:' + color + '"></div>' +
+        '</div>' +
+        '<div class="chart-value">' + fmtRange(low, high) + '</div>';
+      chartBars.appendChild(row);
+    });
   }
 
   // --- Format estimate as plain text ---
