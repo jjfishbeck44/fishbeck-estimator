@@ -748,6 +748,31 @@ body {
 
 .check-row input { accent-color: #1B3A5C; width: 1rem; height: 1rem; cursor: pointer; }
 
+/* --- Square-footage helper rows --- */
+.room-row { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.6rem; }
+.room-row .room-name { flex: 1.4; min-width: 90px; }
+.room-row .room-len, .room-row .room-wid { flex: 1; min-width: 64px; }
+.room-row .room-x { color: #9CA3AF; font-weight: 600; flex-shrink: 0; }
+.room-area-val { flex: 1; min-width: 70px; font-size: 0.82rem; font-weight: 600; color: #1B3A5C; text-align: right; white-space: nowrap; }
+.room-remove {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 6px;
+  border: 1px solid #D1D5DB;
+  background: #fff;
+  color: #9CA3AF;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+.room-remove:hover { background: #FEE2E2; color: #DC2626; border-color: #FECACA; }
+
+@media (max-width: 600px) {
+  .room-row .room-name { flex-basis: 100%; }
+  .room-area-val { min-width: 60px; }
+}
+
 .calc-error {
   background: #FEF2F2;
   border-left: 3px solid #DC2626;

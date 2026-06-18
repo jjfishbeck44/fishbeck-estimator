@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free baseboard & trim calculator — enter your room size to get linear feet and pieces of trim needed, with waste. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Baseboard &amp; Trim Calculator — Linear Feet &amp; Pieces | Fishbeck Innovations" />
+  <meta property="og:description" content="Enter room size and door count to get baseboard linear feet and pieces. Free tool from Fishbeck Innovations." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/baseboard-calculator" />
+  <title>Baseboard &amp; Trim Calculator — Linear Feet &amp; Pieces | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Baseboard & Trim Calculator", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Calculate baseboard linear feet and pieces based on room perimeter, doors, and stock length.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Baseboard &amp; Trim Calculator</h1>
+      <p class="hero-sub">How much baseboard do you need? Enter your room size and door count for linear feet and how many sticks to buy.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Your Room</h2><p class="card-hint">Works for baseboard, crown, and chair rail.</p></div>
+        <div class="card-body">
+          <div class="mode-toggle" role="radiogroup" aria-label="How do you want to enter the size?">
+            <label class="mode-option"><input type="radio" name="area-mode" value="dims" checked /><span>Length &times; Width</span></label>
+            <label class="mode-option"><input type="radio" name="area-mode" value="perim" /><span>Total perimeter</span></label>
+          </div>
+          <div id="dims-group" class="form-row">
+            <div class="form-field"><label class="form-label" for="length-input">Length (ft)</label><input class="form-input" id="length-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 12" /></div>
+            <div class="form-field"><label class="form-label" for="width-input">Width (ft)</label><input class="form-input" id="width-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 12" /></div>
+          </div>
+          <div id="perim-group" class="form-row hidden">
+            <div class="form-field"><label class="form-label" for="perim-input">Total perimeter (ft)</label><input class="form-input" id="perim-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 48" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="doors-input">Doorways</label><input class="form-input" id="doors-input" type="number" inputmode="numeric" min="0" step="1" value="1" /><p class="field-hint">~3 ft each, no baseboard.</p></div>
+            <div class="form-field"><label class="form-label" for="waste-input">Waste (%)</label><input class="form-input" id="waste-input" type="number" inputmode="decimal" min="0" step="any" value="10" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="stock-select">Stock length</label>
+              <select class="form-input" id="stock-select"><option value="8">8 ft</option><option value="12" selected>12 ft</option><option value="16">16 ft</option></select>
+            </div>
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Calculate Trim</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">What You Need</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-pieces">—</span><span class="result-label">pieces</span></div>
+            <div class="result-stat"><span class="result-num" id="result-feet">—</span><span class="result-label">ft w/ waste</span></div>
+            <div class="result-stat"><span class="result-num" id="result-net">—</span><span class="result-label">ft to cover</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Want trim installed?</h3><p class="cta-sub">Get a same-day quote for supply and install of baseboard and trim — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How the Trim Calculator Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We take the room perimeter (2 × (length + width)), subtract about 3 ft per doorway, add waste for miters, then divide by your stock length and round up:</p>
+          <p class="formula">pieces = &lceil; (perimeter − doors) &times; (1 + waste%) &divide; stock length &rceil;</p>
+          <p class="prose">Buy a couple extra sticks — inside/outside corners and scarf joints use more than the raw length.</p>
+        </div>
+      </div>
+
+      <div class="card hidden" id="history-card">
+        <div class="card-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+          <div><h2 class="card-title">Recent Calculations</h2><p class="card-hint">Click any entry to load it again.</p></div>
+          <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
+        </div>
+        <div class="card-body p-0"><div id="history-list" class="history-list"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Results are estimates for planning. Actual needs vary with corners, joints, and door count.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/baseboard-math.js"></script>
+  <script src="/js/baseboard-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free flooring calculator — enter your room size to get how many boxes of laminate, vinyl plank, or hardwood you need, with waste. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Flooring Calculator — How Many Boxes Do I Need? | Fishbeck Innovations" />
+  <meta property="og:description" content="Enter room size and box coverage to get the number of flooring boxes needed, including waste. Free tool from Fishbeck Innovations." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/flooring-calculator" />
+  <title>Flooring Calculator — How Many Boxes Do I Need? | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Flooring Calculator", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Calculate how many boxes of flooring you need based on room size, box coverage, and waste.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary">
+          <a href="/" class="nav-link">Estimator</a>
+          <a href="/tools" class="nav-link nav-link-active">Tools</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Flooring Calculator</h1>
+      <p class="hero-sub">How many boxes of flooring do you need? Enter your room size and we’ll add waste and round up to whole boxes.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header">
+          <h2 class="card-title">Your Room</h2>
+          <p class="card-hint">Works for laminate, vinyl plank (LVP), engineered, and hardwood.</p>
+        </div>
+        <div class="card-body">
+          <div class="mode-toggle" role="radiogroup" aria-label="How do you want to enter the area?">
+            <label class="mode-option"><input type="radio" name="area-mode" value="dims" checked /><span>Length &times; Width</span></label>
+            <label class="mode-option"><input type="radio" name="area-mode" value="sqft" /><span>Total square feet</span></label>
+          </div>
+          <div id="dims-group" class="form-row">
+            <div class="form-field"><label class="form-label" for="length-input">Length (ft)</label><input class="form-input" id="length-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 20" /></div>
+            <div class="form-field"><label class="form-label" for="width-input">Width (ft)</label><input class="form-input" id="width-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 15" /></div>
+          </div>
+          <div id="sqft-group" class="form-row hidden">
+            <div class="form-field"><label class="form-label" for="sqft-input">Total area (sq ft)</label><input class="form-input" id="sqft-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 300" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="waste-input">Waste (%)</label><input class="form-input" id="waste-input" type="number" inputmode="decimal" min="0" step="any" value="10" /><p class="field-hint">10% is typical; 15% for diagonal/herringbone.</p></div>
+            <div class="form-field"><label class="form-label" for="box-input">Coverage per box (sq ft)</label><input class="form-input" id="box-input" type="number" inputmode="decimal" min="0" step="any" value="20" /><p class="field-hint">Check the carton — varies by product.</p></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /><p class="field-hint">Used only to pre-fill your quote request.</p></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Calculate Flooring</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">What You Need</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-boxes">—</span><span class="result-label">boxes</span></div>
+            <div class="result-stat"><span class="result-num" id="result-sqft">—</span><span class="result-label">sq ft w/ waste</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Want it installed for you?</h3><p class="cta-sub">Get a same-day quote to supply and install your floors — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How the Flooring Calculator Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We take your room area, add a waste percentage for cuts and defects, then divide by the coverage printed on the carton and round up to whole boxes:</p>
+          <p class="formula">boxes = &lceil; area &times; (1 + waste%) &divide; sq ft per box &rceil;</p>
+          <p class="prose">Order all boxes from the same lot or dye-run for a consistent color, and keep a spare box for future repairs.</p>
+        </div>
+      </div>
+
+      <div class="card hidden" id="history-card">
+        <div class="card-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+          <div><h2 class="card-title">Recent Calculations</h2><p class="card-hint">Click any entry to load it again.</p></div>
+          <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
+        </div>
+        <div class="card-body p-0"><div id="history-list" class="history-list"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Results are estimates for planning. Actual needs vary with layout, pattern, and product.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/flooring-math.js"></script>
+  <script src="/js/flooring-calculator.js"></script>
+</body>
+</html>

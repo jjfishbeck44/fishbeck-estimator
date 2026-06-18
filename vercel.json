@@ -29,6 +29,15 @@
     { "source": "/tools", "destination": "/tools.html" },
     { "source": "/tools/mulch-calculator", "destination": "/mulch-calculator.html" },
     { "source": "/tools/paint-calculator", "destination": "/paint-calculator.html" },
-    { "source": "/tools/drywall-calculator", "destination": "/drywall-calculator.html" }
+    { "source": "/tools/drywall-calculator", "destination": "/drywall-calculator.html" },
+    { "source": "/tools/flooring-calculator", "destination": "/flooring-calculator.html" },
+    { "source": "/tools/concrete-calculator", "destination": "/concrete-calculator.html" },
+    { "source": "/tools/fence-calculator", "destination": "/fence-calculator.html" },
+    { "source": "/tools/pavers-calculator", "destination": "/pavers-calculator.html" },
+    { "source": "/tools/sod-calculator", "destination": "/sod-calculator.html" },
+    { "source": "/tools/baseboard-calculator", "destination": "/baseboard-calculator.html" },
+    { "source": "/tools/wallpaper-calculator", "destination": "/wallpaper-calculator.html" },
+    { "source": "/tools/salt-calculator", "destination": "/salt-calculator.html" },
+    { "source": "/tools/square-footage-calculator", "destination": "/room-area-calculator.html" }
   ]
 }

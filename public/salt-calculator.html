@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free de-icing salt calculator — enter your parking lot or driveway size to get pounds and bags of rock salt per application. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Parking Lot Salt Calculator — How Much Ice Melt? | Fishbeck Innovations" />
+  <meta property="og:description" content="Enter lot size to get pounds and bags of de-icing salt per application. Free tool from Fishbeck Innovations." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/salt-calculator" />
+  <title>Parking Lot Salt Calculator — How Much Ice Melt? | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "De-Icing Salt Calculator", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Calculate pounds and bags of rock salt needed to de-ice a parking lot or driveway.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">De-Icing Salt Calculator</h1>
+      <p class="hero-sub">How much salt for your lot? Enter the size to get pounds and bags of rock salt per application for a Minnesota winter.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Your Lot or Driveway</h2><p class="card-hint">Enter the paved area you treat.</p></div>
+        <div class="card-body">
+          <div class="mode-toggle" role="radiogroup" aria-label="How do you want to enter the area?">
+            <label class="mode-option"><input type="radio" name="area-mode" value="dims" checked /><span>Length &times; Width</span></label>
+            <label class="mode-option"><input type="radio" name="area-mode" value="sqft" /><span>Total square feet</span></label>
+          </div>
+          <div id="dims-group" class="form-row">
+            <div class="form-field"><label class="form-label" for="length-input">Length (ft)</label><input class="form-input" id="length-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 100" /></div>
+            <div class="form-field"><label class="form-label" for="width-input">Width (ft)</label><input class="form-input" id="width-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 100" /></div>
+          </div>
+          <div id="sqft-group" class="form-row hidden">
+            <div class="form-field"><label class="form-label" for="sqft-input">Total area (sq ft)</label><input class="form-input" id="sqft-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10000" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="rate-input">Rate (lbs / 1,000 sq ft)</label><input class="form-input" id="rate-input" type="number" inputmode="decimal" min="0" step="any" value="12" /><p class="field-hint">~10–20 lbs/1,000 sq ft per application.</p></div>
+            <div class="form-field"><label class="form-label" for="apps-input">Applications</label><input class="form-input" id="apps-input" type="number" inputmode="numeric" min="1" step="1" value="1" /><p class="field-hint">For a season, enter expected snow events.</p></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="bag-input">Bag size (lbs)</label><input class="form-input" id="bag-input" type="number" inputmode="decimal" min="0" step="any" value="50" /></div>
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Calculate Salt</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">What You Need</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-bags">—</span><span class="result-label">bags</span></div>
+            <div class="result-stat"><span class="result-num" id="result-lbs">—</span><span class="result-label">lbs total</span></div>
+            <div class="result-stat"><span class="result-num" id="result-perapp">—</span><span class="result-label">lbs / application</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Need winter ice management?</h3><p class="cta-sub">Get a quote for seasonal de-icing and snow removal — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How the Salt Calculator Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We apply a coverage rate per 1,000 sq ft to your lot size, then multiply by the number of applications and divide by your bag size:</p>
+          <p class="formula">salt (lbs) = (area &divide; 1,000) &times; rate &times; applications</p>
+          <p class="prose">Over-salting wastes money and harms plants and concrete. Rock salt stops working below about 15°F — use a calcium- or magnesium-chloride blend in deep cold.</p>
+        </div>
+      </div>
+
+      <div class="card hidden" id="history-card">
+        <div class="card-header" style="display:flex;align-items:flex-start;justify-content:space-between;">
+          <div><h2 class="card-title">Recent Calculations</h2><p class="card-hint">Click any entry to load it again.</p></div>
+          <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
+        </div>
+        <div class="card-body p-0"><div id="history-list" class="history-list"></div></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Results are estimates for planning. Actual salt use varies with temperature, ice, and surface.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/salt-math.js"></script>
+  <script src="/js/salt-calculator.js"></script>
+</body>
+</html>

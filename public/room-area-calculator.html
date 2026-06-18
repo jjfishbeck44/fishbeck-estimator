@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free square footage calculator — add up the area of multiple rooms or spaces to get total square feet for your project. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Square Footage Calculator — Add Up Multiple Rooms | Fishbeck Innovations" />
+  <meta property="og:description" content="Add the area of multiple rooms to get total square feet for flooring, paint, or any project. Free tool from Fishbeck Innovations." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/square-footage-calculator" />
+  <title>Square Footage Calculator — Add Up Multiple Rooms | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Square Footage Calculator", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Add up the square footage of multiple rooms or spaces to get a project total.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Square Footage Calculator</h1>
+      <p class="hero-sub">Add up several rooms or spaces at once to get the total square footage for flooring, paint, or any project.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Your Spaces</h2><p class="card-hint">Add a row for each room — the total updates as you type.</p></div>
+        <div class="card-body">
+          <div id="rooms-list"></div>
+          <button id="add-room-btn" class="btn btn-secondary btn-sm" type="button">+ Add another room</button>
+        </div>
+      </div>
+
+      <div class="card" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Total Square Footage</h2></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-total">0</span><span class="result-label">total sq ft</span></div>
+            <div class="result-stat"><span class="result-num" id="result-rooms">0 areas</span><span class="result-label">counted</span></div>
+          </div>
+          <p class="result-note">Use this total in any of our material calculators, or send it straight to our estimator for a quote.</p>
+        </div>
+      </div>
+
+      <div class="cta-block" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Ready for a real quote?</h3><p class="cta-sub">Send your total to our estimator and describe the work — we’ll break it into a detailed scope.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">Each room’s area is length × width. We sum every row to give you a project total. For L-shaped rooms, split them into rectangles and add a row for each piece.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Results are estimates for planning. Measure twice for the most accurate total.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/room-area-math.js"></script>
+  <script src="/js/room-area-calculator.js"></script>
+</body>
+</html>

@@ -25,4 +25,13 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/flooring-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/concrete-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/fence-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/pavers-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/sod-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/baseboard-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/wallpaper-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/salt-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/square-footage-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
