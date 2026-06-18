@@ -267,12 +267,18 @@
               <h3 class="cta-title">Ready for a Same-Day Proposal?</h3>
               <p class="cta-sub">Our team reviews every estimate personally and typically sends a formal proposal within hours.</p>
             </div>
-            <a id="proposal-link" href="mailto:jimmy@fishbeckinnovations.com?subject=Project%20Proposal%20Request" class="btn btn-gold btn-lg">
-              Request My Proposal
-              <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
-              </svg>
-            </a>
+            <div class="cta-actions">
+              <a id="proposal-link" href="mailto:jimmy@fishbeckinnovations.com?subject=Project%20Proposal%20Request" class="btn btn-gold btn-lg">
+                Email Proposal Request
+                <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+              </a>
+              <a href="tel:+16122437889" class="btn btn-cta-phone btn-lg">
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="btn-phone-icon"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
+                (612) 243-7889
+              </a>
+            </div>
           </div>
         </div>
 
@@ -288,6 +294,9 @@
           <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
         </div>
         <div class="card-body p-0">
+          <div class="history-search-wrap hidden" id="history-search-wrap">
+            <input id="history-search" class="history-search" type="text" placeholder="Search estimates…" aria-label="Search estimates" />
+          </div>
           <div id="history-list" class="history-list"></div>
         </div>
       </div>

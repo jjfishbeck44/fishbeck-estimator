@@ -393,6 +393,36 @@ body {
 
 .btn-clear:hover { background: #FEE2E2; color: #DC2626; border-color: #FECACA; }
 
+.history-search-wrap { padding: 0.75rem 1.5rem 0; }
+
+.history-search {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #E5E9EF;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: #1A1A2E;
+  background: #FAFBFC;
+  transition: border-color 0.15s;
+}
+
+.history-search:focus {
+  outline: none;
+  border-color: #1B3A5C;
+  background: #fff;
+}
+
+.history-search::placeholder { color: #9CA3AF; }
+
+.history-ref {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #9CA3AF;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  letter-spacing: 0.03em;
+}
+
 .history-list { display: flex; flex-direction: column; }
 
 .history-item {
@@ -766,6 +796,13 @@ body {
 
 .cta-text { flex: 1; min-width: 220px; }
 
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
 .btn-gold.btn-lg {
   background: #fff;
   color: #B07832;
@@ -776,6 +813,16 @@ body {
   background: #FEF9EC;
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
+
+.btn-cta-phone {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.4);
+  justify-content: center;
+}
+.btn-cta-phone:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.6); }
+
+.btn-phone-icon { width: 18px; height: 18px; flex-shrink: 0; }
 
 /* --- FAQ --- */
 .faq-section {
@@ -961,10 +1008,13 @@ body {
   .btn-icon { padding: 0.55rem 1rem; font-size: 0.82rem; }
   .cta-block { padding: 1.5rem 1.25rem; }
   .cta-inner { flex-direction: column; }
+  .cta-actions { width: 100%; }
   .btn-gold.btn-lg { width: 100%; justify-content: center; }
+  .btn-cta-phone { width: 100%; }
   .scope-table thead th, .scope-table tbody td, .total-row td { padding: 0.75rem 1rem; }
   .header-badges { display: none; }
   .history-item { padding: 0.75rem 1rem; }
+  .history-search-wrap { padding: 0.75rem 1rem 0; }
   .template-chip { padding: 0.45rem 0.85rem; font-size: 0.8rem; }
   .chart-row { grid-template-columns: 100px 1fr auto; gap: 0.5rem; }
   .chart-label { font-size: 0.75rem; }
@@ -1092,6 +1142,15 @@ body {
     background: rgba(200,150,62,0.1);
     color: #D1D5DB;
   }
+
+  .history-search {
+    background: #111827;
+    border-color: #374151;
+    color: #E5E7EB;
+  }
+  .history-search:focus { border-color: #60A5FA; background: #1F2937; }
+  .history-search::placeholder { color: #6B7280; }
+  .history-ref { color: #6B7280; }
 
   .history-item { border-bottom-color: #374151; }
   .history-item:hover { background: #111827; }
