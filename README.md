@@ -139,8 +139,11 @@ At 100 estimates per month, expect roughly **$1-2/month** total.
 - **CSV export** — Download the estimate as a `.csv` spreadsheet for accounting or record-keeping
 - **Smart proposal email** — "Request My Proposal" pre-fills the email with the full formatted estimate
 - **Share button** — Native sharing on mobile (Web Share API), clipboard fallback on desktop
+- **Project name labels** — Optional label for each estimate (e.g., "123 Main St") shown in history and results
+- **Cost breakdown chart** — Visual bar chart showing where the money goes across line items
 - **Re-estimate** — One-click button to re-submit the same description for a fresh estimate
 - **Project summary** — Results view shows the original project description for context
+- **FAQ section** — Common questions about estimates, service area, and Fishbeck's capabilities
 - **Dark mode** — Automatic dark theme based on system preference, with print styles that always use light colors
 - **Auto-resize textarea** — Input field grows as you type, no manual resizing needed
 - **Loading progress** — Animated progress bar with rotating messages during the 5-10 second AI processing time
