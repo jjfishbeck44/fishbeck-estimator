@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="3D printing service request — paste an STL or MakerWorld link, pick quantity and colors, and get an instant estimate plus a quote request. Bambu A1 + AMS Lite. Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="3D Printing Service &amp; Quote Request | Fishbeck Innovations" />
+  <meta property="og:description" content="Get a 3D print quote — paste your STL/MakerWorld link, choose quantity, single or multicolor, and pickup or ship." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/3d-print-calculator" />
+  <title>3D Printing Service &amp; Quote Request | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "3D Print Quote Request", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Request a 3D print quote and get an indicative estimate by quantity, color count, and delivery.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">3D Printing Service</h1>
+      <p class="hero-sub">Want something printed? Paste your model link, pick quantity and colors, and get an instant estimate — then send the request.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Your Print</h2><p class="card-hint">Printed on a Bambu A1 with AMS Lite — up to 4 colors.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="link-input">Model link (.stl or MakerWorld / Bambu)</label><input class="form-input" id="link-input" type="url" placeholder="https://makerworld.com/…" /><p class="field-hint">Paste a direct .stl link or a MakerWorld / Bambu listing.</p></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="qty-input">Quantity</label><input class="form-input" id="qty-input" type="number" inputmode="numeric" min="1" step="1" value="1" /></div>
+            <div class="form-field"><label class="form-label" for="ship-select">Delivery</label>
+              <select class="form-input" id="ship-select"><option value="pickup" selected>Pickup</option><option value="ship">Ship to me</option></select>
+            </div>
+          </div>
+          <label class="check-row"><input type="checkbox" id="multicolor-checkbox" /><span>Multicolor (AMS Lite)</span></label>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="colors-select">Number of colors</label>
+              <select class="form-input" id="colors-select" disabled><option value="2" selected>2 colors</option><option value="3">3 colors</option><option value="4">4 colors</option></select>
+              <p class="field-hint">Multicolor uses more filament and time, so it costs more.</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="grams-input">Est. filament (g) <span class="label-optional">(optional)</span></label><input class="form-input" id="grams-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 50" /><p class="field-hint">On the model page, if known.</p></div>
+            <div class="form-field"><label class="form-label" for="hours-input">Est. print time (h) <span class="label-optional">(optional)</span></label><input class="form-input" id="hours-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 3" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="name-input">Your name <span class="label-optional">(optional)</span></label><input class="form-input" id="name-input" type="text" placeholder="So we can follow up" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Estimate My Print</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Indicative Estimate</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-total">—</span><span class="result-label">estimated total</span></div>
+            <div class="result-stat"><span class="result-num" id="result-perunit">—</span><span class="result-label">per print</span></div>
+            <div class="result-stat"><span class="result-num" id="result-colors">—</span><span class="result-label">color mode</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Send your print request</h3><p class="cta-sub">This opens an email to us with your link and options pre-filled. We’ll slice it and confirm exact pricing &amp; lead time.</p></div>
+          <a id="request-link" href="mailto:jimmy@fishbeckinnovations.com" class="btn btn-gold btn-lg">Email My Request</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We print on a Bambu A1 with the AMS Lite, so multicolor prints (up to 4 colors) are no problem — they just take more time and filament, which is why they cost more. The number here is an indicative estimate from your quantity, colors, and (if known) filament weight and print time. Send the request and we’ll slice your actual model to confirm exact pricing, then arrange pickup or shipping.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Estimate is indicative only. Final pricing is confirmed after slicing your model.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/print3d-math.js"></script>
+  <script src="/js/print3d-calculator.js"></script>
+</body>
+</html>

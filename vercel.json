@@ -38,6 +38,14 @@
     { "source": "/tools/baseboard-calculator", "destination": "/baseboard-calculator.html" },
     { "source": "/tools/wallpaper-calculator", "destination": "/wallpaper-calculator.html" },
     { "source": "/tools/salt-calculator", "destination": "/salt-calculator.html" },
-    { "source": "/tools/square-footage-calculator", "destination": "/room-area-calculator.html" }
+    { "source": "/tools/square-footage-calculator", "destination": "/room-area-calculator.html" },
+    { "source": "/tools/unit-turn-calculator", "destination": "/unit-turn-calculator.html" },
+    { "source": "/tools/snow-removal-calculator", "destination": "/snow-calculator.html" },
+    { "source": "/tools/repair-replace-calculator", "destination": "/repair-replace-calculator.html" },
+    { "source": "/tools/fix-and-flip-calculator", "destination": "/flip-calculator.html" },
+    { "source": "/tools/diy-vs-hire-calculator", "destination": "/diy-calculator.html" },
+    { "source": "/tools/project-schedule-calculator", "destination": "/schedule-calculator.html" },
+    { "source": "/tools/tool-rental-calculator", "destination": "/tool-rental-calculator.html" },
+    { "source": "/tools/3d-print-calculator", "destination": "/print3d-calculator.html" }
   ]
 }

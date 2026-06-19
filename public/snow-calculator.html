@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Snow removal cost calculator — estimate your seasonal snow plowing cost for a driveway or parking lot in the Twin Cities. By Fishbeck Innovations, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Snow Removal Cost Calculator | Fishbeck Innovations" />
+  <meta property="og:description" content="Estimate per-visit and seasonal snow removal cost for driveways and parking lots in the Twin Cities." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/snow-removal-calculator" />
+  <title>Snow Removal Cost Calculator | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Snow Removal Cost Calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Estimate per-visit and seasonal snow removal cost.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Snow Removal Calculator</h1>
+      <p class="hero-sub">What will winter cost? Estimate per-visit and full-season snow removal for your driveway or lot.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Your Property</h2><p class="card-hint">Pick what best matches your driveway or lot.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="tier-select">Property type</label>
+              <select class="form-input" id="tier-select">
+                <option value="driveway_small">Residential driveway (1–2 cars)</option>
+                <option value="driveway_large">Large / long driveway</option>
+                <option value="lot_small">Small lot (≤10 stalls)</option>
+                <option value="lot_large">Large lot (10+ stalls)</option>
+              </select>
+            </div>
+            <div class="form-field"><label class="form-label" for="visits-input">Visits per season</label><input class="form-input" id="visits-input" type="number" inputmode="numeric" min="1" step="1" value="12" /><p class="field-hint">Twin Cities average is ~12 events.</p></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Estimate Snow Removal</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Your Estimate</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-season">—</span><span class="result-label">per season</span></div>
+            <div class="result-stat"><span class="result-num" id="result-pervisit">—</span><span class="result-label">per visit</span></div>
+            <div class="result-stat"><span class="result-num" id="result-visits">—</span><span class="result-label">visits</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Lock in winter coverage</h3><p class="cta-sub">Get a per-visit or seasonal flat-rate quote before the first snow — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We multiply a per-visit range for your property type by the number of plowable events in a season. Actual pricing depends on snowfall, layout, obstacles, and whether you want salting/de-icing included. Seasonal contracts trade a flat rate for predictability.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Estimates only. Final pricing depends on snowfall, site, and service level.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/snow-math.js"></script>
+  <script src="/js/snow-calculator.js"></script>
+</body>
+</html>

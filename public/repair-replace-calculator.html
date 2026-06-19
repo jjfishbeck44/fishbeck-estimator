@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Repair or replace? Calculator for your roof, furnace, water heater, A/C, or windows based on age and condition. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Repair or Replace Calculator | Fishbeck Innovations" />
+  <meta property="og:description" content="Should you repair or replace your roof, furnace, water heater, or A/C? Get a recommendation and cost ranges." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/repair-replace-calculator" />
+  <title>Repair or Replace Calculator | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Repair or Replace Calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Get a repair-vs-replace recommendation and cost ranges for home systems.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Repair or Replace?</h1>
+      <p class="hero-sub">Should you fix it or replace it? Get a quick recommendation and cost ranges for your roof, furnace, water heater, A/C, or windows.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Your System</h2><p class="card-hint">Tell us what it is, how old, and its condition.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="system-select">System</label>
+              <select class="form-input" id="system-select">
+                <option value="roof">Roof</option>
+                <option value="furnace">Furnace</option>
+                <option value="water_heater">Water heater</option>
+                <option value="central_ac">Central A/C</option>
+                <option value="windows">Windows (each)</option>
+              </select>
+            </div>
+            <div class="form-field"><label class="form-label" for="age-input">Age (years)</label><input class="form-input" id="age-input" type="number" inputmode="numeric" min="0" step="1" placeholder="e.g. 15" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="condition-select">Condition</label>
+              <select class="form-input" id="condition-select">
+                <option value="good">Good — works fine</option>
+                <option value="fair" selected>Fair — minor issues</option>
+                <option value="poor">Poor — frequent problems</option>
+              </select>
+            </div>
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Get Recommendation</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Our Recommendation</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-rec">—</span><span class="result-label">recommendation</span></div>
+            <div class="result-stat"><span class="result-num" id="result-repair">—</span><span class="result-label">repair cost</span></div>
+            <div class="result-stat"><span class="result-num" id="result-replace">—</span><span class="result-label">replace cost</span></div>
+            <div class="result-stat"><span class="result-num" id="result-life">—</span><span class="result-label">of life used</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Want a real diagnosis?</h3><p class="cta-sub">We’ll inspect it and give you a firm repair-or-replace quote — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We compare the system’s age to its typical service life and factor in condition. Once something is near or past end of life — or repairs start approaching replacement cost — replacing is usually the smarter spend. This is guidance only; a hands-on inspection is the real answer.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Guidance only. A professional inspection determines the right call and final cost.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/repair-replace-math.js"></script>
+  <script src="/js/repair-replace-calculator.js"></script>
+</body>
+</html>

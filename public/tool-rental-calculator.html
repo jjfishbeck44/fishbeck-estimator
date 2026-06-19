@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tool & equipment rental cost calculator — pick a tool and hours to estimate your rental cost from Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Tool Rental Cost Calculator | Fishbeck Innovations" />
+  <meta property="og:description" content="Estimate the cost to rent our paver lifter, paint sprayer, floor sander, jackhammer, or trailers by the hour." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/tool-rental-calculator" />
+  <title>Tool Rental Cost Calculator | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Tool Rental Cost Calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Estimate equipment rental cost by the hour.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Tool Rental Calculator</h1>
+      <p class="hero-sub">Need a tool for your project? Pick one of ours and your hours for a quick rental estimate.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Pick Your Equipment</h2><p class="card-hint">Available for rent from Fishbeck Innovations.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="tool-select">Tool</label>
+              <select class="form-input" id="tool-select">
+                <option value="paver_lifter">Paver lifter</option>
+                <option value="paint_sprayer">Paint sprayer</option>
+                <option value="floor_sander">Floor sander</option>
+                <option value="jackhammer">Jackhammer</option>
+                <option value="enclosed_trailer">Enclosed trailer</option>
+                <option value="utility_trailer">Utility trailer</option>
+              </select>
+            </div>
+            <div class="form-field"><label class="form-label" for="hours-input">Hours</label><input class="form-input" id="hours-input" type="number" inputmode="decimal" min="0" step="any" value="4" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Estimate Rental</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Your Estimate</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-cost">—</span><span class="result-label">estimated cost</span></div>
+            <div class="result-stat"><span class="result-num" id="result-rate">—</span><span class="result-label">rate</span></div>
+            <div class="result-stat"><span class="result-num" id="result-hours">—</span><span class="result-label">hours</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Want to reserve it?</h3><p class="cta-sub">Send us the details and we’ll confirm availability and pickup — we’ll pre-fill it for you.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Reserve / Get a Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">Rental cost is the tool’s hourly rate times your hours. Rates shown are estimates — final pricing, deposits, and multi-day discounts are confirmed when you reserve. A trailer or sprayer may include a quick orientation so you get the most out of it.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Rates are estimates. Availability, deposits, and final pricing are confirmed at reservation.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/tool-rental-math.js"></script>
+  <script src="/js/tool-rental-calculator.js"></script>
+</body>
+</html>

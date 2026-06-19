@@ -768,6 +768,29 @@ body {
 }
 .room-remove:hover { background: #FEE2E2; color: #DC2626; border-color: #FECACA; }
 
+/* --- Checkbox grid (scope pickers) --- */
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.25rem 1rem;
+}
+.check-grid .check-row { margin-bottom: 0.4rem; }
+
+/* --- Breakdown list (selected line items) --- */
+.breakdown-list { list-style: none; margin: 0 0 1rem; padding: 0; }
+.breakdown-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #F3F4F6;
+  font-size: 0.9rem;
+  color: #374151;
+}
+.breakdown-row:last-child { border-bottom: none; }
+.breakdown-range { font-weight: 600; color: #1B3A5C; white-space: nowrap; }
+
 @media (max-width: 600px) {
   .room-row .room-name { flex-basis: 100%; }
   .room-area-val { min-width: 60px; }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Project price & schedule calculator — check the services you need to get an estimated cost range and timeline. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Project Price &amp; Schedule Calculator | Fishbeck Innovations" />
+  <meta property="og:description" content="Pick the services your project needs for an estimated cost range and rough timeline." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/project-schedule-calculator" />
+  <title>Project Price &amp; Schedule Calculator | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Project Price & Schedule Calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Estimate project cost range and timeline by selecting the services you need.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Project Price &amp; Schedule</h1>
+      <p class="hero-sub">Planning a bigger job? Check the services you need for an estimated cost range and rough timeline.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">What Do You Need?</h2><p class="card-hint">Check all the services your project includes.</p></div>
+        <div class="card-body">
+          <div class="check-grid">
+            <label class="check-row"><input type="checkbox" class="svc-item" value="demo" /><span>Demolition / tear-out</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="paint" /><span>Interior painting</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="flooring" /><span>Flooring install</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="drywall" /><span>Drywall hang &amp; finish</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="trim" /><span>Trim &amp; doors</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="kitchen" /><span>Kitchen remodel</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="bathroom" /><span>Bathroom remodel</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="roofing" /><span>Roofing</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="fencing" /><span>Fence install</span></label>
+            <label class="check-row"><input type="checkbox" class="svc-item" value="cleanup" /><span>Final cleanup &amp; haul-away</span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Estimate Project</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Estimated Project</h2><p class="card-hint" id="result-count">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-total">—</span><span class="result-label">estimated range</span></div>
+            <div class="result-stat"><span class="result-num" id="result-days">—</span><span class="result-label">rough timeline</span></div>
+          </div>
+          <ul id="result-breakdown" class="breakdown-list"></ul>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Ready to schedule it?</h3><p class="cta-sub">Send us your scope for a firm quote and a real start date — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We total a cost range and rough duration for each service you select. Because crews overlap tasks, calendar time is usually shorter than the sum of the parts. Use this to ballpark scope and budget, then book a walkthrough for an exact quote and schedule.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Estimates only. Final pricing and schedule are set after a walkthrough.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/schedule-math.js"></script>
+  <script src="/js/schedule-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Fix and flip calculator — estimate profit, ROI, and a max offer (70% rule) from purchase price, rehab budget, and ARV. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Fix &amp; Flip Calculator — Profit, ROI &amp; Max Offer | Fishbeck Innovations" />
+  <meta property="og:description" content="Estimate flip profit, ROI, and the 70% rule max offer from purchase, rehab, and ARV." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/fix-and-flip-calculator" />
+  <title>Fix &amp; Flip Calculator — Profit, ROI &amp; Max Offer | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Fix and Flip Calculator", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Estimate fix-and-flip profit, ROI, and the 70% rule maximum offer.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Fix &amp; Flip Calculator</h1>
+      <p class="hero-sub">Is the deal worth it? Enter your numbers to see projected profit, ROI, and a max offer using the 70% rule.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">The Deal</h2><p class="card-hint">All figures in dollars.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="purchase-input">Purchase price</label><input class="form-input" id="purchase-input" type="number" inputmode="numeric" min="0" step="any" placeholder="e.g. 200000" /></div>
+            <div class="form-field"><label class="form-label" for="rehab-input">Rehab budget</label><input class="form-input" id="rehab-input" type="number" inputmode="numeric" min="0" step="any" placeholder="e.g. 50000" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="arv-input">After-repair value (ARV)</label><input class="form-input" id="arv-input" type="number" inputmode="numeric" min="0" step="any" placeholder="e.g. 320000" /></div>
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Calculate Returns</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Your Numbers</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-profit">—</span><span class="result-label">projected profit</span></div>
+            <div class="result-stat"><span class="result-num" id="result-roi">—</span><span class="result-label">ROI</span></div>
+            <div class="result-stat"><span class="result-num" id="result-invested">—</span><span class="result-label">total invested</span></div>
+            <div class="result-stat"><span class="result-num" id="result-maxoffer">—</span><span class="result-label">70% rule max offer</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Need a rehab number you can trust?</h3><p class="cta-sub">We’ll scope the rehab and give you a real budget before you make an offer.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Rehab Estimate</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">Profit is your ARV minus everything you put in: purchase, rehab, holding costs (taxes, insurance, interest), and selling costs (commission, closing). ROI is profit divided by the cash you tie up. The 70% rule — offer no more than 70% of ARV minus rehab — is a quick sanity check, not a guarantee.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Estimates only, not financial advice. Verify ARV and costs with your own due diligence.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/flip-math.js"></script>
+  <script src="/js/flip-calculator.js"></script>
+</body>
+</html>

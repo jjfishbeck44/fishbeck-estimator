@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="DIY vs hire calculator — compare doing a project yourself (materials + your time) against a pro quote. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="DIY vs Hire a Pro Calculator | Fishbeck Innovations" />
+  <meta property="og:description" content="Should you DIY or hire it out? Compare material + time cost against a pro quote." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/diy-vs-hire-calculator" />
+  <title>DIY vs Hire a Pro Calculator | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "DIY vs Hire Calculator", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Compare DIY cost (materials plus the value of your time) against a professional quote.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">DIY vs Hire a Pro</h1>
+      <p class="hero-sub">Should you do it yourself? Compare materials plus the value of your time against a professional quote.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Your Project</h2><p class="card-hint">Estimate the DIY inputs and the pro quote you’ve gotten.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="material-input">Material cost ($)</label><input class="form-input" id="material-input" type="number" inputmode="numeric" min="0" step="any" placeholder="e.g. 300" /></div>
+            <div class="form-field"><label class="form-label" for="hours-input">Your hours</label><input class="form-input" id="hours-input" type="number" inputmode="decimal" min="0" step="any" placeholder="e.g. 10" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="timevalue-input">Your time is worth ($/hr)</label><input class="form-input" id="timevalue-input" type="number" inputmode="numeric" min="0" step="any" value="35" /></div>
+            <div class="form-field"><label class="form-label" for="proquote-input">Pro quote ($)</label><input class="form-input" id="proquote-input" type="number" inputmode="numeric" min="0" step="any" placeholder="e.g. 1200" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Compare</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">The Verdict</h2><p class="card-hint" id="result-area">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-rec">—</span><span class="result-label">leans toward</span></div>
+            <div class="result-stat"><span class="result-num" id="result-diy">—</span><span class="result-label">true DIY cost</span></div>
+            <div class="result-stat"><span class="result-num" id="result-savings">—</span><span class="result-label">savings w/ time</span></div>
+            <div class="result-stat"><span class="result-num" id="result-cash">—</span><span class="result-label">out-of-pocket savings</span></div>
+          </div>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Rather hand it off?</h3><p class="cta-sub">Get a real quote and skip the weekend project — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">DIY isn’t free — your time has value. We add materials to your hours × your hourly value to get the “true” DIY cost, then compare it to the pro quote. We also show pure out-of-pocket savings if you don’t count your time. Don’t forget tool rental, mistakes, and the value of a warranty.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Estimates only. Consider skill, tools, permits, and warranty when deciding.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/diy-math.js"></script>
+  <script src="/js/diy-calculator.js"></script>
+</body>
+</html>

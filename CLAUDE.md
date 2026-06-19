@@ -185,6 +185,15 @@ template, first established by the **Mulch Calculator**. To add a new tool, clon
    rewrite in `vercel.json` (e.g. `/tools/<tool>-calculator` → `/<tool>-calculator.html`).
 6. **Test** — add `tests/<tool>-math.test.js` asserting the math (Jest node env, no DOM/mocks).
 
+**Dollar-based tools** (unit-turn, snow, repair-vs-replace, fix-n-flip, DIY-vs-hire,
+project-schedule, tool-rental, 3D-print) read all rates from a single editable file,
+`public/js/calculators/pricing.js` (UMD: `window.FCalc.pricing` + CommonJS). Their math
+modules take `pricing` as a UMD dependency, so the HTML must load `pricing.js` **before** the
+tool's math module. To change pricing, edit only `pricing.js` — every calculator updates.
+The 3D-print tool is a collect-and-email request (builds a `mailto:` to Jimmy) since file
+upload/email needs a backend that isn't set up; property-assessment and custom-quote were
+deferred for the same reason.
+
 ## Updating Pricing
 
 All pricing ranges and service categories live in `lib/prompt.js`. Edit the `PRICING REFERENCE` section in `buildSystemPrompt()` to change cost ranges. Push to `master` to auto-deploy.

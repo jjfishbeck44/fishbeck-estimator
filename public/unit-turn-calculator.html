@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rental unit turn cost calculator — estimate the cost to turn a vacated apartment (paint, clean, flooring, appliances) in the Twin Cities. By Fishbeck Innovations, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Rental Unit Turn Cost Calculator | Fishbeck Innovations" />
+  <meta property="og:description" content="Estimate turnaround cost for a vacated rental unit — pick your scope and unit size." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/unit-turn-calculator" />
+  <title>Rental Unit Turn Cost Calculator | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Rental Unit Turn Cost Calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Estimate the cost to turn a vacated rental unit based on scope and unit size.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Rental Unit Turn Calculator</h1>
+      <p class="hero-sub">Got a unit to turn? Pick the scope and unit size for a fast turnaround-cost estimate — built for Twin Cities landlords.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">Turn Scope</h2><p class="card-hint">Check everything this unit needs.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="size-select">Unit size</label>
+              <select class="form-input" id="size-select">
+                <option value="studio">Studio</option>
+                <option value="1br" selected>1 bedroom</option>
+                <option value="2br">2 bedroom</option>
+                <option value="3br">3 bedroom</option>
+              </select>
+            </div>
+          </div>
+          <div class="check-grid">
+            <label class="check-row"><input type="checkbox" class="turn-item" value="full_paint" checked /><span>Full repaint</span></label>
+            <label class="check-row"><input type="checkbox" class="turn-item" value="deep_clean" checked /><span>Deep clean</span></label>
+            <label class="check-row"><input type="checkbox" class="turn-item" value="lvp_flooring" /><span>New LVP flooring</span></label>
+            <label class="check-row"><input type="checkbox" class="turn-item" value="carpet" /><span>New carpet</span></label>
+            <label class="check-row"><input type="checkbox" class="turn-item" value="appliance_clean" /><span>Appliance detail</span></label>
+            <label class="check-row"><input type="checkbox" class="turn-item" value="cabinet_hardware" /><span>Hardware &amp; fixtures</span></label>
+            <label class="check-row"><input type="checkbox" class="turn-item" value="drywall_patch" /><span>Drywall patch</span></label>
+          </div>
+          <div class="form-row" style="margin-top:1rem;">
+            <div class="form-field"><label class="form-label" for="city-input">City <span class="label-optional">(optional)</span></label><input class="form-input" id="city-input" type="text" placeholder="e.g. St. Paul" /></div>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Estimate Turn Cost</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Estimated Turn Cost</h2><p class="card-hint" id="result-count">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-total">—</span><span class="result-label">estimated range</span></div>
+          </div>
+          <ul id="result-breakdown" class="breakdown-list"></ul>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Need it turned fast?</h3><p class="cta-sub">We specialize in quick, clean unit turns. Send the scope for a firm quote and timeline.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Get a Real Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We total a cost range for each item you select, scaled by unit size. It’s a planning estimate — the real number depends on condition, finishes, and how much damage the last tenant left. Bundling a full turn is usually cheaper than piecemeal work.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Estimates only. Final pricing is set after a walkthrough.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/unit-turn-math.js"></script>
+  <script src="/js/unit-turn-calculator.js"></script>
+</body>
+</html>
