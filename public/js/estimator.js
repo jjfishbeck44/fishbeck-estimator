@@ -42,6 +42,8 @@
   var historyCard = document.getElementById('history-card');
   var historyList = document.getElementById('history-list');
   var clearHistoryBtn = document.getElementById('clear-history-btn');
+  var historySearchWrap = document.getElementById('history-search-wrap');
+  var historySearchInput = document.getElementById('history-search');
   var templatesEl = document.getElementById('templates');
   var loadingText = document.getElementById('loading-text');
   var progressFill = document.getElementById('progress-fill');
@@ -74,6 +76,7 @@
   var lastEstimate = null;
   var lastInput = '';
   var lastProjectName = '';
+  var lastRefId = '';
   var loadingInterval = null;
 
   // --- Utilities ---
@@ -92,6 +95,15 @@
 
   function show(el) { el.classList.remove('hidden'); }
   function hide(el) { el.classList.add('hidden'); }
+
+  function generateRefId() {
+    var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    var id = 'FI-';
+    for (var i = 0; i < 6; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
+  }
 
   function escHtml(str) {
     var div = document.createElement('div');
@@ -250,9 +262,11 @@
     }
 
     var now = new Date();
-    estimateTimestamp.textContent = 'Estimated ' + now.toLocaleDateString('en-US', {
+    var tsText = 'Estimated ' + now.toLocaleDateString('en-US', {
       month: 'long', day: 'numeric', year: 'numeric'
     }) + ' at ' + now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    if (lastRefId) tsText += '  ·  Ref ' + lastRefId;
+    estimateTimestamp.textContent = tsText;
 
     resultsSection.classList.remove('fade-up');
     void resultsSection.offsetWidth;
@@ -301,7 +315,9 @@
 
   // --- Format estimate as plain text ---
   function buildEstimateText(est) {
-    var lines = ['Fishbeck Innovations — Project Estimate', ''];
+    var lines = ['Fishbeck Innovations — Project Estimate'];
+    if (lastRefId) lines[0] += '  (' + lastRefId + ')';
+    lines.push('');
     if (lastProjectName) {
       lines.push('Project: ' + lastProjectName);
     }
@@ -375,12 +391,13 @@
     }
   }
 
-  function saveToHistory(input, estimate, projectName) {
+  function saveToHistory(input, estimate, projectName, refId) {
     var history = getHistory();
     var entry = {
       input: input,
       estimate: estimate,
-      timestamp: Date.now()
+      timestamp: Date.now(),
+      refId: refId
     };
     if (projectName) entry.name = projectName;
     history.unshift(entry);
@@ -416,11 +433,31 @@
     var history = getHistory();
     if (history.length === 0) {
       hide(historyCard);
+      hide(historySearchWrap);
       return;
     }
     show(historyCard);
+    if (history.length >= 4) {
+      show(historySearchWrap);
+    } else {
+      hide(historySearchWrap);
+    }
+
+    var filter = (historySearchInput.value || '').toLowerCase().trim();
+    var filtered = history.map(function (entry, idx) {
+      return { entry: entry, idx: idx };
+    });
+    if (filter) {
+      filtered = filtered.filter(function (item) {
+        var text = (item.entry.name || '') + ' ' + item.entry.input + ' ' + (item.entry.refId || '');
+        return text.toLowerCase().indexOf(filter) !== -1;
+      });
+    }
+
     historyList.innerHTML = '';
-    history.forEach(function (entry, idx) {
+    filtered.forEach(function (item) {
+      var entry = item.entry;
+      var idx = item.idx;
       var item = document.createElement('div');
       item.className = 'history-item';
       item.setAttribute('role', 'button');
@@ -428,6 +465,9 @@
 
       var nameHtml = entry.name
         ? '<div class="history-name">' + escHtml(entry.name) + '</div>'
+        : '';
+      var refHtml = entry.refId
+        ? '<span class="history-ref">' + escHtml(entry.refId) + '</span>'
         : '';
 
       item.innerHTML =
@@ -438,7 +478,7 @@
           '</div>' +
           '<div class="history-meta">' +
             '<span class="history-range">' + fmtRange(entry.estimate.total_low, entry.estimate.total_high) + '</span>' +
-            '<span class="history-date">' + formatTimestamp(entry.timestamp) + '</span>' +
+            '<span class="history-date">' + formatTimestamp(entry.timestamp) + (refHtml ? ' · ' : '') + refHtml + '</span>' +
           '</div>' +
         '</div>' +
         '<button class="history-delete" title="Remove" aria-label="Remove estimate" type="button">&times;</button>';
@@ -453,6 +493,7 @@
         if (e.target.closest('.history-delete')) return;
         lastInput = entry.input;
         lastProjectName = entry.name || '';
+        lastRefId = entry.refId || '';
         textarea.value = entry.input;
         projectNameInput.value = lastProjectName;
         updateCharCount();
@@ -464,6 +505,7 @@
         if (e.key === 'Enter' && !e.target.closest('.history-delete')) {
           lastInput = entry.input;
           lastProjectName = entry.name || '';
+          lastRefId = entry.refId || '';
           textarea.value = entry.input;
           projectNameInput.value = lastProjectName;
           updateCharCount();
@@ -516,6 +558,8 @@
   });
 
   projectNameInput.addEventListener('input', saveDraft);
+
+  historySearchInput.addEventListener('input', renderHistory);
 
   // --- Example templates ---
   templatesEl.addEventListener('click', function (e) {
@@ -576,7 +620,8 @@
         setState(STATES.CLARIFICATION, { message: data.clarification_message });
       } else {
         clearDraft();
-        saveToHistory(input, data, lastProjectName);
+        lastRefId = generateRefId();
+        saveToHistory(input, data, lastProjectName, lastRefId);
         setState(STATES.RESULTS, data);
       }
 
