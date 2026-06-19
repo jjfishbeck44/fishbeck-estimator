@@ -151,7 +151,7 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen with date+time, ref IDs, and individual delete buttons. Click to revisit. Search filter appears when 4+ entries exist.
 - **Estimate reference IDs:** Each estimate gets a unique `FI-XXXXXX` reference code shown in the timestamp, history, and exports. Useful for referencing specific estimates in communication.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context. Phone CTA also available.
-- **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
+- **Print/copy buttons:** Print opens browser print dialog with branded letterhead (company name, contact info). Copy formats estimate as plain text for clipboard.
 - **CSV export:** Download button exports estimate as `fishbeck-estimate.csv` spreadsheet with Item, Description, Low, High columns.
 - **Project name labels:** Optional project name field (e.g., "123 Main St") saved with estimates, shown in banner and history.
 - **Styled confirm modal:** Custom modal replaces native `confirm()` for clearing history. Dismissible via Cancel, Escape, or backdrop click.

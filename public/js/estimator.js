@@ -348,7 +348,12 @@
 
   // --- Export estimate as CSV ---
   function buildEstimateCsv(est) {
-    var rows = [['Item', 'Description', 'Low', 'High']];
+    var header = [];
+    if (lastProjectName) header.push(['Project', '"' + lastProjectName.replace(/"/g, '""') + '"', '', '']);
+    if (lastRefId) header.push(['Reference', lastRefId, '', '']);
+    if (header.length) header.push(['', '', '', '']);
+
+    var rows = header.concat([['Item', 'Description', 'Low', 'High']]);
     (est.line_items || []).forEach(function (item) {
       rows.push([
         '"' + (item.label || '').replace(/"/g, '""') + '"',
@@ -367,7 +372,10 @@
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
     a.href = url;
-    a.download = 'fishbeck-estimate.csv';
+    var filename = 'fishbeck-estimate';
+    if (lastRefId) filename += '-' + lastRefId;
+    if (lastProjectName) filename += '-' + lastProjectName.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').substring(0, 40);
+    a.download = filename + '.csv';
     a.click();
     URL.revokeObjectURL(url);
   }
@@ -376,8 +384,11 @@
   function updateProposalLink(estimate) {
     var body = buildEstimateText(estimate);
     body += '\n\n---\nI would like to request a formal proposal for this project. Please contact me to discuss details.';
+    var subject = 'Project Proposal Request';
+    if (lastRefId) subject += ' — ' + lastRefId;
+    if (lastProjectName) subject += ' — ' + lastProjectName;
     var href = 'mailto:jimmy@fishbeckinnovations.com'
-      + '?subject=' + encodeURIComponent('Project Proposal Request')
+      + '?subject=' + encodeURIComponent(subject)
       + '&body=' + encodeURIComponent(body);
     proposalLink.href = href;
   }
