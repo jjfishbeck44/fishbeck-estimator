@@ -15,7 +15,7 @@ Client (public/)  →  POST /api/estimate  →  api/estimate.js (handler)
                                                 └── lib/claude.js     (Claude API, 25s timeout)
 ```
 
-**Request flow:** CORS preflight → method guard (POST only) → rate limit → input validation (non-empty, ≤1000 chars) → Claude API call → JSON response.
+**Request flow:** CORS preflight → method guard (POST only) → rate limit → input validation (non-empty, ≤1000 chars) → input sanitization (strip control chars) → Claude API call → response normalization → JSON response.
 
 **Frontend state machine:** INPUT → LOADING → RESULTS / CLARIFICATION / ERROR
 
@@ -78,6 +78,10 @@ lib/
 public/
   index.html           # Single-page app (form, results table, loading states)
   favicon.svg          # SVG favicon (FI logo, navy + gold)
+  apple-touch-icon.svg # iOS home screen icon
+  manifest.json        # PWA manifest for "Add to Home Screen"
+  robots.txt           # Blocks /api/ from crawlers, references sitemap
+  sitemap.xml          # Single URL entry for main page
   css/style.css        # Custom design system (navy #1B3A5C, gold #C8963E)
   js/estimator.js      # Frontend logic (IIFE, state machine, fetch API)
 tests/
@@ -183,7 +187,8 @@ All pricing ranges and service categories live in `lib/prompt.js`. Edit the `PRI
 - **Auto-deploy:** Push to `master` triggers deployment
 - **Function timeout:** 30 seconds (configured in `vercel.json`)
 - **CORS:** Open (`*`) for API routes
-- **CSP:** `frame-ancestors *.fishbeckinnovations.com`
+- **CSP:** Full directive set (`default-src 'self'`, `script-src`, `style-src`, `font-src`, `img-src`, `connect-src`, `frame-ancestors`, `base-uri`, `form-action`)
 - **Security headers:** `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`
+- **Input sanitization:** Control characters stripped before Claude API call (newlines/tabs preserved)
 - **Static caching:** CSS/JS cached 1 day with `stale-while-revalidate`, favicon cached 1 week
 - **Full guide:** See `DEPLOY.md`
