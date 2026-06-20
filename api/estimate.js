@@ -55,10 +55,13 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'input_too_long', message: `Project description must be under ${MAX_INPUT_LENGTH} characters.` });
   }
 
+  // Sanitize: trim and strip control characters (keep newlines and tabs)
+  const sanitized = input.trim().replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+
   // Call Claude
   try {
     const systemPrompt = buildSystemPrompt();
-    const raw = await callClaude(input.trim(), systemPrompt);
+    const raw = await callClaude(sanitized, systemPrompt);
     const estimate = normalizeEstimate(raw);
     return res.status(200).json(estimate);
   } catch (err) {
