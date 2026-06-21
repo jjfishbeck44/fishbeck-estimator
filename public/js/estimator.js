@@ -33,6 +33,10 @@
   var printBtn = document.getElementById('print-btn');
   var copyBtn = document.getElementById('copy-btn');
   var bannerProjectName = document.getElementById('banner-project-name');
+  var estimateStats = document.getElementById('estimate-stats');
+  var statItems = document.getElementById('stat-items');
+  var statMidpoint = document.getElementById('stat-midpoint');
+  var statSpread = document.getElementById('stat-spread');
   var shareBtn = document.getElementById('share-btn');
   var downloadCsvBtn = document.getElementById('download-csv-btn');
   var proposalLink = document.getElementById('proposal-link');
@@ -230,6 +234,20 @@
     scopeTbody.appendChild(fragment);
 
     totalRangeCell.textContent = fmtRange(estimate.total_low, estimate.total_high);
+
+    var itemCount = (estimate.line_items || []).length;
+    var totalLow = num(estimate.total_low);
+    var totalHigh = num(estimate.total_high);
+    if (itemCount >= 2 && totalHigh > 0) {
+      var midpoint = Math.round((totalLow + totalHigh) / 2);
+      var spread = totalLow > 0 ? Math.round(((totalHigh - totalLow) / totalLow) * 100) : 0;
+      statItems.querySelector('.stat-pill-value').textContent = itemCount;
+      statMidpoint.querySelector('.stat-pill-value').textContent = fmt(midpoint);
+      statSpread.querySelector('.stat-pill-value').textContent = '±' + Math.round(spread / 2) + '%';
+      show(estimateStats);
+    } else {
+      hide(estimateStats);
+    }
 
     renderChart(estimate.line_items);
 

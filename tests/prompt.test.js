@@ -50,6 +50,19 @@ describe('buildSystemPrompt', () => {
     expect(prompt).toContain('out_of_scope');
     expect(prompt).toContain('HVAC');
     expect(prompt).toContain('structural');
+    expect(prompt).toContain('window replacement');
+  });
+
+  test('includes arithmetic verification rule', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('Double-check');
+    expect(prompt).toContain('whole dollar');
+  });
+
+  test('includes separate line item rule', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('separate line items');
+    expect(prompt).toContain('Never lump');
   });
 
   test('includes multi-unit multiplication rule', () => {
