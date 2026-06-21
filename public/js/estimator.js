@@ -46,11 +46,13 @@
   var historyCard = document.getElementById('history-card');
   var historyList = document.getElementById('history-list');
   var clearHistoryBtn = document.getElementById('clear-history-btn');
+  var exportHistoryBtn = document.getElementById('export-history-btn');
   var historySearchWrap = document.getElementById('history-search-wrap');
   var historySearchInput = document.getElementById('history-search');
   var templatesEl = document.getElementById('templates');
   var loadingText = document.getElementById('loading-text');
   var progressFill = document.getElementById('progress-fill');
+  var toast = document.getElementById('toast');
   var confirmModal = document.getElementById('confirm-modal');
   var confirmOkBtn = document.getElementById('confirm-ok');
   var confirmCancelBtn = document.getElementById('confirm-cancel');
@@ -131,6 +133,18 @@
       await new Promise(function (r) { setTimeout(r, 1500); });
       return fetch(url, opts);
     }
+  }
+
+  var toastTimer = null;
+  function showToast(message) {
+    toast.textContent = message;
+    show(toast);
+    toast.classList.remove('toast-exit');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.classList.add('toast-exit');
+      setTimeout(function () { hide(toast); }, 300);
+    }, 2000);
   }
 
   function autoResize() {
@@ -721,13 +735,7 @@
     if (!lastEstimate) return;
     var text = buildEstimateText(lastEstimate);
     navigator.clipboard.writeText(text).then(function () {
-      var originalHtml = copyBtn.innerHTML;
-      copyBtn.textContent = 'Copied!';
-      copyBtn.setAttribute('aria-label', 'Copied to clipboard');
-      setTimeout(function () {
-        copyBtn.innerHTML = originalHtml;
-        copyBtn.setAttribute('aria-label', '');
-      }, 1500);
+      showToast('Estimate copied to clipboard');
     });
   });
 
@@ -735,6 +743,7 @@
   downloadCsvBtn.addEventListener('click', function () {
     if (!lastEstimate) return;
     downloadCsv(lastEstimate);
+    showToast('CSV downloaded');
   });
 
   // --- Share estimate ---
@@ -748,9 +757,7 @@
       }).catch(function () {});
     } else {
       navigator.clipboard.writeText(text).then(function () {
-        var originalHtml = shareBtn.innerHTML;
-        shareBtn.textContent = 'Copied!';
-        setTimeout(function () { shareBtn.innerHTML = originalHtml; }, 1500);
+        showToast('Estimate copied to clipboard');
       });
     }
   });
@@ -794,6 +801,35 @@
         first.focus();
       }
     }
+  });
+
+  // --- Export history as CSV ---
+  exportHistoryBtn.addEventListener('click', function () {
+    var history = getHistory();
+    if (history.length === 0) return;
+    var rows = [['Ref', 'Project', 'Description', 'Date', 'Low', 'High', 'Items']];
+    history.forEach(function (entry) {
+      var date = new Date(entry.timestamp).toLocaleDateString('en-US');
+      var itemCount = (entry.estimate.line_items || []).length;
+      rows.push([
+        entry.refId || '',
+        '"' + (entry.name || '').replace(/"/g, '""') + '"',
+        '"' + (entry.input || '').replace(/"/g, '""') + '"',
+        date,
+        num(entry.estimate.total_low),
+        num(entry.estimate.total_high),
+        itemCount
+      ]);
+    });
+    var csv = rows.map(function (r) { return r.join(','); }).join('\n');
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'fishbeck-estimates-history.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('History exported');
   });
 
   // --- Clear history ---
