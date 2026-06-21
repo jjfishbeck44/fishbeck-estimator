@@ -1,0 +1,7 @@
+id,category,material,unit,cost_low,cost_high,supplier,source,last_updated,notes
+MAT-0001,Flooring,LVP plank (mid-grade),sqft,1.80,3.50,[confirm],[confirm],2026-06-21,Excludes installation
+MAT-0002,Paint,Interior paint (gallon),gal,30,55,[confirm],[confirm],2026-06-21,Covers ~350 sqft/coat
+MAT-0003,Drywall,1/2" drywall sheet 4x8,ea,12,18,[confirm],[confirm],2026-06-21,
+MAT-0004,Plumbing,Standard toilet,ea,120,350,[confirm],[confirm],2026-06-21,Mid-grade
+MAT-0005,Fixtures,Vanity 30-36in,ea,200,700,[confirm],[confirm],2026-06-21,
+MAT-0006,Lumber,2x4 stud 8ft,ea,3,6,[confirm],[confirm],2026-06-21,Price volatile; verify
