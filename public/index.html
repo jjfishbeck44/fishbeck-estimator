@@ -307,7 +307,10 @@
             <h2 class="card-title">Recent Estimates</h2>
             <p class="card-hint">Click any estimate to view it again.</p>
           </div>
-          <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
+          <div class="history-header-actions">
+            <button id="export-history-btn" class="btn-clear" type="button" title="Export all as CSV">Export</button>
+            <button id="clear-history-btn" class="btn-clear" type="button" title="Clear history">Clear</button>
+          </div>
         </div>
         <div class="card-body p-0">
           <div class="history-search-wrap hidden" id="history-search-wrap">
@@ -393,6 +396,9 @@
       </p>
     </div>
   </footer>
+
+  <!-- Toast notification -->
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
 
   <!-- Confirm modal -->
   <div class="modal-overlay hidden" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
