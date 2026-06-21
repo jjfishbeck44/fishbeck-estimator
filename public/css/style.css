@@ -280,6 +280,20 @@ body {
   line-height: 1.65;
 }
 
+/* --- Input labels --- */
+.input-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.35rem;
+}
+
+.label-optional {
+  font-weight: 400;
+  color: #9CA3AF;
+}
+
 /* --- Project name input --- */
 .name-group { margin-bottom: 0.75rem; }
 
@@ -987,6 +1001,15 @@ body {
   .progress-fill { transition: none !important; }
 }
 
+/* --- Focus visible --- */
+.btn:focus-visible,
+.btn-icon:focus-visible,
+.template-chip:focus-visible,
+.faq-question:focus-visible {
+  outline: 2px solid #1B3A5C;
+  outline-offset: 2px;
+}
+
 /* --- Utility --- */
 .hidden { display: none !important; }
 
@@ -1098,6 +1121,9 @@ body {
   .card { background: #1F2937; box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.15); }
   .card-title { color: #93C5FD; }
   .card-hint { color: #9CA3AF; }
+
+  .input-label { color: #D1D5DB; }
+  .label-optional { color: #6B7280; }
 
   .project-name-input {
     background: #111827;
@@ -1213,6 +1239,13 @@ body {
   .loading-sub { color: #6B7280; }
   .progress-bar { background: #374151; }
   .progress-fill { background: linear-gradient(90deg, #60A5FA, #C8963E); }
+
+  .btn:focus-visible,
+  .btn-icon:focus-visible,
+  .template-chip:focus-visible,
+  .faq-question:focus-visible {
+    outline-color: #60A5FA;
+  }
 
   .chart-label { color: #E5E7EB; }
   .chart-track { background: #374151; }
