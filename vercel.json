@@ -3,6 +3,12 @@
   "functions": {
     "api/estimate.js": {
       "maxDuration": 30
+    },
+    "api/travel-distance.js": {
+      "maxDuration": 15
+    },
+    "api/custom-quote.js": {
+      "maxDuration": 15
     }
   },
   "headers": [
@@ -46,6 +52,8 @@
     { "source": "/tools/diy-vs-hire-calculator", "destination": "/diy-calculator.html" },
     { "source": "/tools/project-schedule-calculator", "destination": "/schedule-calculator.html" },
     { "source": "/tools/tool-rental-calculator", "destination": "/tool-rental-calculator.html" },
-    { "source": "/tools/3d-print-calculator", "destination": "/print3d-calculator.html" }
+    { "source": "/tools/3d-print-calculator", "destination": "/print3d-calculator.html" },
+    { "source": "/tools/property-assessment-calculator", "destination": "/property-assessment.html" },
+    { "source": "/tools/custom-quote", "destination": "/custom-quote.html" }
   ]
 }

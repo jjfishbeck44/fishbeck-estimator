@@ -42,4 +42,6 @@
   <url><loc>https://estimate.fishbeckinnovations.com/tools/project-schedule-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://estimate.fishbeckinnovations.com/tools/tool-rental-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://estimate.fishbeckinnovations.com/tools/3d-print-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/property-assessment-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://estimate.fishbeckinnovations.com/tools/custom-quote</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

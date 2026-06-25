@@ -110,6 +110,8 @@ No build step required. Vercel serves `public/` as static files and `api/` as se
 | `ANTHROPIC_API_KEY` | Anthropic API key for Claude |
 | `UPSTASH_REDIS_REST_URL` | Upstash Redis REST endpoint |
 | `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis auth token |
+| `RESEND_API_KEY` | Resend API key for the custom-quote email (optional; falls back to `mailto:`) |
+| `RESEND_FROM` | Verified sender for custom-quote email (optional; defaults to `onboarding@resend.dev`) |
 
 ## Commands
 
@@ -190,9 +192,18 @@ project-schedule, tool-rental, 3D-print) read all rates from a single editable f
 `public/js/calculators/pricing.js` (UMD: `window.FCalc.pricing` + CommonJS). Their math
 modules take `pricing` as a UMD dependency, so the HTML must load `pricing.js` **before** the
 tool's math module. To change pricing, edit only `pricing.js` — every calculator updates.
-The 3D-print tool is a collect-and-email request (builds a `mailto:` to Jimmy) since file
-upload/email needs a backend that isn't set up; property-assessment and custom-quote were
-deferred for the same reason.
+The 3D-print tool is a collect-and-email request (builds a `mailto:` to Jimmy).
+
+**Backend-backed tools** add two serverless endpoints:
+- **Property assessment** (`/tools/property-assessment-calculator`) → `POST /api/travel-distance`
+  geocodes the address via OpenStreetMap Nominatim (`lib/geocode.js`, no API key) and returns
+  road-adjusted miles from St. Paul. `property-assessment-math.js` then prices it locally
+  (base + travel + scope options from `pricing.js`).
+- **Custom quote** (`/tools/custom-quote`) → `POST /api/custom-quote` emails the request to
+  Jimmy via Resend (`lib/email.js`, REST API, no SDK). Needs `RESEND_API_KEY` (optional
+  `RESEND_FROM`); if unset, `sendEmail` throws `email_not_configured` and the frontend falls
+  back to a `mailto:`. No file storage — the customer attaches files in their reply (reply-to
+  is set to the customer). Both endpoints reuse `lib/ratelimit.js` (fail-open).
 
 ## Updating Pricing
 

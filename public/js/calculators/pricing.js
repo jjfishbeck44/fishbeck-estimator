@@ -93,6 +93,23 @@
       perPrintHour: 2.50,         // amortized machine time per hour
       colorMultiplier: { 1: 1.0, 2: 1.35, 3: 1.6, 4: 1.9 }, // multicolor costs more (purge + time)
       shippingFee: 9              // flat ship cost if not picked up
+    },
+
+    // --- Property assessment: base fee + travel + selectable scope items ---
+    propertyAssessment: {
+      baseFee: 75,                // shows up + standard walkthrough
+      perMileRoundTrip: 1.25,     // $ per mile, applied round-trip beyond the free radius
+      freeRadiusMiles: 15,        // no travel charge inside this radius of St. Paul
+      options: {
+        roof:       { label: 'Roof & gutters',        price: 60 },
+        foundation: { label: 'Foundation & basement', price: 75 },
+        plumbing:   { label: 'Plumbing',              price: 50 },
+        electrical: { label: 'Electrical',            price: 50 },
+        hvac:       { label: 'Heating & cooling',     price: 60 },
+        moisture:   { label: 'Moisture / mold check', price: 65 },
+        exterior:   { label: 'Exterior & siding',     price: 45 },
+        report:     { label: 'Written report w/ photos', price: 90 }
+      }
     }
   };
 });

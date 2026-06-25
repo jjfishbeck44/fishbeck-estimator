@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Property assessment cost calculator — enter your address and pick what to inspect for an instant estimate including travel from St. Paul. By Fishbeck Innovations, Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Property Assessment Cost Calculator | Fishbeck Innovations" />
+  <meta property="og:description" content="Get an instant property assessment estimate — pick your scope and we factor in travel from St. Paul." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/property-assessment-calculator" />
+  <title>Property Assessment Cost Calculator | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Property Assessment Cost Calculator", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }, "description": "Estimate a property assessment cost by scope and travel distance from St. Paul.", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#calc-card" class="skip-link">Skip to calculator</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Property Assessment Estimate</h1>
+      <p class="hero-sub">Enter the property address and choose what you want inspected — we’ll estimate the cost, travel included.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="calc-card">
+        <div class="card-header"><h2 class="card-title">The Property</h2><p class="card-hint">We look up the address to figure travel from St. Paul.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="address-input">Property address</label><input class="form-input" id="address-input" type="text" placeholder="123 Main St, Eagan, MN" autocomplete="street-address" /><p class="field-hint">Street, city, and state for an accurate distance.</p></div>
+          </div>
+          <p class="form-label" style="margin-bottom:0.5rem;">Include in the assessment</p>
+          <div class="check-grid">
+            <label class="check-row"><input type="checkbox" class="assess-item" value="roof" checked /><span>Roof &amp; gutters</span></label>
+            <label class="check-row"><input type="checkbox" class="assess-item" value="foundation" /><span>Foundation &amp; basement</span></label>
+            <label class="check-row"><input type="checkbox" class="assess-item" value="plumbing" /><span>Plumbing</span></label>
+            <label class="check-row"><input type="checkbox" class="assess-item" value="electrical" /><span>Electrical</span></label>
+            <label class="check-row"><input type="checkbox" class="assess-item" value="hvac" /><span>Heating &amp; cooling</span></label>
+            <label class="check-row"><input type="checkbox" class="assess-item" value="moisture" /><span>Moisture / mold</span></label>
+            <label class="check-row"><input type="checkbox" class="assess-item" value="exterior" /><span>Exterior &amp; siding</span></label>
+            <label class="check-row"><input type="checkbox" class="assess-item" value="report" /><span>Written report</span></label>
+          </div>
+          <p id="calc-error" class="calc-error hidden"></p>
+          <button id="calc-btn" class="btn btn-primary" type="button"><span class="btn-text">Estimate Assessment</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="results-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Estimated Cost</h2><p class="card-hint" id="result-distance">—</p></div>
+        <div class="card-body">
+          <div class="result-grid">
+            <div class="result-stat result-stat-primary"><span class="result-num" id="result-total">—</span><span class="result-label">estimated total</span></div>
+            <div class="result-stat"><span class="result-num" id="result-base">—</span><span class="result-label">base fee</span></div>
+            <div class="result-stat"><span class="result-num" id="result-travel">—</span><span class="result-label">travel</span></div>
+          </div>
+          <ul id="result-breakdown" class="breakdown-list"></ul>
+          <p class="result-note" id="result-note"></p>
+        </div>
+      </div>
+
+      <div class="cta-block hidden" id="cta-card">
+        <div class="cta-inner">
+          <div class="cta-text"><h3 class="cta-title">Book your assessment</h3><p class="cta-sub">We’ll confirm a time and the final scope — we’ll pre-fill the details.</p></div>
+          <a id="quote-link" href="/" class="btn btn-gold btn-lg">Book / Get a Quote</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">How It Works</h2></div>
+        <div class="card-body">
+          <p class="prose">We look up your address to measure the distance from St. Paul, then add a base assessment fee, a per-item charge for each system you select, and travel beyond a free local radius. It’s an instant estimate — your final price is confirmed when we schedule. Your address is used only to calculate distance.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">Estimates only. Final pricing and scheduling are confirmed by our team.</p>
+    </div>
+  </footer>
+
+  <script src="/js/calculators/pricing.js"></script>
+  <script src="/js/calculators/property-assessment-math.js"></script>
+  <script src="/js/property-assessment-calculator.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Request a custom quote from Fishbeck Innovations — describe your project, attach files, and we'll get back to you with a price. Twin Cities, MN." />
+  <meta name="theme-color" content="#1B3A5C" />
+  <meta property="og:title" content="Request a Custom Quote | Fishbeck Innovations" />
+  <meta property="og:description" content="Send us your project details and files and we'll reply with a custom quote." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://estimate.fishbeckinnovations.com/tools/custom-quote" />
+  <title>Request a Custom Quote | Fishbeck Innovations</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "ContactPage", "name": "Request a Custom Quote", "url": "https://estimate.fishbeckinnovations.com/tools/custom-quote", "provider": { "@type": "LocalBusiness", "name": "Fishbeck Innovations LLC", "areaServed": "Twin Cities, Minnesota", "url": "https://fishbeckinnovations.com" } }
+  </script>
+</head>
+<body>
+  <a href="#form-card" class="skip-link">Skip to form</a>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a class="logo" href="/" aria-label="Fishbeck Innovations home">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text"><span class="logo-name">Fishbeck Innovations</span><span class="logo-tagline">Construction &amp; Property Maintenance</span></div>
+        </a>
+        <nav class="header-nav" aria-label="Primary"><a href="/" class="nav-link">Estimator</a><a href="/tools" class="nav-link nav-link-active">Tools</a></nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">Request a Custom Quote</h1>
+      <p class="hero-sub">Got something specific? Tell us about your project and we’ll reply with a custom price.</p>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="container container-narrow">
+      <div class="card" id="form-card">
+        <div class="card-header"><h2 class="card-title">Your Project</h2><p class="card-hint">The more detail, the faster we can quote it.</p></div>
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="name-input">Name</label><input class="form-input" id="name-input" type="text" autocomplete="name" /></div>
+            <div class="form-field"><label class="form-label" for="email-input">Email</label><input class="form-input" id="email-input" type="email" autocomplete="email" /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="phone-input">Phone <span class="label-optional">(optional)</span></label><input class="form-input" id="phone-input" type="tel" autocomplete="tel" /></div>
+            <div class="form-field"><label class="form-label" for="type-select">Project type</label>
+              <select class="form-input" id="type-select">
+                <option value="Remodel">Remodel</option>
+                <option value="Repair">Repair</option>
+                <option value="Unit turn">Unit turn</option>
+                <option value="Exterior / landscaping">Exterior / landscaping</option>
+                <option value="Property maintenance">Property maintenance</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="desc-input">Describe your project</label><textarea class="form-input" id="desc-input" rows="5" placeholder="What do you need done? Include location, size, materials, and timeline if you know them."></textarea></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label class="form-label" for="files-input">Files / links <span class="label-optional">(optional)</span></label><input class="form-input" id="files-input" type="text" placeholder="Paste links, or note that you'll attach files in your reply" /><p class="field-hint">After you send, you can reply to our email with photos, plans, or PDFs attached.</p></div>
+          </div>
+          <p id="form-error" class="calc-error hidden"></p>
+          <div id="fallback-wrap" class="hidden" style="margin-bottom:1rem;">
+            <a id="fallback-link" href="mailto:jimmy@fishbeckinnovations.com" class="btn btn-secondary">Email Us Directly</a>
+          </div>
+          <button id="submit-btn" class="btn btn-primary" type="button"><span class="btn-text">Send My Request</span></button>
+        </div>
+      </div>
+
+      <div class="card hidden" id="success-card" aria-live="polite">
+        <div class="card-header"><h2 class="card-title">Request sent ✓</h2></div>
+        <div class="card-body">
+          <p class="prose">Thanks — we’ve got your project details and we’ll be in touch with a custom quote. <strong>Have files?</strong> Just reply to our email with your photos, plans, or PDFs attached and they’ll reach the right person.</p>
+          <a href="/tools" class="btn btn-secondary btn-sm">Back to Tools</a>
+        </div>
+      </div>
+
+      <div class="card" id="how-card">
+        <div class="card-header"><h2 class="card-title">Prefer the instant estimator?</h2></div>
+        <div class="card-body">
+          <p class="prose">For common projects, our <a href="/" class="footer-link" style="color:#1B3A5C;font-weight:600;">AI estimator</a> gives you a detailed cost range in seconds. Use this custom form when your project is unusual, large, or needs files reviewed.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">&copy; <span id="footer-year">2025</span> Fishbeck Innovations LLC &mdash; Twin Cities, MN &mdash; <a href="mailto:jimmy@fishbeckinnovations.com" class="footer-link">jimmy@fishbeckinnovations.com</a></p>
+      <p class="footer-disclaimer">We typically reply within one business day.</p>
+    </div>
+  </footer>
+
+  <script src="/js/custom-quote-calculator.js"></script>
+</body>
+</html>
