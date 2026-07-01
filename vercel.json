@@ -51,6 +51,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/estimate", "destination": "/index.html" }
+    { "source": "/estimate", "destination": "/index.html" },
+    { "source": "/instant-estimate", "destination": "/instant-estimate.html" }
   ]
 }
