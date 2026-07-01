@@ -1,9 +1,8 @@
 {
   "version": 2,
   "functions": {
-    "api/estimate.js": {
-      "maxDuration": 30
-    }
+    "api/estimate.js": { "maxDuration": 30 },
+    "api/work-order.js": { "maxDuration": 30 }
   },
   "headers": [
     {
@@ -25,6 +24,7 @@
     }
   ],
   "rewrites": [
-    { "source": "/estimate", "destination": "/index.html" }
+    { "source": "/estimate", "destination": "/index.html" },
+    { "source": "/work-order", "destination": "/work-order.html" }
   ]
 }
