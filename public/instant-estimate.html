@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Instant price calculator for Twin Cities renovation, rental turn, and repair projects. Pick your work items and get a cost range in seconds — Fishbeck Innovations." />
+<meta name="theme-color" content="#1B3A5C" />
+<meta property="og:title" content="Instant Price Calculator — Fishbeck Innovations" />
+<meta property="og:description" content="Pick your work items and get an instant Twin Cities cost range." />
+<meta property="og:type" content="website" />
+<title>Instant Price Calculator — Fishbeck Innovations</title>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+<link rel="manifest" href="/manifest.json" />
+<style>
+  :root{
+    --navy:#1B3A5C; --navy-d:#132a43; --gold:#C8963E; --gold-d:#a97c2c;
+    --bg:#f4f6f8; --card:#ffffff; --line:#e2e8f0; --text:#1f2937; --muted:#64748b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+  a{color:var(--navy)}
+  header{background:linear-gradient(135deg,var(--navy),var(--navy-d));color:#fff;padding:20px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:44px;height:44px;border-radius:9px;background:var(--gold);color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;letter-spacing:-1px}
+  header h1{margin:0;font-size:20px;font-weight:700}
+  header p{margin:2px 0 0;font-size:13px;opacity:.85}
+  .backlink{display:inline-block;margin-top:12px;color:var(--gold);font-size:13px;font-weight:600;text-decoration:none}
+  .backlink:hover{text-decoration:underline}
+  main{padding:24px 0 60px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  h2{font-size:15px;margin:0 0 14px;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+  label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  select,input{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--text)}
+  select:focus,input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,58,92,.12)}
+  .row{display:grid;grid-template-columns:1fr 120px 120px;gap:12px;align-items:end}
+  @media(max-width:560px){.row{grid-template-columns:1fr}}
+  .btn{cursor:pointer;border:none;border-radius:8px;font-size:14px;font-weight:600;padding:11px 16px;transition:.15s;width:100%}
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover{background:var(--gold-d);color:#fff}
+  .btn-navy{background:var(--navy);color:#fff;width:auto}
+  .btn-navy:hover{background:var(--navy-d)}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line);width:auto}
+  .btn-ghost:hover{border-color:var(--navy);color:var(--navy)}
+  .unit-hint{font-size:12px;color:var(--muted);margin-top:6px;min-height:16px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--line);padding:8px 6px}
+  td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .sub{color:var(--muted);font-size:12px}
+  .rm{cursor:pointer;color:#b91c1c;background:none;border:none;font-size:16px;line-height:1;padding:2px 6px}
+  .empty{color:var(--muted);text-align:center;padding:26px 0;font-size:14px}
+  .totrow td{border-top:2px solid var(--navy);border-bottom:none;font-weight:700;font-size:16px;color:var(--navy);padding-top:14px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .opts{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;color:var(--muted)}
+  .opts input{width:auto}
+  .opts select{width:auto;padding:6px 8px}
+  .disclaimer{font-size:12px;color:var(--muted);background:#fffdf6;border:1px solid #f0e3c4;border-radius:8px;padding:12px 14px;margin-top:14px}
+  .aihint{font-size:13px;color:var(--muted);text-align:center;margin-top:4px}
+  footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 0 40px}
+  footer a{color:var(--navy);font-weight:600;text-decoration:none}
+  @media print{header{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.no-print{display:none!important}.card{box-shadow:none;border:1px solid #ccc}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">FI</div>
+      <div>
+        <h1>Instant Price Calculator</h1>
+        <p>Fishbeck Innovations &middot; Twin Cities Construction &amp; Property Maintenance</p>
+      </div>
+    </div>
+    <a class="backlink" href="/">&larr; Back to the AI estimator</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="card no-print">
+    <h2>Build your estimate</h2>
+    <div class="row">
+      <div>
+        <label for="svc">Service / work item</label>
+        <select id="svc"></select>
+        <div class="unit-hint" id="hint"></div>
+      </div>
+      <div>
+        <label for="qty">Quantity</label>
+        <input id="qty" type="number" min="0" step="0.01" value="1" />
+      </div>
+      <div>
+        <button class="btn btn-gold" id="addBtn" type="button">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Your estimate</h2>
+    <table>
+      <thead>
+        <tr><th>Item</th><th class="num">Qty</th><th class="num">Low</th><th class="num">High</th><th class="no-print"></th></tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="5" class="empty">No items yet — add work above to see a cost range.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="opts no-print">
+      <label style="margin:0"><input type="checkbox" id="conting" /> Add renovation contingency</label>
+      <select id="cpct">
+        <option value="0.05">5%</option>
+        <option value="0.08">8%</option>
+      </select>
+    </div>
+
+    <div class="disclaimer">
+      Ranges reflect 2024 Twin Cities market rates (material + labor) and are for
+      preliminary budgeting. Final quote confirmed after an on-site scope review.
+    </div>
+
+    <div class="toolbar no-print">
+      <button class="btn btn-navy" id="printBtn" type="button">Print / Save PDF</button>
+      <button class="btn btn-ghost" id="copyBtn" type="button">Copy</button>
+      <button class="btn btn-ghost" id="clearBtn" type="button">Clear</button>
+    </div>
+  </div>
+
+  <p class="aihint no-print">
+    Not sure how to break down your project?
+    <a href="/">Describe it in plain English &rarr;</a> and let our AI estimator scope it for you.
+  </p>
+
+  <footer>
+    Fishbeck Innovations LLC &middot; Twin Cities, MN &middot;
+    <a href="mailto:Jimmy@fishbeckinnovations.com">Jimmy@fishbeckinnovations.com</a>
+  </footer>
+</main>
+
+<script src="/js/calculator.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+id,category,item,unit,price_low,price_high,fishbeck_scope,source,last_updated,national_avg
+SW-01,Site Work,Site clearing,per acre,3500,8500,out-of-scope,2024 Construction Bid Package,2026-07-01,5200
+SW-02,Site Work,Excavation (bulk),per cubic yard,8,18,out-of-scope,2024 Construction Bid Package,2026-07-01,12
+SW-03,Site Work,Grading & compaction,per sq ft,0.75,2.25,out-of-scope,2024 Construction Bid Package,2026-07-01,1.35
+SW-04,Site Work,Utility trenching,per linear foot,12,28,out-of-scope,2024 Construction Bid Package,2026-07-01,18
+CM-01,Concrete & Masonry,Foundation concrete,per cubic yard,185,285,sub,2024 Construction Bid Package,2026-07-01,225
+CM-02,Concrete & Masonry,Flatwork (4" slab),per sq ft,6.50,12.50,in-scope,2024 Construction Bid Package,2026-07-01,8.75
+CM-03,Concrete & Masonry,CMU block wall,per sq ft,12,22,sub,2024 Construction Bid Package,2026-07-01,16
+CM-04,Concrete & Masonry,Brick veneer,per sq ft,18,35,sub,2024 Construction Bid Package,2026-07-01,24
+SF-01,Structural & Framing,Structural steel,per pound,2.85,4.50,out-of-scope,2024 Construction Bid Package,2026-07-01,3.45
+SF-02,Structural & Framing,Wood framing (walls),per sq ft,8,16,in-scope,2024 Construction Bid Package,2026-07-01,11
+SF-03,Structural & Framing,Floor joists (wood),per sq ft,6,12,in-scope,2024 Construction Bid Package,2026-07-01,8.50
+SF-04,Structural & Framing,Roof trusses,per sq ft,4.50,8.50,in-scope,2024 Construction Bid Package,2026-07-01,6
+RF-01,Roofing,Asphalt shingles,per sq ft,4.50,8.50,in-scope,2024 Construction Bid Package,2026-07-01,6
+RF-02,Roofing,Metal roofing,per sq ft,8,18,in-scope,2024 Construction Bid Package,2026-07-01,12
+RF-03,Roofing,TPO membrane,per sq ft,6.50,12,in-scope,2024 Construction Bid Package,2026-07-01,8.75
+RF-04,Roofing,Built-up roofing,per sq ft,7,14,in-scope,2024 Construction Bid Package,2026-07-01,9.50
+EL-01,Electrical,Rough-in wiring,per sq ft,3.50,7.50,out-of-scope,2024 Construction Bid Package,2026-07-01,5
+EL-02,Electrical,Panel installation,per panel,1200,2800,out-of-scope,2024 Construction Bid Package,2026-07-01,1850
+EL-03,Electrical,Outlet installation,per outlet,125,275,out-of-scope,2024 Construction Bid Package,2026-07-01,185
+EL-04,Electrical,Light fixture install,per fixture,85,350,in-scope,2024 Construction Bid Package,2026-07-01,165
+PH-01,Plumbing & HVAC,Plumbing rough-in,per sq ft,4,9,out-of-scope,2024 Construction Bid Package,2026-07-01,6
+PH-02,Plumbing & HVAC,Fixture installation,per fixture,285,650,out-of-scope,2024 Construction Bid Package,2026-07-01,425
+PH-03,Plumbing & HVAC,HVAC ductwork,per sq ft,6.50,14,out-of-scope,2024 Construction Bid Package,2026-07-01,9.25
+PH-04,Plumbing & HVAC,HVAC unit install,per ton,2200,4500,out-of-scope,2024 Construction Bid Package,2026-07-01,3100
+ID-01,Insulation & Drywall,Batt insulation,per sq ft,1.25,2.75,in-scope,2024 Construction Bid Package,2026-07-01,1.85
+ID-02,Insulation & Drywall,Spray foam insulation,per sq ft,2.50,5.50,in-scope,2024 Construction Bid Package,2026-07-01,3.75
+ID-03,Insulation & Drywall,Drywall installation,per sq ft,2.25,4.25,in-scope,2024 Construction Bid Package,2026-07-01,3
+ID-04,Insulation & Drywall,Drywall finishing,per sq ft,1.75,3.50,in-scope,2024 Construction Bid Package,2026-07-01,2.45
+FL-01,Flooring,Hardwood flooring,per sq ft,8,18,in-scope,2024 Construction Bid Package,2026-07-01,12
+FL-02,Flooring,Luxury vinyl plank,per sq ft,4.50,9,in-scope,2024 Construction Bid Package,2026-07-01,6.25
+FL-03,Flooring,Ceramic tile,per sq ft,6,15,in-scope,2024 Construction Bid Package,2026-07-01,9.50
+FL-04,Flooring,Carpet installation,per sq ft,3.50,8.50,in-scope,2024 Construction Bid Package,2026-07-01,5.75
+CB-01,Cabinetry & Millwork,Stock kitchen cabinets,per linear foot,185,425,in-scope,2024 Construction Bid Package,2026-07-01,285
+CB-02,Cabinetry & Millwork,Custom kitchen cabinets,per linear foot,450,1200,in-scope,2024 Construction Bid Package,2026-07-01,725
+CB-03,Cabinetry & Millwork,Countertops (quartz),per sq ft,65,125,in-scope,2024 Construction Bid Package,2026-07-01,85
+CB-04,Cabinetry & Millwork,Interior trim,per linear foot,8,25,in-scope,2024 Construction Bid Package,2026-07-01,14
+PT-01,Painting,Interior paint (walls),per sq ft,1.85,3.50,in-scope,2024 Construction Bid Package,2026-07-01,2.45
+PT-02,Painting,Exterior paint,per sq ft,2.25,4.75,in-scope,2024 Construction Bid Package,2026-07-01,3.25
+PT-03,Painting,Trim painting,per linear foot,2.50,6,in-scope,2024 Construction Bid Package,2026-07-01,3.85
+PT-04,Painting,Staining (decks/siding),per sq ft,1.95,4.25,in-scope,2024 Construction Bid Package,2026-07-01,2.85

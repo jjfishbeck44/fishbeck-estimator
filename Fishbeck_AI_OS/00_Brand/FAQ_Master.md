@@ -25,7 +25,10 @@ budget. The final quote comes after we confirm scope and conditions.
 [Add typical lead time.]
 
 ### Are you licensed and insured?
-[Add license number and insurance details.]
+> INTERNAL: Fishbeck is **not currently licensed or insured**. Do not publish a
+> claim of being licensed/insured. Until that changes, either omit this question
+> from the public FAQ or answer factually about scope of work performed. See the
+> recommendation in `Company_Overview.md`.
 
 ### Do you offer free assessments or estimates?
 [Confirm policy.]

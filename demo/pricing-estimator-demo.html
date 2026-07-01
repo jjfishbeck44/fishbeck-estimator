@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fishbeck Innovations — Instant Estimate Demo</title>
+<style>
+  :root{
+    --navy:#1B3A5C; --navy-d:#132a43; --gold:#C8963E; --gold-d:#a97c2c;
+    --bg:#f4f6f8; --card:#ffffff; --line:#e2e8f0; --text:#1f2937; --muted:#64748b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+  header{background:linear-gradient(135deg,var(--navy),var(--navy-d));color:#fff;padding:22px 20px}
+  .wrap{max-width:860px;margin:0 auto;padding:0 16px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{width:44px;height:44px;border-radius:9px;background:var(--gold);color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:20px;letter-spacing:-1px}
+  header h1{margin:0;font-size:20px;font-weight:700}
+  header p{margin:2px 0 0;font-size:13px;opacity:.85}
+  .demo-badge{display:inline-block;margin-top:10px;background:rgba(200,150,62,.2);border:1px solid var(--gold);color:var(--gold);font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;letter-spacing:.5px}
+  main{padding:24px 0 60px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  h2{font-size:15px;margin:0 0 14px;color:var(--navy);text-transform:uppercase;letter-spacing:.5px}
+  label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  select,input{width:100%;padding:10px 11px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff;color:var(--text)}
+  select:focus,input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(27,58,92,.12)}
+  .row{display:grid;grid-template-columns:1fr 120px 120px;gap:12px;align-items:end}
+  @media(max-width:560px){.row{grid-template-columns:1fr}}
+  .btn{cursor:pointer;border:none;border-radius:8px;font-size:14px;font-weight:600;padding:11px 16px;transition:.15s}
+  .btn-gold{background:var(--gold);color:var(--navy)}
+  .btn-gold:hover{background:var(--gold-d);color:#fff}
+  .btn-navy{background:var(--navy);color:#fff}
+  .btn-navy:hover{background:var(--navy-d)}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--navy);color:var(--navy)}
+  .unit-hint{font-size:12px;color:var(--muted);margin-top:6px;min-height:16px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--line);padding:8px 6px}
+  td{padding:10px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.num{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .rm{cursor:pointer;color:#b91c1c;background:none;border:none;font-size:16px;line-height:1;padding:2px 6px}
+  .empty{color:var(--muted);text-align:center;padding:26px 0;font-size:14px}
+  .totrow td{border-top:2px solid var(--navy);border-bottom:none;font-weight:700;font-size:16px;color:var(--navy);padding-top:14px}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+  .opts{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:13px;color:var(--muted)}
+  .opts input{width:auto}
+  .disclaimer{font-size:12px;color:var(--muted);background:#fffdf6;border:1px solid #f0e3c4;border-radius:8px;padding:12px 14px;margin-top:14px}
+  footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 0 40px}
+  footer a{color:var(--navy);font-weight:600;text-decoration:none}
+  @media print{header{background:var(--navy)!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}.no-print{display:none!important}.card{box-shadow:none;border:1px solid #ccc}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="brand">
+      <div class="logo">FI</div>
+      <div>
+        <h1>Fishbeck Innovations</h1>
+        <p>Instant Estimate &middot; Twin Cities Construction &amp; Property Maintenance</p>
+      </div>
+    </div>
+    <span class="demo-badge">DEMO &middot; 2024 MARKET RATES</span>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="card no-print">
+    <h2>Build your estimate</h2>
+    <div class="row">
+      <div>
+        <label for="svc">Service / work item</label>
+        <select id="svc"></select>
+        <div class="unit-hint" id="hint"></div>
+      </div>
+      <div>
+        <label for="qty">Quantity</label>
+        <input id="qty" type="number" min="0" step="0.01" value="1" />
+      </div>
+      <div>
+        <button class="btn btn-gold" style="width:100%" onclick="addItem()">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Your estimate</h2>
+    <table id="tbl">
+      <thead>
+        <tr><th>Item</th><th class="num">Qty</th><th class="num">Low</th><th class="num">High</th><th class="no-print"></th></tr>
+      </thead>
+      <tbody id="rows">
+        <tr><td colspan="5" class="empty">No items yet — add work above to see a cost range.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="opts no-print">
+      <label style="margin:0"><input type="checkbox" id="conting" onchange="render()" /> Add renovation contingency</label>
+      <select id="cpct" style="width:auto;padding:6px 8px" onchange="render()">
+        <option value="0.05">5%</option>
+        <option value="0.08">8%</option>
+      </select>
+    </div>
+
+    <div class="disclaimer">
+      Ranges reflect 2024 Twin Cities market rates (material + labor) and are for
+      preliminary budgeting. Final quote confirmed after an on-site scope review.
+    </div>
+
+    <div class="toolbar no-print">
+      <button class="btn btn-navy" onclick="window.print()">Print / Save PDF</button>
+      <button class="btn btn-ghost" onclick="copyEst()">Copy</button>
+      <button class="btn btn-ghost" onclick="clearAll()">Clear</button>
+    </div>
+  </div>
+
+  <footer>
+    Fishbeck Innovations LLC &middot; Twin Cities, MN<br/>
+    <a href="tel:6512495138">651-249-5138</a> &middot;
+    <a href="mailto:Jimmy@fishbeckinnovations.com">Jimmy@fishbeckinnovations.com</a>
+  </footer>
+</main>
+
+<script>
+/* In-scope Fishbeck pricing (2024 baseline). group | name | unit | low | high */
+var PRICING = [
+  ["Turns","Unit turn — standard (paint, clean, patch, hardware)","per unit",800,1500],
+  ["Turns","Unit turn — heavy (flooring, full repaint, appliances)","per unit",1500,3500],
+  ["Bathroom","Bathroom remodel — cosmetic","per bath",2500,5000],
+  ["Bathroom","Bathroom remodel — gut & rebuild","per bath",6000,14000],
+  ["Kitchen","Kitchen remodel — cosmetic","per kitchen",3000,7000],
+  ["Kitchen","Kitchen remodel — gut & rebuild","per kitchen",8000,25000],
+  ["Kitchen","Stock cabinets","per linear ft",185,425],
+  ["Kitchen","Custom cabinets","per linear ft",450,1200],
+  ["Kitchen","Quartz countertops","per sq ft",65,125],
+  ["Flooring","LVP (luxury vinyl plank) install","per sq ft",4.5,9],
+  ["Flooring","Hardwood flooring","per sq ft",8,18],
+  ["Flooring","Ceramic tile","per sq ft",6,15],
+  ["Flooring","Carpet install","per sq ft",3.5,8.5],
+  ["Flooring","Carpet removal & disposal","per sq ft",1,2],
+  ["Painting","Interior painting","per room",300,700],
+  ["Painting","Interior paint","per sq ft wall",1.85,3.5],
+  ["Painting","Exterior painting","per side of house",500,1500],
+  ["Painting","Exterior paint","per sq ft",2.25,4.75],
+  ["Painting","Trim painting","per linear ft",2.5,6],
+  ["Painting","Deck / siding staining","per sq ft",1.95,4.25],
+  ["Drywall & Insulation","Drywall install","per sq ft",2.25,4.25],
+  ["Drywall & Insulation","Drywall finishing","per sq ft",1.75,3.5],
+  ["Drywall & Insulation","Drywall patch (small)","per patch",75,200],
+  ["Drywall & Insulation","Batt insulation","per sq ft",1.25,2.75],
+  ["Drywall & Insulation","Spray foam insulation","per sq ft",2.5,5.5],
+  ["Drywall & Insulation","Popcorn ceiling removal","per sq ft",2,4],
+  ["Roofing","Roof inspection","flat",150,300],
+  ["Roofing","Roof repair — minor","flat",500,2500],
+  ["Roofing","Asphalt shingle roofing","per sq ft",4.5,8.5],
+  ["Roofing","Metal roofing","per sq ft",8,18],
+  ["Framing & Concrete","Wood framing (walls)","per sq ft",8,16],
+  ["Framing & Concrete","Floor joists (wood)","per sq ft",6,12],
+  ["Framing & Concrete","Roof trusses","per sq ft",4.5,8.5],
+  ["Framing & Concrete","Concrete flatwork (4\" slab)","per sq ft",6.5,12.5],
+  ["Demolition","Interior demolition","per room",500,2000],
+  ["Demolition","Full unit demolition","per unit",3000,8000],
+  ["Fixtures","Cabinet hardware replacement","per unit",100,300],
+  ["Fixtures","Light fixture replacement","per fixture",75,200],
+  ["Fixtures","Interior door replacement","per door",200,500],
+  ["Fixtures","Appliance installation","per appliance",100,250],
+  ["Exterior & Grounds","Power washing","flat",200,500],
+  ["Exterior & Grounds","Deck repair / staining","flat",500,2000],
+  ["Exterior & Grounds","Gutter cleaning","flat",100,250],
+  ["Exterior & Grounds","Fence repair","per section",200,600],
+  ["General","General maintenance visit","per visit",150,400],
+  ["General","Junk removal / cleanout","per unit",300,800]
+];
+
+var items = [];
+
+/* build grouped dropdown */
+(function(){
+  var sel=document.getElementById("svc"), groups={};
+  PRICING.forEach(function(p,i){ (groups[p[0]]=groups[p[0]]||[]).push(i); });
+  Object.keys(groups).forEach(function(g){
+    var og=document.createElement("optgroup"); og.label=g;
+    groups[g].forEach(function(i){
+      var o=document.createElement("option"); o.value=i;
+      o.textContent=PRICING[i][1]+" ("+PRICING[i][2]+")";
+      og.appendChild(o);
+    });
+    sel.appendChild(og);
+  });
+  sel.onchange=updateHint; updateHint();
+})();
+
+function money(n){ return "$"+Math.round(n).toLocaleString("en-US"); }
+function updateHint(){
+  var p=PRICING[document.getElementById("svc").value];
+  document.getElementById("hint").textContent = money(p[3])+" – "+money(p[4])+" "+p[2];
+}
+function addItem(){
+  var idx=+document.getElementById("svc").value;
+  var qty=parseFloat(document.getElementById("qty").value)||0;
+  if(qty<=0){ return; }
+  items.push({idx:idx, qty:qty});
+  document.getElementById("qty").value=1;
+  render();
+}
+function removeItem(i){ items.splice(i,1); render(); }
+function clearAll(){ items=[]; render(); }
+
+function render(){
+  var rows=document.getElementById("rows");
+  if(!items.length){
+    rows.innerHTML='<tr><td colspan="5" class="empty">No items yet — add work above to see a cost range.</td></tr>';
+    return;
+  }
+  var lowT=0, highT=0, html="";
+  items.forEach(function(it,i){
+    var p=PRICING[it.idx], lo=p[3]*it.qty, hi=p[4]*it.qty;
+    lowT+=lo; highT+=hi;
+    html+='<tr><td>'+p[1]+'<br><span style="color:#64748b;font-size:12px">'+money(p[3])+'–'+money(p[4])+' '+p[2]+'</span></td>'
+        +'<td class="num">'+it.qty+'</td><td class="num">'+money(lo)+'</td><td class="num">'+money(hi)+'</td>'
+        +'<td class="no-print"><button class="rm" title="Remove" onclick="removeItem('+i+')">&times;</button></td></tr>';
+  });
+  if(document.getElementById("conting").checked){
+    var c=parseFloat(document.getElementById("cpct").value);
+    var cl=lowT*c, ch=highT*c;
+    html+='<tr><td>Contingency ('+(c*100)+'%)</td><td class="num"></td><td class="num">'+money(cl)+'</td><td class="num">'+money(ch)+'</td><td class="no-print"></td></tr>';
+    lowT+=cl; highT+=ch;
+  }
+  html+='<tr class="totrow"><td>Estimated total range</td><td class="num"></td><td class="num">'+money(lowT)+'</td><td class="num">'+money(highT)+'</td><td class="no-print"></td></tr>';
+  rows.innerHTML=html;
+}
+
+function copyEst(){
+  if(!items.length){ return; }
+  var lines=["Fishbeck Innovations — Estimate (demo)",""], lowT=0, highT=0;
+  items.forEach(function(it){
+    var p=PRICING[it.idx], lo=p[3]*it.qty, hi=p[4]*it.qty; lowT+=lo; highT+=hi;
+    lines.push(p[1]+" x"+it.qty+": "+money(lo)+"–"+money(hi));
+  });
+  if(document.getElementById("conting").checked){
+    var c=parseFloat(document.getElementById("cpct").value);
+    lines.push("Contingency ("+(c*100)+"%): "+money(lowT*c)+"–"+money(highT*c));
+    lowT+=lowT*c; highT+=highT*c;
+  }
+  lines.push("","TOTAL: "+money(lowT)+"–"+money(highT));
+  lines.push("","Fishbeck Innovations LLC · 651-249-5138 · Jimmy@fishbeckinnovations.com");
+  navigator.clipboard.writeText(lines.join("\n")).then(function(){
+    var b=event.target; var t=b.textContent; b.textContent="Copied!"; setTimeout(function(){b.textContent=t;},1400);
+  });
+}
+</script>
+</body>
+</html>
