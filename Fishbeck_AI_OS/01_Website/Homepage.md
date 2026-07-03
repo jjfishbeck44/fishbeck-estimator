@@ -17,8 +17,10 @@ up-front pricing so you always know the scope and the cost.
 **CTA:** Get My Estimate
 
 ## Trust bar
-Serving Saint Paul, Minneapolis & the Twin Cities • Licensed & insured [confirm] •
+Serving Saint Paul, Minneapolis & the Twin Cities • Transparent up-front pricing •
 AI-powered estimating
+<!-- Do NOT add "Licensed & insured" — Fishbeck is not currently licensed/insured. -->
+
 
 ## What we do (section)
 Brief intro + links to the eight services. Pull descriptions from

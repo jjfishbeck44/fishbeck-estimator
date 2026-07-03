@@ -19,5 +19,6 @@ Material procurement • Investor rehab consulting • Rental turnovers • Demo
 Saint Paul, Minneapolis & the greater Twin Cities metro.
 
 ## Details
-- Licensed & insured: [confirm]
-- Contact: [phone] • [email] • [website]
+- Contact: 651-249-5138 • Jimmy@fishbeckinnovations.com • fishbeckinnovations.com
+<!-- Not currently licensed/insured — do not list a licensed/insured claim here. -->
+

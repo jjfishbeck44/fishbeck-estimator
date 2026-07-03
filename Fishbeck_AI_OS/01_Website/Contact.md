@@ -9,9 +9,9 @@
 Let's talk about your project.
 
 ## Contact details
-- **Phone:** [add]
-- **Email:** [add]
-- **Service area:** Saint Paul, Minneapolis & the greater Twin Cities metro
+- **Phone:** 651-249-5138
+- **Email:** Jimmy@fishbeckinnovations.com
+- **Service area:** Twin Cities metro (Saint Paul, Minneapolis & surrounding)
 - **Hours:** [add]
 
 ## Primary CTA

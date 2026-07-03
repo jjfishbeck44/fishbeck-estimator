@@ -10,10 +10,12 @@
 - **Headquarters / base:** Twin Cities, Minnesota
 - **Primary service area:** Saint Paul, Minneapolis, and the greater Twin Cities metro
 - **Owner / lead contact:** Jimmy ("Jimmy at Fishbeck")
-- **Website:** [add URL]
-- **Phone:** [add phone]
-- **Email:** [add email]
+- **Website:** https://fishbeckinnovations.com [confirm exact URL]
+- **Phone:** 651-249-5138
+- **Email:** Jimmy@fishbeckinnovations.com
 - **Founded:** [add year]
+- **Licensed / insured:** Not currently licensed or insured — do **not** claim
+  licensed/insured in any content (see note below)
 
 ## What we do
 
