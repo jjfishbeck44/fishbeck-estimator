@@ -1,5 +1,11 @@
 # Estimating
 
+> **STATUS: SHIPPED** — live at `/estimating` (`public/estimating.html`). Audience:
+> mix of all (homeowners, investors, property managers). Ties into the AI estimator
+> (`/`) and the instant price calculator (`/instant-estimate`). Backed by 2024
+> Twin Cities pricing (`09_Knowledge_Base/Pricing/Market_Rates_2024`). Keep this
+> file and the live page in sync when either changes.
+
 ## Meta
 - **Title tag:** Construction Estimating in the Twin Cities | Fishbeck Innovations
 - **Meta description:** Fast, transparent construction and rehab estimates backed by
