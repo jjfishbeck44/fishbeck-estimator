@@ -1,6 +1,6 @@
 /* =============================================
    Fishbeck Innovations — Project Estimator
-   Brand colors: navy #1B3A5C, gold #C8963E
+   Brand colors: navy #E31E24, gold #E31E24
    ============================================= */
 
 /* --- Reset & Base --- */
@@ -14,7 +14,7 @@ html { font-size: 16px; scroll-behavior: smooth; }
   top: -100%;
   left: 1rem;
   padding: 0.5rem 1rem;
-  background: #1B3A5C;
+  background: #E31E24;
   color: #fff;
   border-radius: 0 0 6px 6px;
   z-index: 200;
@@ -52,13 +52,13 @@ body {
 
 /* --- Header --- */
 .site-header {
-  background: #1B3A5C;
+  background: #E31E24;
   color: #fff;
   padding: 1rem 0;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 12px rgba(27,58,92,0.18);
+  box-shadow: 0 2px 12px rgba(227,30,36,0.18);
 }
 
 .header-inner {
@@ -73,13 +73,15 @@ body {
 
 .logo-mark {
   width: 42px; height: 42px;
-  background: #C8963E;
+  background: transparent;
   color: #fff;
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 1rem;
   letter-spacing: 0.04em;
   flex-shrink: 0;
+  max-width: 200px;
+  padding: 0;
 }
 
 .logo-text { display: flex; flex-direction: column; }
@@ -102,7 +104,7 @@ body {
 
 /* --- Hero --- */
 .hero {
-  background: linear-gradient(135deg, #1B3A5C 0%, #254D7A 100%);
+  background: linear-gradient(135deg, #E31E24 0%, #C71A1F 100%);
   color: #fff;
   padding: 3.5rem 0 3rem;
   text-align: center;
@@ -140,7 +142,7 @@ body {
 .stat-num {
   font-size: clamp(1.2rem, 2.5vw, 1.5rem);
   font-weight: 700;
-  color: #C8963E;
+  color: #E31E24;
   line-height: 1.1;
 }
 
@@ -179,7 +181,7 @@ body {
 .card-title {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #1B3A5C;
+  color: #E31E24;
   margin-bottom: 0.25rem;
 }
 
@@ -212,7 +214,7 @@ body {
   width: 100%; height: 100%;
   border-radius: 50%;
   border: 4px solid #E5E9EF;
-  border-top-color: #1B3A5C;
+  border-top-color: #E31E24;
   animation: spin 0.85s linear infinite;
 }
 
@@ -221,7 +223,7 @@ body {
 .loading-text {
   font-size: 1rem;
   font-weight: 600;
-  color: #1B3A5C;
+  color: #E31E24;
 }
 
 .loading-sub { font-size: 0.85rem; color: #6B7280; }
@@ -269,7 +271,7 @@ body {
 
 .icon-info {
   width: 24px; height: 24px;
-  color: #C8963E;
+  color: #E31E24;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -338,8 +340,8 @@ body {
 
 .project-textarea:focus {
   outline: none;
-  border-color: #1B3A5C;
-  box-shadow: 0 0 0 3px rgba(27,58,92,0.08);
+  border-color: #E31E24;
+  box-shadow: 0 0 0 3px rgba(227,30,36,0.08);
   background: #fff;
 }
 
@@ -384,8 +386,8 @@ body {
 }
 
 .template-chip:hover {
-  background: #1B3A5C;
-  border-color: #1B3A5C;
+  background: #E31E24;
+  border-color: #E31E24;
   color: #fff;
 }
 
@@ -518,7 +520,7 @@ body {
 .history-range {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #1B3A5C;
+  color: #E31E24;
   white-space: nowrap;
 }
 
@@ -548,7 +550,7 @@ body {
 .btn:active { transform: translateY(1px); }
 
 .btn-primary {
-  background: #1B3A5C;
+  background: #E31E24;
   color: #fff;
   width: 100%;
   justify-content: center;
@@ -556,7 +558,7 @@ body {
   font-size: 1rem;
 }
 
-.btn-primary:hover { background: #254D7A; box-shadow: 0 4px 14px rgba(27,58,92,0.2); }
+.btn-primary:hover { background: #C71A1F; box-shadow: 0 4px 14px rgba(227,30,36,0.2); }
 .btn-primary:disabled { background: #9CA3AF; cursor: not-allowed; box-shadow: none; transform: none; }
 
 .btn-shortcut {
@@ -571,7 +573,7 @@ body {
 }
 
 .btn-gold {
-  background: #C8963E;
+  background: #E31E24;
   color: #fff;
 }
 .btn-gold:hover { background: #B07832; box-shadow: 0 4px 14px rgba(200,150,62,0.35); }
@@ -580,8 +582,8 @@ body {
 
 .btn-secondary {
   background: #fff;
-  color: #1B3A5C;
-  border-color: #1B3A5C;
+  color: #E31E24;
+  border-color: #E31E24;
 }
 .btn-secondary:hover { background: #F0F4F8; }
 
@@ -605,7 +607,7 @@ body {
 
 /* --- Estimate banner --- */
 .estimate-banner {
-  background: linear-gradient(135deg, #1B3A5C, #254D7A);
+  background: linear-gradient(135deg, #E31E24, #C71A1F);
   border-radius: 12px;
   margin-bottom: 1.5rem;
   padding: 1.5rem;
@@ -639,7 +641,7 @@ body {
 .banner-range {
   font-size: clamp(1.6rem, 4vw, 2.2rem);
   font-weight: 700;
-  color: #C8963E;
+  color: #E31E24;
   letter-spacing: -0.02em;
   line-height: 1.1;
 }
@@ -691,7 +693,7 @@ body {
 
 .item-range {
   font-weight: 600;
-  color: #1B3A5C;
+  color: #E31E24;
   text-align: right;
   white-space: nowrap;
 }
@@ -705,7 +707,7 @@ body {
 }
 
 .total-label { color: #1A1A2E; }
-.total-range { text-align: right; color: #1B3A5C; font-size: 1.1rem; }
+.total-range { text-align: right; color: #E31E24; font-size: 1.1rem; }
 
 /* --- Project summary --- */
 .project-summary-text {
@@ -808,7 +810,7 @@ body {
 .oos-list li {
   padding: 0.6rem 0.75rem;
   background: #FEF9EC;
-  border-left: 3px solid #C8963E;
+  border-left: 3px solid #E31E24;
   border-radius: 0 6px 6px 0;
   font-size: 0.88rem;
   color: #374151;
@@ -816,7 +818,7 @@ body {
 
 /* --- CTA block --- */
 .cta-block {
-  background: linear-gradient(135deg, #C8963E, #B07832);
+  background: linear-gradient(135deg, #E31E24, #B07832);
   border-radius: 12px;
   padding: 2rem 1.5rem;
   margin-bottom: 1.5rem;
@@ -936,7 +938,7 @@ body {
 
 /* --- Footer --- */
 .site-footer {
-  background: #1B3A5C;
+  background: #E31E24;
   color: rgba(255,255,255,0.6);
   padding: 1.5rem 0;
   text-align: center;
@@ -945,7 +947,7 @@ body {
 
 .footer-text { font-size: 0.82rem; margin-bottom: 0.35rem; }
 .footer-link { color: rgba(255,255,255,0.75); text-decoration: none; }
-.footer-link:hover { color: #C8963E; }
+.footer-link:hover { color: #E31E24; }
 .footer-disclaimer { font-size: 0.75rem; color: rgba(255,255,255,0.4); max-width: 560px; margin: 0 auto; }
 
 /* --- Action buttons (results) --- */

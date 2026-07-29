@@ -3,6 +3,12 @@
   "functions": {
     "api/estimate.js": {
       "maxDuration": 30
+    },
+    "api/travel-distance.js": {
+      "maxDuration": 15
+    },
+    "api/custom-quote.js": {
+      "maxDuration": 15
     }
   },
   "headers": [

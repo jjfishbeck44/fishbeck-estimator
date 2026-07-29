@@ -89,6 +89,7 @@ tests/
   claude.test.js       # Claude wrapper tests (mocked SDK)
   prompt.test.js       # System prompt content validation
   ratelimit.test.js    # Rate limiter tests (fail-open behavior)
+  mulch-math.test.js   # Mulch math unit tests (pure functions, no mocks)
 ```
 
 ## Development Setup
@@ -107,6 +108,8 @@ No build step required. Vercel serves `public/` as static files and `api/` as se
 | `ANTHROPIC_API_KEY` | Anthropic API key for Claude |
 | `UPSTASH_REDIS_REST_URL` | Upstash Redis REST endpoint |
 | `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis auth token |
+| `RESEND_API_KEY` | Resend API key for the custom-quote email (optional; falls back to `mailto:`) |
+| `RESEND_FROM` | Verified sender for custom-quote email (optional; defaults to `onboarding@resend.dev`) |
 
 ## Commands
 
@@ -176,6 +179,48 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Fade-in animation:** Results section slides up with a subtle CSS animation.
 - **Response validation:** `num()` helper safely coerces non-numeric values in cost ranges to prevent `$NaN` display.
 - **Error logging:** API catch block logs `console.error('[estimate]', ...)` for production debugging.
+
+## Calculator Tools
+
+Standalone, client-side construction calculators (mulch, paint, drywall, etc.) live alongside
+the estimator. They are pure static pages — no API, no build step — and follow one repeatable
+template, first established by the **Mulch Calculator**. To add a new tool, clone the pattern:
+
+1. **Math module** — `public/js/calculators/<tool>-math.js`. Pure functions, no DOM. Use the
+   UMD guard from `mulch-math.js` so the file works as a browser global (`window.FCalc.<tool>`)
+   **and** is `require()`-able by Jest. Name and comment all magic numbers/constants.
+2. **Page** — `public/<tool>-calculator.html`. Reuse the header/hero/footer markup and the
+   existing design-system classes (`.card`, `.btn`, `.form-row`/`.form-field`/`.form-input`,
+   `.result-grid`/`.result-stat`, `.cta-block`). Give it a unique `<title>`, meta description,
+   OG tags, a `<link rel="canonical">`, and JSON-LD (`@type: "SoftwareApplication"`). Include a
+   short "How it's calculated" section for SEO.
+3. **UI logic** — `public/js/<tool>-calculator.js`. IIFE + `'use strict'`, mirroring
+   `mulch-calculator.js`: read inputs, call the math module, render results, persist a capped
+   localStorage history (key `fishbeck_<tool>_calcs`, max 10, try/catch wrapped).
+4. **Lead hand-off** — every tool ends with a "Get a Real Quote" CTA whose link is
+   `/?prefill=<encodeURIComponent(projectDescription)>`. `estimator.js` reads the `prefill`
+   query param on load and pre-populates the textarea, turning calculator traffic into leads.
+5. **Wire it up** — add the tool to the `tools.html` grid, `sitemap.xml`, and a clean-URL
+   rewrite in `vercel.json` (e.g. `/tools/<tool>-calculator` → `/<tool>-calculator.html`).
+6. **Test** — add `tests/<tool>-math.test.js` asserting the math (Jest node env, no DOM/mocks).
+
+**Dollar-based tools** (unit-turn, snow, repair-vs-replace, fix-n-flip, DIY-vs-hire,
+project-schedule, tool-rental, 3D-print) read all rates from a single editable file,
+`public/js/calculators/pricing.js` (UMD: `window.FCalc.pricing` + CommonJS). Their math
+modules take `pricing` as a UMD dependency, so the HTML must load `pricing.js` **before** the
+tool's math module. To change pricing, edit only `pricing.js` — every calculator updates.
+The 3D-print tool is a collect-and-email request (builds a `mailto:` to Jimmy).
+
+**Backend-backed tools** add two serverless endpoints:
+- **Property assessment** (`/tools/property-assessment-calculator`) → `POST /api/travel-distance`
+  geocodes the address via OpenStreetMap Nominatim (`lib/geocode.js`, no API key) and returns
+  road-adjusted miles from St. Paul. `property-assessment-math.js` then prices it locally
+  (base + travel + scope options from `pricing.js`).
+- **Custom quote** (`/tools/custom-quote`) → `POST /api/custom-quote` emails the request to
+  Jimmy via Resend (`lib/email.js`, REST API, no SDK). Needs `RESEND_API_KEY` (optional
+  `RESEND_FROM`); if unset, `sendEmail` throws `email_not_configured` and the frontend falls
+  back to a `mailto:`. No file storage — the customer attaches files in their reply (reply-to
+  is set to the customer). Both endpoints reuse `lib/ratelimit.js` (fail-open).
 
 ## Updating Pricing
 

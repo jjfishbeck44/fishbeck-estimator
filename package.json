@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "test": "jest --runInBand",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "demo": "node scripts/demo-server.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.36.0",
