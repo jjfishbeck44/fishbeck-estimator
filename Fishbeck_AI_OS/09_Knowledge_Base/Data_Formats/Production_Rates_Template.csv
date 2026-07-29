@@ -1,0 +1,6 @@
+id,trade,task,unit,rate_low,rate_high,rate_unit,crew_size,source,last_updated,notes
+PRD-0001,Painting,Roll walls (cut & roll),sqft,150,250,sqft_per_hr,1,[confirm],2026-06-21,Per painter
+PRD-0002,Flooring,Install LVP,sqft,200,400,sqft_per_day,1,[confirm],2026-06-21,Per installer
+PRD-0003,Drywall,Hang drywall,sqft,400,600,sqft_per_day,2,[confirm],2026-06-21,Two-person crew
+PRD-0004,Demolition,Interior selective demo,sqft,300,600,sqft_per_day,2,[confirm],2026-06-21,Excludes disposal time
+PRD-0005,Rental Turn,Full standard turn,ea,1,2,units_per_crew_day,2,[confirm],2026-06-21,Size dependent

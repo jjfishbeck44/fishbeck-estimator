@@ -25,34 +25,40 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors *.fishbeckinnovations.com"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors *.fishbeckinnovations.com; base-uri 'self'; form-action 'self'"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/(css|js)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.svg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
         }
       ]
     }
   ],
   "rewrites": [
     { "source": "/estimate", "destination": "/index.html" },
-    { "source": "/tools", "destination": "/tools.html" },
-    { "source": "/tools/mulch-calculator", "destination": "/mulch-calculator.html" },
-    { "source": "/tools/paint-calculator", "destination": "/paint-calculator.html" },
-    { "source": "/tools/drywall-calculator", "destination": "/drywall-calculator.html" },
-    { "source": "/tools/flooring-calculator", "destination": "/flooring-calculator.html" },
-    { "source": "/tools/concrete-calculator", "destination": "/concrete-calculator.html" },
-    { "source": "/tools/fence-calculator", "destination": "/fence-calculator.html" },
-    { "source": "/tools/pavers-calculator", "destination": "/pavers-calculator.html" },
-    { "source": "/tools/sod-calculator", "destination": "/sod-calculator.html" },
-    { "source": "/tools/baseboard-calculator", "destination": "/baseboard-calculator.html" },
-    { "source": "/tools/wallpaper-calculator", "destination": "/wallpaper-calculator.html" },
-    { "source": "/tools/square-footage-calculator", "destination": "/room-area-calculator.html" },
-    { "source": "/tools/unit-turn-calculator", "destination": "/unit-turn-calculator.html" },
-    { "source": "/tools/snow-removal-calculator", "destination": "/snow-calculator.html" },
-    { "source": "/tools/repair-replace-calculator", "destination": "/repair-replace-calculator.html" },
-    { "source": "/tools/fix-and-flip-calculator", "destination": "/flip-calculator.html" },
-    { "source": "/tools/diy-vs-hire-calculator", "destination": "/diy-calculator.html" },
-    { "source": "/tools/project-schedule-calculator", "destination": "/schedule-calculator.html" },
-    { "source": "/tools/tool-rental-calculator", "destination": "/tool-rental-calculator.html" },
-    { "source": "/tools/3d-print-calculator", "destination": "/print3d-calculator.html" },
-    { "source": "/tools/property-assessment-calculator", "destination": "/property-assessment.html" },
-    { "source": "/tools/custom-quote", "destination": "/custom-quote.html" }
+    { "source": "/instant-estimate", "destination": "/instant-estimate.html" },
+    { "source": "/estimating", "destination": "/estimating.html" }
   ]
 }

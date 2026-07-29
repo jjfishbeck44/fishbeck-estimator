@@ -1,0 +1,4 @@
+id,company,trade,contact,phone,email,mn_license_no,license_type,license_status,coi_carrier,coi_expiration,w9_on_file,grade,last_job_date,notes
+SUB-0001,[confirm],Electrical,[confirm],[confirm],[confirm],EA/Contractor,[confirm],[confirm],[confirm],no,,,Verify DLI license before scheduling
+SUB-0002,[confirm],Plumbing,[confirm],[confirm],[confirm],[confirm],[confirm],[confirm],[confirm],no,,,
+SUB-0003,[confirm],HVAC,[confirm],[confirm],[confirm],[confirm],[confirm],[confirm],[confirm],no,,,

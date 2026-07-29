@@ -1,46 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://estimate.fishbeckinnovations.com/</loc>
+    <loc>https://fishbeck-estimator.vercel.app/</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-  <url>
-    <loc>https://estimate.fishbeckinnovations.com/tools</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://estimate.fishbeckinnovations.com/tools/mulch-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estimate.fishbeckinnovations.com/tools/paint-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://estimate.fishbeckinnovations.com/tools/drywall-calculator</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/flooring-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/concrete-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/fence-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/pavers-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/sod-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/baseboard-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/wallpaper-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/square-footage-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/unit-turn-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/snow-removal-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/repair-replace-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/fix-and-flip-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/diy-vs-hire-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/project-schedule-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/tool-rental-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/3d-print-calculator</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/property-assessment-calculator</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://estimate.fishbeckinnovations.com/tools/custom-quote</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

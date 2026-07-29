@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://estimate.fishbeckinnovations.com/sitemap.xml
+Sitemap: https://fishbeck-estimator.vercel.app/sitemap.xml

@@ -15,7 +15,7 @@ Client (public/)  →  POST /api/estimate  →  api/estimate.js (handler)
                                                 └── lib/claude.js     (Claude API, 25s timeout)
 ```
 
-**Request flow:** CORS preflight → method guard (POST only) → rate limit → input validation (non-empty, ≤1000 chars) → Claude API call → JSON response.
+**Request flow:** CORS preflight → method guard (POST only) → rate limit → input validation (non-empty, ≤1000 chars) → input sanitization (strip control chars) → Claude API call → response normalization → JSON response.
 
 **Frontend state machine:** INPUT → LOADING → RESULTS / CLARIFICATION / ERROR
 
@@ -76,16 +76,14 @@ lib/
   prompt.js            # System prompt with pricing reference data (pure data, no I/O)
   ratelimit.js         # Upstash sliding-window rate limiter (fails open)
 public/
-  index.html                    # Single-page estimator app (form, results, loading states)
-  mulch-calculator.html         # Mulch/material calculator tool (template for new tools)
-  tools.html                    # Tools hub landing page (grid of calculators)
-  robots.txt                    # Allows indexing, points to sitemap
-  sitemap.xml                   # Lists estimator + tool URLs
-  favicon.svg                   # SVG favicon (FI logo, navy + gold)
-  css/style.css                 # Custom design system (navy #1B3A5C, gold #C8963E)
-  js/estimator.js               # Estimator frontend logic (IIFE, state machine, fetch API)
-  js/mulch-calculator.js        # Mulch tool UI logic (IIFE, localStorage history)
-  js/calculators/mulch-math.js  # Pure mulch math (UMD: browser global + CommonJS for Jest)
+  index.html           # Single-page app (form, results table, loading states)
+  favicon.svg          # SVG favicon (FI logo, navy + gold)
+  apple-touch-icon.svg # iOS home screen icon
+  manifest.json        # PWA manifest for "Add to Home Screen"
+  robots.txt           # Blocks /api/ from crawlers, references sitemap
+  sitemap.xml          # Single URL entry for main page
+  css/style.css        # Custom design system (navy #1B3A5C, gold #C8963E)
+  js/estimator.js      # Frontend logic (IIFE, state machine, fetch API)
 tests/
   estimate.test.js     # Handler tests (mocked deps)
   claude.test.js       # Claude wrapper tests (mocked SDK)
@@ -155,13 +153,32 @@ No CI pipeline is configured — run tests locally before pushing.
 - **25s timeout via `Promise.race`:** Stays within Vercel's 30s function limit. Throws typed `api_timeout` error.
 - **XSS prevention:** Frontend uses `escHtml()` to sanitize all user-provided text before rendering.
 - **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON matching the response schema above. Model: `claude-sonnet-4-6`, `max_tokens: 1024`.
-- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting).
-- **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen so users can revisit past estimates.
-- **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context.
-- **Print/copy buttons:** Print opens browser print dialog with clean `@media print` styles. Copy formats estimate as plain text for clipboard.
-- **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call.
-- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data.
+- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting, drywall, exterior work).
+- **Draft persistence:** Input text saved to `sessionStorage` (key: `fishbeck_draft`) so refreshing the page doesn't lose work. Cleared on successful estimate or new estimate.
+- **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen with date+time, ref IDs, and individual delete buttons. Click to revisit. Search filter appears when 4+ entries exist.
+- **Estimate reference IDs:** Each estimate gets a unique `FI-XXXXXX` reference code shown in the timestamp, history, and exports. Useful for referencing specific estimates in communication.
+- **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context. Phone CTA also available.
+- **Print/copy buttons:** Print opens browser print dialog with branded letterhead (company name, contact info). Copy formats estimate as plain text for clipboard.
+- **CSV export:** Download button exports estimate as `fishbeck-estimate.csv` spreadsheet with Item, Description, Low, High columns.
+- **Project name labels:** Optional project name field (e.g., "123 Main St") saved with estimates, shown in banner and history.
+- **Styled confirm modal:** Custom modal replaces native `confirm()` for clearing history. Dismissible via Cancel, Escape, or backdrop click.
+- **Cost breakdown chart:** Horizontal bar chart visualizing relative cost of each line item. Auto-hidden for single-item estimates.
+- **FAQ accordion:** Five common questions about estimates, service area, and Fishbeck's capabilities. Uses native `<details>` elements.
+- **Reduced motion:** `prefers-reduced-motion: reduce` media query disables all CSS animations and transitions for users who prefer reduced motion.
+- **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call. Animated progress bar fills to 90% over 12s with decelerating ease.
+- **Network retry:** `fetchWithRetry` automatically retries once after 1.5s on network failure before showing the error state.
+- **PWA manifest:** `manifest.json` enables "Add to Home Screen" on mobile devices.
+- **SEO files:** `robots.txt` blocks `/api/` from crawlers and references `sitemap.xml`.
+- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button. Escape key dismisses error/clarification states.
 - **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
+- **Re-estimate:** "Re-estimate" button in results view re-submits the same project description for a fresh estimate.
+- **Estimate timestamp:** Results view shows when the estimate was generated (date + time).
+- **Share button:** Uses Web Share API on mobile for native sharing, clipboard fallback on desktop.
+- **Dark mode:** Automatic via `prefers-color-scheme: dark` media query. Full color scheme for all elements. Print styles force light colors regardless of mode.
+- **Auto-resize textarea:** Grows as user types, resets on new estimate.
+- **Fade-in animation:** Results section slides up with a subtle CSS animation.
+- **Response validation:** `num()` helper safely coerces non-numeric values in cost ranges to prevent `$NaN` display.
+- **Error logging:** API catch block logs `console.error('[estimate]', ...)` for production debugging.
 
 ## Calculator Tools
 
@@ -215,5 +232,8 @@ All pricing ranges and service categories live in `lib/prompt.js`. Edit the `PRI
 - **Auto-deploy:** Push to `master` triggers deployment
 - **Function timeout:** 30 seconds (configured in `vercel.json`)
 - **CORS:** Open (`*`) for API routes
-- **CSP:** `frame-ancestors *.fishbeckinnovations.com`
+- **CSP:** Full directive set (`default-src 'self'`, `script-src`, `style-src`, `font-src`, `img-src`, `connect-src`, `frame-ancestors`, `base-uri`, `form-action`)
+- **Security headers:** `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`
+- **Input sanitization:** Control characters stripped before Claude API call (newlines/tabs preserved)
+- **Static caching:** CSS/JS cached 1 day with `stale-while-revalidate`, favicon cached 1 week
 - **Full guide:** See `DEPLOY.md`
