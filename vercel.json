@@ -43,7 +43,6 @@
     { "source": "/tools/sod-calculator", "destination": "/sod-calculator.html" },
     { "source": "/tools/baseboard-calculator", "destination": "/baseboard-calculator.html" },
     { "source": "/tools/wallpaper-calculator", "destination": "/wallpaper-calculator.html" },
-    { "source": "/tools/salt-calculator", "destination": "/salt-calculator.html" },
     { "source": "/tools/square-footage-calculator", "destination": "/room-area-calculator.html" },
     { "source": "/tools/unit-turn-calculator", "destination": "/unit-turn-calculator.html" },
     { "source": "/tools/snow-removal-calculator", "destination": "/snow-calculator.html" },
