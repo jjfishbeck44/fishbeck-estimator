@@ -39,6 +39,7 @@
   var statSpread = document.getElementById('stat-spread');
   var shareBtn = document.getElementById('share-btn');
   var downloadCsvBtn = document.getElementById('download-csv-btn');
+  var downloadPdfBtn = document.getElementById('download-pdf-btn');
   var proposalLink = document.getElementById('proposal-link');
   var errorCard = document.getElementById('error-card');
   var errorMessage = document.getElementById('error-message');
@@ -412,6 +413,168 @@
     URL.revokeObjectURL(url);
   }
 
+  // --- Export estimate as PDF ---
+  function downloadPdf(est) {
+    // Check if libraries are loaded
+    if (!window.html2canvas || !window.jsPDF) {
+      showToast('PDF libraries loading. Please try again in a moment.');
+      return;
+    }
+
+    var jsPDF = window.jsPDF.jsPDF;
+    var html2canvas = window.html2canvas;
+
+    // Create a hidden container with the estimate content
+    var container = document.createElement('div');
+    container.style.position = 'absolute';
+    container.style.left = '-9999px';
+    container.style.width = '8.5in';
+    container.style.padding = '0.5in';
+    container.style.backgroundColor = '#ffffff';
+    container.style.fontFamily = 'Inter, sans-serif';
+    container.style.fontSize = '11px';
+    container.style.lineHeight = '1.6';
+    container.style.color = '#1B3A5C';
+
+    // Build the HTML content for the PDF
+    var html = '';
+    html += '<div style="text-align: center; margin-bottom: 20px; border-bottom: 2px solid #C8963E; padding-bottom: 15px;">';
+    html += '<div style="font-size: 20px; font-weight: 700; color: #1B3A5C;">Fishbeck Innovations</div>';
+    html += '<div style="font-size: 12px; color: #666;">Construction & Property Maintenance</div>';
+    if (lastRefId) {
+      html += '<div style="font-size: 11px; color: #999; margin-top: 5px;">Reference: ' + escHtml(lastRefId) + '</div>';
+    }
+    html += '</div>';
+
+    // Project details
+    if (lastProjectName || lastInput) {
+      html += '<div style="margin-bottom: 15px;">';
+      if (lastProjectName) {
+        html += '<div style="margin-bottom: 8px;"><strong style="color: #1B3A5C;">Project:</strong> ' + escHtml(lastProjectName) + '</div>';
+      }
+      if (lastInput) {
+        html += '<div style="margin-bottom: 8px;"><strong style="color: #1B3A5C;">Description:</strong> ' + escHtml(lastInput) + '</div>';
+      }
+      html += '</div>';
+    }
+
+    // Line items table
+    html += '<table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">';
+    html += '<thead>';
+    html += '<tr style="border-bottom: 1px solid #ddd; background-color: #f9fafb;">';
+    html += '<th style="text-align: left; padding: 8px; font-weight: 600; color: #1B3A5C;">Item</th>';
+    html += '<th style="text-align: left; padding: 8px; font-weight: 600; color: #1B3A5C;">Description</th>';
+    html += '<th style="text-align: right; padding: 8px; font-weight: 600; color: #1B3A5C; width: 80px;">Low</th>';
+    html += '<th style="text-align: right; padding: 8px; font-weight: 600; color: #1B3A5C; width: 80px;">High</th>';
+    html += '</tr>';
+    html += '</thead>';
+    html += '<tbody>';
+    (est.line_items || []).forEach(function (item, idx) {
+      var bgColor = idx % 2 === 0 ? '#ffffff' : '#f9fafb';
+      html += '<tr style="border-bottom: 1px solid #e5e7eb; background-color: ' + bgColor + ';">';
+      html += '<td style="padding: 8px; vertical-align: top;">' + escHtml(item.label || '') + '</td>';
+      html += '<td style="padding: 8px; vertical-align: top; font-size: 10px; color: #666;">' + escHtml(item.description || '') + '</td>';
+      html += '<td style="text-align: right; padding: 8px; vertical-align: top;">' + fmt(num(item.range_low)) + '</td>';
+      html += '<td style="text-align: right; padding: 8px; vertical-align: top;">' + fmt(num(item.range_high)) + '</td>';
+      html += '</tr>';
+    });
+    html += '</tbody>';
+    html += '</table>';
+
+    // Total
+    html += '<div style="text-align: right; margin-bottom: 15px; padding-top: 10px; border-top: 2px solid #ddd;">';
+    html += '<div style="font-size: 13px; font-weight: 700; color: #1B3A5C;">';
+    html += 'Total: ' + fmtRange(num(est.total_low), num(est.total_high));
+    html += '</div>';
+    html += '</div>';
+
+    // Notes
+    if (est.notes) {
+      html += '<div style="margin-bottom: 15px; padding: 10px; background-color: #f3f4f6; border-left: 3px solid #C8963E;">';
+      html += '<strong style="color: #1B3A5C;">Notes:</strong><br/>';
+      html += escHtml(est.notes);
+      html += '</div>';
+    }
+
+    // Out of scope
+    var oos = est.out_of_scope || [];
+    if (oos.length > 0) {
+      html += '<div style="margin-bottom: 15px;">';
+      html += '<strong style="color: #1B3A5C;">Outside Core Services:</strong><br/>';
+      html += '<ul style="margin-top: 5px; padding-left: 20px;">';
+      oos.forEach(function (item) {
+        html += '<li style="margin-bottom: 3px;">' + escHtml(item) + '</li>';
+      });
+      html += '</ul>';
+      html += '</div>';
+    }
+
+    // Footer
+    html += '<div style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #ddd; font-size: 9px; color: #999; text-align: center;">';
+    html += '<p style="margin: 0 0 5px 0;">This is an AI-generated estimate. For a formal proposal, contact:</p>';
+    html += '<p style="margin: 0; font-weight: 600; color: #1B3A5C;">jimmy@fishbeckinnovations.com | (612) 555-0123</p>';
+    html += '</div>';
+
+    container.innerHTML = html;
+    document.body.appendChild(container);
+
+    // Generate PDF from HTML
+    html2canvas(container, {
+      scale: 2,
+      logging: false,
+      useCORS: true,
+      backgroundColor: '#ffffff'
+    }).then(function (canvas) {
+      var pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'in',
+        format: 'letter'
+      });
+
+      var pageWidth = pdf.internal.pageSize.getWidth();
+      var pageHeight = pdf.internal.pageSize.getHeight();
+      var imgWidth = pageWidth - 1; // 0.5in margins on each side
+      var imgHeight = (canvas.height * imgWidth) / canvas.width;
+      var heightLeft = imgHeight;
+      var position = 0.5; // Top margin
+
+      var imgData = canvas.toDataURL('image/png');
+
+      // Add pages as needed
+      while (heightLeft >= 0) {
+        if (position + heightLeft > pageHeight - 0.5) {
+          // Need a new page
+          pdf.addPage();
+          position = 0.5;
+          heightLeft -= (pageHeight - 1);
+        } else {
+          heightLeft = -1;
+        }
+        pdf.addImage(imgData, 'PNG', 0.5, position, imgWidth, imgHeight);
+        if (heightLeft > 0) {
+          position = 0.5;
+          heightLeft -= (pageHeight - 1);
+        }
+      }
+
+      // Download the PDF
+      var filename = 'fishbeck-estimate';
+      if (lastRefId) filename += '-' + lastRefId;
+      if (lastProjectName) filename += '-' + lastProjectName.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').substring(0, 40);
+      pdf.save(filename + '.pdf');
+
+      // Clean up
+      document.body.removeChild(container);
+      showToast('PDF downloaded successfully');
+    }).catch(function (err) {
+      console.error('[pdf]', err);
+      if (document.body.contains(container)) {
+        document.body.removeChild(container);
+      }
+      showToast('PDF download failed. Please try again.');
+    });
+  }
+
   // --- Email proposal link ---
   function updateProposalLink(estimate) {
     var body = buildEstimateText(estimate);
@@ -744,6 +907,11 @@
     if (!lastEstimate) return;
     downloadCsv(lastEstimate);
     showToast('CSV downloaded');
+  });
+
+  downloadPdfBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    downloadPdf(lastEstimate);
   });
 
   // --- Share estimate ---
