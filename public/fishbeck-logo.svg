@@ -1,0 +1,19 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Red geometric house icon -->
+  <g transform="translate(250, 120)">
+    <!-- Outer house outline -->
+    <path d="M 150 40 L 280 140 L 280 260 L 20 260 L 20 140 Z" fill="none" stroke="#E31E24" stroke-width="24" stroke-linejoin="round"/>
+
+    <!-- Inner house outline -->
+    <path d="M 150 80 L 240 140 L 240 220 L 60 220 L 60 140 Z" fill="none" stroke="#E31E24" stroke-width="20" stroke-linejoin="round"/>
+
+    <!-- Roof peak accent -->
+    <rect x="260" y="120" width="30" height="30" fill="#E31E24" rx="2"/>
+  </g>
+
+  <!-- Company name -->
+  <text x="400" y="420" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="#000000" text-anchor="middle">FISHBECK</text>
+
+  <!-- Tagline -->
+  <text x="400" y="485" font-family="Arial, sans-serif" font-size="48" font-weight="300" fill="#000000" text-anchor="middle" letter-spacing="4">INNOVATIONS LLC</text>
+</svg>

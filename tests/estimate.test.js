@@ -107,6 +107,86 @@ describe('POST /api/estimate', () => {
     expect(res.body).toEqual(fakeEstimate);
   });
 
+  test('normalizes malformed Claude response', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      total_low: '1200',
+      total_high: null,
+      line_items: [{ label: 'Patch', range_low: 'bad' }]
+    });
+    const req = makeReq();
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.total_low).toBe(1200);
+    expect(res.body.total_high).toBe(0);
+    expect(res.body.line_items[0].range_low).toBe(0);
+    expect(res.body.line_items[0].description).toBe('');
+    expect(res.body.notes).toBeNull();
+    expect(res.body.out_of_scope).toEqual([]);
+  });
+
+  test('preserves clarification_needed status through normalization', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'clarification_needed',
+      clarification_message: 'What type of property?',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq();
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('clarification_needed');
+    expect(res.body.clarification_message).toBe('What type of property?');
+    expect(res.body.notes).toBeNull();
+  });
+
+  test('trims input before passing to Claude', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq({ body: { input: '  paint 3 units  ' } });
+    const res = makeRes();
+    await handler(req, res);
+    expect(callClaude).toHaveBeenCalledWith('paint 3 units', expect.any(String));
+  });
+
+  test('strips control characters from input', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq({ body: { input: 'paint\x00 3\x07 units' } });
+    const res = makeRes();
+    await handler(req, res);
+    expect(callClaude).toHaveBeenCalledWith('paint 3 units', expect.any(String));
+  });
+
+  test('preserves newlines and tabs in input', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq({ body: { input: 'paint 3 units\n\tnew line' } });
+    const res = makeRes();
+    await handler(req, res);
+    expect(callClaude).toHaveBeenCalledWith('paint 3 units\n\tnew line', expect.any(String));
+  });
+
   test('returns 500 on api_timeout', async () => {
     checkRateLimit.mockResolvedValue({ allowed: true });
     callClaude.mockRejectedValue(new Error('api_timeout'));
@@ -125,6 +205,83 @@ describe('POST /api/estimate', () => {
     await handler(req, res);
     expect(res.statusCode).toBe(500);
     expect(res.body.error).toBe('invalid_json');
+  });
+
+  test('returns 400 when input is a number', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    const req = makeReq({ body: { input: 12345 } });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe('missing_input');
+  });
+
+  test('returns 400 when body is null', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    const req = makeReq({ body: null });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(400);
+    expect(res.body.error).toBe('missing_input');
+  });
+
+  test('accepts input at exactly 1000 chars', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq({ body: { input: 'a'.repeat(1000) } });
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+  });
+
+  test('uses first IP from x-forwarded-for header', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: [],
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq({ headers: { 'x-forwarded-for': '10.0.0.1, 192.168.1.1' } });
+    const res = makeRes();
+    await handler(req, res);
+    expect(checkRateLimit).toHaveBeenCalledWith('10.0.0.1');
+  });
+
+  test('normalizes out_of_scope non-array to empty array', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: [],
+      total_low: 100,
+      total_high: 200,
+      out_of_scope: 'HVAC'
+    });
+    const req = makeReq();
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.out_of_scope).toEqual([]);
+  });
+
+  test('normalizes line_items non-array to empty array', async () => {
+    checkRateLimit.mockResolvedValue({ allowed: true });
+    callClaude.mockResolvedValue({
+      status: 'estimate',
+      line_items: 'not an array',
+      total_low: 0,
+      total_high: 0
+    });
+    const req = makeReq();
+    const res = makeRes();
+    await handler(req, res);
+    expect(res.statusCode).toBe(200);
+    expect(res.body.line_items).toEqual([]);
   });
 
   test('returns 500 on unexpected error', async () => {

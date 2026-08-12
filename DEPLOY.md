@@ -103,6 +103,36 @@ The `frame-ancestors` CSP header in `vercel.json` is already set to allow embedd
 
 ---
 
+## Optional: Custom-Quote Email (Resend)
+
+The **Request a Custom Quote** tool (`/tools/custom-quote`) emails project requests to
+`jimmy@fishbeckinnovations.com` through [Resend](https://resend.com). It's optional — if you
+don't set it up, the form automatically falls back to opening the visitor's own email app
+(`mailto:`), so nothing breaks.
+
+To enable server-side sending:
+
+1. Create a free [Resend account](https://resend.com) (100 emails/day free).
+2. **API Keys** → **Create API Key**, copy it (starts with `re_...`).
+3. In Vercel → project → **Settings** → **Environment Variables**, add:
+
+| Variable | Value |
+|----------|-------|
+| `RESEND_API_KEY` | `re_...` |
+| `RESEND_FROM` *(optional)* | `Fishbeck Innovations <quotes@fishbeckinnovations.com>` |
+
+4. Until you verify your own domain in Resend, leave `RESEND_FROM` unset — it defaults to
+   Resend's `onboarding@resend.dev` sender, which works immediately for testing. To send from
+   your own domain, verify it in Resend (**Domains** → add DNS records) then set `RESEND_FROM`.
+
+Customer replies go straight to them (the email's reply-to is the customer's address), so they
+can attach photos/plans/PDFs in their reply — no file storage needed.
+
+The **Property Assessment** tool (`/tools/property-assessment-calculator`) needs **no key** — it
+geocodes addresses via OpenStreetMap to estimate travel distance from St. Paul.
+
+---
+
 ## Updating the Estimator
 
 To update pricing, service categories, or Claude's behavior — edit `lib/prompt.js`. Then:

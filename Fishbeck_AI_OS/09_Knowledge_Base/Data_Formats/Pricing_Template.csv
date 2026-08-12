@@ -1,0 +1,8 @@
+id,category,item,unit,price_low,price_high,basis,source,last_updated,notes
+PR-0001,Painting,Interior wall & ceiling paint,sqft,2.50,4.50,labor+materials,[confirm],2026-06-21,Two coats; standard ceiling height
+PR-0002,Flooring,LVP installation,sqft,4.00,7.00,labor+materials,[confirm],2026-06-21,Includes underlayment
+PR-0003,Drywall,Hang/tape/finish,sqft,2.00,3.50,labor+materials,[confirm],2026-06-21,Level 4 finish
+PR-0004,Bath,Standard bathroom remodel,ea,8000,15000,turnkey,[confirm],2026-06-21,Mid-grade finishes
+PR-0005,Kitchen,Mid-range kitchen remodel,ea,20000,45000,turnkey,[confirm],2026-06-21,Cabinets/counters/appliances vary
+PR-0006,Rental Turn,Standard unit turn,ea,1500,4500,turnkey,[confirm],2026-06-21,Clean/paint/repairs; size dependent
+PR-0007,Demolition,Selective interior demo,sqft,2.00,5.00,labor+disposal,[confirm],2026-06-21,Excludes hazmat
