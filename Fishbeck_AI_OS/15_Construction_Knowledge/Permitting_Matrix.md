@@ -1,3 +1,22 @@
+---
+id: CK-0002
+title: Permitting Matrix
+type: reference
+domain: 15_Construction_Knowledge
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-06
+review_cycle: quarterly
+next_review: 2026-11-06
+tags: [code-compliance, minnesota, twin-cities, reference, needs-verification]
+related: [CK-0000, CK-0001]
+source_of_truth: true
+ai_usage: read-write
+confidence: low
+---
+
 # Permitting Matrix
 
 Reference for permits across Twin Cities jurisdictions (AHJs — Authorities Having
@@ -53,4 +72,4 @@ Cloud). Standard workflow:
 ## Fee structures
 - Most AHJs base building permit fees on **project valuation** plus plan-review and
   state surcharge. Trade permits often flat or fixture/circuit-count based.
-- Record actual fees per job to refine estimates (`Data_Formats/Pricing_Template.csv`).
+- Record actual fees per job to refine estimates (`13_Estimating/_Data/Pricing_Template.csv`).

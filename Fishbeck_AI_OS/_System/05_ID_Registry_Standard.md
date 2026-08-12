@@ -93,7 +93,7 @@ relational database that any AI or future app can traverse.
 | `HC` | Historical cost record | `13_Estimating/Historical_Costs` | 5 |
 
 > `PRD-####` is already in use in
-> `09_Knowledge_Base/Data_Formats/Production_Rates_Template.csv` and is
+> `13_Estimating/Production_Rates/Production_Rates.csv` and is
 > preserved unchanged by the migration.
 
 ### Quality and analytics

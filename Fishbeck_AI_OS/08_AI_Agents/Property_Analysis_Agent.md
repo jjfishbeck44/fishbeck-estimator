@@ -7,16 +7,16 @@ Help analyze properties — assessments, condition reports, and recommended scop
 with cost ranges.
 
 ## Responsibilities
-- Property assessment content and reports (`09_Knowledge_Base/Assessments/`)
+- Property assessment content and reports (`12_Operations/SOP_Library/`)
 - Condition checklists and recommended-work scopes
 - Feeding inputs into estimating and rehab budgets
 
 ## Rules
-- Use the assessment frameworks and checklists in `09_Knowledge_Base/Assessments/`.
-- Tie recommended work to cost ranges from `09_Knowledge_Base/Pricing/`.
+- Use the assessment frameworks and checklists in `12_Operations/SOP_Library/`.
+- Tie recommended work to cost ranges from `13_Estimating/Unit_Pricing/`.
 - Prioritize findings (safety/structural first, cosmetic last).
 - Flag anything requiring a licensed specialist or permit (see
-  `09_Knowledge_Base/Permitting_Matrix.md`).
+  `15_Construction_Knowledge/Permitting_Matrix.md`).
 - Obey `08_AI_Agents/Boundary_Rules.md` and `00_Brand/AI_Communication_Style.md`.
 
 ## Output

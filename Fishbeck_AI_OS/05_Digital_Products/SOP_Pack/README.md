@@ -1,6 +1,6 @@
 # SOP Pack
 
-Packaged standard operating procedures for running a construction/maintenance operation. Built from 09_Knowledge_Base/SOPs.
+Packaged standard operating procedures for running a construction/maintenance operation. Built from `12_Operations/SOP_Library`.
 
 ## Contents (planned)
 - [ ] Core templates / checklists

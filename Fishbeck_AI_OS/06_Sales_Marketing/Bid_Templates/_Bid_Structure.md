@@ -20,7 +20,7 @@ and `09_Knowledge_Base/` pricing.
 | | | | |
 
 **Subtotal:** $[ ]
-**Permits / fees (if applicable):** $[ ]  (see `09_Knowledge_Base/Permitting_Matrix.md`)
+**Permits / fees (if applicable):** $[ ]  (see `15_Construction_Knowledge/Permitting_Matrix.md`)
 **Total bid:** $[low]–$[high]
 
 ### Exclusions

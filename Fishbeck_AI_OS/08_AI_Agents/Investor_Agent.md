@@ -14,7 +14,7 @@ investor-focused content and materials.
 
 ## Rules
 - Think in scope, budget, timeline, and ROI.
-- Use real numbers from `09_Knowledge_Base/Pricing/`, `Material_Costs/`, and
+- Use real numbers from `13_Estimating/Unit_Pricing/`, `Material_Costs/`, and
   `Production_Rates/`. Flag missing data with `[confirm: …]`.
 - Be conservative and honest with ranges — investors underwrite on these.
 - Obey `08_AI_Agents/Boundary_Rules.md` and `00_Brand/AI_Communication_Style.md`.

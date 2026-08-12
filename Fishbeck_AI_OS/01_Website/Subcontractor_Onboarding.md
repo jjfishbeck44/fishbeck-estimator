@@ -2,7 +2,7 @@
 
 > Public website page content for recruiting and vetting reliable, MN-licensed
 > trades. Goal: a steady pipeline of qualified subcontractors. Operational vetting
-> data lives in `09_Knowledge_Base/Subcontractor_Directory.md`.
+> data lives in `17_Purchasing/Vendor_Database/README.md`.
 
 ## Meta
 - **Title tag:** Subcontractors — Partner With Fishbeck Innovations | Twin Cities
@@ -43,4 +43,4 @@ carpentry, demolition/haul, cleaning, and exterior.
 Apply to join our trade network — [form/contact link].
 
 > Keep messaging aligned with `00_Brand/AI_Communication_Style.md`. Submitted
-> applicants get recorded and vetted per `09_Knowledge_Base/Subcontractor_Directory.md`.
+> applicants get recorded and vetted per `17_Purchasing/Vendor_Database/README.md`.

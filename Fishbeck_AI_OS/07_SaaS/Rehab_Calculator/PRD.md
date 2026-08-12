@@ -15,7 +15,7 @@ Real estate investors (buy-and-hold, flip), wholesalers.
 Fast, defensible rehab numbers grounded in real local pricing.
 
 ## Data source
-`09_Knowledge_Base/Data_Formats/` (pricing, material costs, production rates).
+`13_Estimating/_Data/` (pricing, material costs, production rates).
 
 ## Success metrics
 [confirm — e.g., estimates generated, conversion to consults]

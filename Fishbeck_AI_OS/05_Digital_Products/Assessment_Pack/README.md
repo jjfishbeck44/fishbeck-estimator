@@ -1,6 +1,6 @@
 # Assessment Pack
 
-Property assessment checklists and report templates. Built from 09_Knowledge_Base/Assessments.
+Property assessment checklists and report templates. Built from `12_Operations/SOP_Library`.
 
 ## Contents (planned)
 - [ ] Core templates / checklists

@@ -1,7 +1,7 @@
 # Bid Templates
 
 Standardized, execution-ready bid structures, separated by trade and project type.
-Bids pull pricing from `09_Knowledge_Base/Data_Formats/` and follow the formatting
+Bids pull pricing from `13_Estimating/_Data/` and follow the formatting
 rules in `00_Brand/AI_Communication_Style.md` and `00_Brand/Print_Collateral_Specs.md`.
 
 ## Files

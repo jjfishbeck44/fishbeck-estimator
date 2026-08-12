@@ -31,5 +31,5 @@ the work.
 ## CTA
 Send us the property and we'll help you scope and price the rehab.
 
-> Reference: `09_Knowledge_Base/Estimating/`, `09_Knowledge_Base/Pricing/`, and
+> Reference: `13_Estimating/`, `13_Estimating/Unit_Pricing/`, and
 > investor case studies in `04_Case_Studies/Investors/`.

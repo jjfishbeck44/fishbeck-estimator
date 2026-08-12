@@ -33,4 +33,4 @@ Homebuyers, investors evaluating deals, and property managers planning maintenan
 ## CTA
 Schedule a property assessment or get a fast estimate on recommended work.
 
-> Reference: `09_Knowledge_Base/Assessments/`.
+> Reference: `12_Operations/SOP_Library/`.

@@ -1,6 +1,6 @@
 # Estimating Pack
 
-Templates and guides for estimating construction and rehab projects. Built from 09_Knowledge_Base/Estimating and Pricing.
+Templates and guides for estimating construction and rehab projects. Built from `13_Estimating` (unit pricing + assemblies).
 
 ## Contents (planned)
 - [ ] Core templates / checklists

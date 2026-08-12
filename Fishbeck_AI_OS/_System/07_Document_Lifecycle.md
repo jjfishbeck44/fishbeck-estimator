@@ -4,14 +4,14 @@ title: Document Lifecycle
 type: standard
 domain: _System
 status: approved
-version: 1.0.0
+version: 1.1.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-06
 review_cycle: annual
 next_review: 2027-07-31
 tags: [governance, standard, operations]
-related: [SYS-0003, SYS-0007]
+related: [SYS-0003, SYS-0007, DEC-0011]
 source_of_truth: true
 ai_usage: read-only
 confidence: high
@@ -138,9 +138,24 @@ with a superseding row (`SYS-0007`).
 
 ### Pricing
 
-Pricing carries an extra gate: no pricing row reaches `active` without either
-(a) three real job data points, or (b) a documented supplier quote. Otherwise it
-stays `confidence: low` and tagged `needs-verification`.
+Pricing carries an extra gate, and it keys on **`confidence`, not `status`**
+(see `DEC-0011`). The two fields answer different questions:
+
+| Field | Question it answers |
+|-------|--------------------|
+| `status` | Is this row current, or superseded by a newer one? |
+| `confidence` | Is this number trustworthy enough to quote? |
+
+**The gate:** no pricing row reaches `confidence: high` — the only level
+quotable to a client — without either **(a)** three real Fishbeck job data
+points, or **(b)** a documented supplier quote. Industry reference data,
+published cost books, and national averages top out at `medium` no matter how
+reputable the publisher.
+
+A `status: active` + `confidence: medium` row is normal and useful: it is the
+best number available, it is live in the database, and it is **not** cleared for
+a client quote without a stated caveat. Any row below `high` carries the
+`needs-verification` tag.
 
 ## Anti-patterns
 

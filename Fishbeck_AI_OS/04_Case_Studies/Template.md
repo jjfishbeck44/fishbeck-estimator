@@ -31,7 +31,7 @@ LinkedIn posts, and video scripts.
 - **After photos:** [Cloudinary links]
 
 ### Lessons learned
-- Feeds `09_Knowledge_Base/Post_Mortems.md`
+- Feeds `16_Quality/Lessons_Learned/Post_Mortems.md`
 
 ### Repurposing
 - [ ] Website service/area page

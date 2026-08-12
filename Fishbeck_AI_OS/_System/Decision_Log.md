@@ -4,10 +4,10 @@ title: Decision Log
 type: index
 domain: _System
 status: approved
-version: 1.0.0
+version: 1.1.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-06
 review_cycle: as-needed
 next_review: 2026-12-31
 tags: [governance, standard, decision]
@@ -41,6 +41,8 @@ live directly in the table below.
 | DEC-0008 | 2026-07-31 | Multi-value CSV columns use pipe delimiters | Commas break CSV parsing without quoting; pipes are unambiguous | Quoted comma lists; JSON in cells | Jimmy Fishbeck |
 | DEC-0009 | 2026-07-31 | OS stays inside `fishbeck-estimator` for now; split to a dedicated repo at ~500 files | Current volume doesn't justify the split cost; architecture is repo-agnostic | Immediate split; permanent co-location | Jimmy Fishbeck |
 | DEC-0010 | 2026-07-31 | A project is not "closed" until it emits 5 artifacts: historical costs, lessons learned, defects, vendor performance, photos | This feedback loop is the mechanism by which the company compounds | Optional closeout reporting | Jimmy Fishbeck |
+| DEC-0011 | 2026-08-06 | The pricing gate keys on `confidence`, not `status`. `status` = row currency; `confidence` = clearance to quote. Only `confidence: high` is client-quotable | As written, the gate would have forced 40 real migrated pricing rows to `inactive`, misusing a currency field as a trust field and making the database look empty. The two questions are genuinely different | Marking all migrated rows `inactive`; leaving the conflict unresolved | Jimmy Fishbeck |
+| DEC-0012 | 2026-08-06 | Retire `09_Knowledge_Base` entirely; its number is permanently retired and never reused | Phase 1.1 emptied it — every file moved to the domain that owns it. It was a pre-domain catch-all with no ownership boundaries, which is exactly how pricing ended up in three places | Keeping it as a thin cross-cutting reference layer; deleting the folder outright | Jimmy Fishbeck |
 
 ## Open questions
 
@@ -55,6 +57,8 @@ assume an answer.
 | Q4 | Are there W-2 employees yet, or 1099 subs only? | Phase 9.1 (HR trigger) | 2026-07-31 |
 | Q5 | Is there existing job-cost history (past invoices/receipts) to seed `Historical_Costs`? | Phase 5.1 — determines whether the feedback loop starts warm or cold | 2026-07-31 |
 | Q6 | What accounting system is in use (QuickBooks, spreadsheets, other)? | Phase 6.3 integration design | 2026-07-31 |
+| Q7 | The 3 subcontractors (`SUB-0001`–`0003`) have no company name, license number, or insurance on file. Who are they, and are their COIs current? | Scheduling any sub work; they are flagged `compliance_cleared: false` and must not be scheduled | 2026-08-06 |
+| Q8 | Are the 2024 national bid-package rates actually representative of what Fishbeck charges in the Twin Cities? | Promoting 40 `UP-####` rows above `confidence: medium` | 2026-08-06 |
 
 ## Future automation ideas
 

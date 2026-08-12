@@ -30,5 +30,5 @@ tenants happy.
 ## CTA
 Schedule a turn or set up a recurring turnover partnership.
 
-> Reference: `09_Knowledge_Base/Production_Rates/` and rental-turn case studies in
+> Reference: `13_Estimating/Production_Rates/` and rental-turn case studies in
 > `04_Case_Studies/Investors/`. Related digital product: `05_Digital_Products/Rental_Turn_Pack`.

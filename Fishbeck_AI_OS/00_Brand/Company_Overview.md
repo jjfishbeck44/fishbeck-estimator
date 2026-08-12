@@ -41,4 +41,4 @@ See `Ideal_Client_Profiles.md` for detailed personas.
 - Local Twin Cities knowledge of codes, suppliers, and labor.
 
 > Note: Fishbeck also operates an AI cost estimator tool (the Fishbeck Estimator).
-> See `09_Knowledge_Base/Estimating/` and `09_Knowledge_Base/Pricing/`.
+> See `13_Estimating/` and `13_Estimating/Unit_Pricing/`.

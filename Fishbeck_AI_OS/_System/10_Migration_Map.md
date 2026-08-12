@@ -4,10 +4,10 @@ title: Migration Map — Legacy Content to Governed Architecture
 type: standard
 domain: _System
 status: approved
-version: 1.0.0
+version: 1.1.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-06
 review_cycle: as-needed
 next_review: 2026-09-30
 tags: [governance, architecture, standard]
@@ -18,6 +18,10 @@ confidence: high
 ---
 
 # Migration Map
+
+> **Status: EXECUTED 2026-08-06 (Phase 1.1).** All moves below are complete.
+> `09_Knowledge_Base` is retired (`DEC-0012`) and holds only a pointer README.
+> Front-matter backfill on the remaining ~100 legacy files is Phase 1.2.
 
 The OS already contains 117 files built before the governance layer existed.
 This map defines exactly where each moves. **It is the specification for Phase

@@ -38,4 +38,4 @@ Pull relevant questions from `00_Brand/FAQ_Master.md`.
 ## CTA
 Describe your project for a fast estimate, or contact us for a consultation.
 
-> Pricing data: `09_Knowledge_Base/Pricing/` and `09_Knowledge_Base/Production_Rates/`.
+> Pricing data: `13_Estimating/Unit_Pricing/` and `13_Estimating/Production_Rates/`.

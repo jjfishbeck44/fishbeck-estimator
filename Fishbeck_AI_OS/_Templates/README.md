@@ -49,7 +49,7 @@ Per Charter principle #1 (one fact, one home), these are **not** duplicated here
 |----------|----------|------|
 | Case study | `04_Case_Studies/Template.md` | Predates this library; migrates here in Phase 1.1 as `TPL_Case_Study.md` |
 | Bid structure | `06_Sales_Marketing/Bid_Templates/_Bid_Structure.md` | Reconcile with `TPL_Estimate.md` in Phase 2.7 |
-| CSV schemas | `09_Knowledge_Base/Data_Formats/` | Moves to `13_Estimating/_Data/` in Phase 1.1 |
+| CSV schemas | `13_Estimating/_Data/` | Migrated here from `09_Knowledge_Base/Data_Formats/` in Phase 1.1 ✅ |
 
 ## How to use a template
 

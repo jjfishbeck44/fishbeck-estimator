@@ -4,7 +4,7 @@ CLI,Client,20_CRM,4,1,,active,SYS-0006,high,2026-07-31,Converted leads
 LED,Lead,20_CRM,4,1,,active,SYS-0006,high,2026-07-31,Pre-conversion pipeline
 PRP,Property,23_Real_Estate,4,1,,active,SYS-0006,high,2026-07-31,Physical addresses tracked for investment
 VEN,Vendor,17_Purchasing,4,1,,active,SYS-0006,high,2026-07-31,Suppliers and material vendors
-SUB,Subcontractor,17_Purchasing,4,1,,active,SYS-0006,high,2026-07-31,Seed from legacy Subcontractor_Directory.csv
+SUB,Subcontractor,17_Purchasing,4,4,SUB-0003,active,SYS-0006,high,2026-08-06,SUB-0001 to SUB-0003 migrated in Phase 1.1; none compliance-cleared
 EMP,Employee,19_HR,4,1,,active,SYS-0006,high,2026-07-31,W-2 and 1099 crew
 EQP,Equipment,18_Equipment,4,1,,active,SYS-0006,high,2026-07-31,Tools and assets; QR-tracked
 PTR,Referral partner,20_CRM,4,1,,active,SYS-0006,high,2026-07-31,Realtors and referral sources
@@ -24,15 +24,15 @@ CHK,Checklist,16_Quality,4,1,,active,SYS-0006,high,2026-07-31,Also used by 12_Op
 CODE,Code reference,15_Construction_Knowledge,4,1,,active,SYS-0006,high,2026-07-31,Minnesota building code sections
 DTL,Typical detail,15_Construction_Knowledge,4,1,,active,SYS-0006,high,2026-07-31,Standard construction details
 SPEC,Manufacturer spec,15_Construction_Knowledge,4,1,,active,SYS-0006,high,2026-07-31,Product specifications
-DEC,Decision record,_System,4,11,DEC-0010,active,SYS-0006,high,2026-07-31,DEC-0001 through DEC-0010 logged in Decision_Log.md
+DEC,Decision record,_System,4,13,DEC-0012,active,SYS-0006,high,2026-08-06,DEC-0001 through DEC-0012 logged in Decision_Log.md
 ASM,Assembly,13_Estimating,4,1,,active,SYS-0006,high,2026-07-31,Composite units of work; Phase 2.4
-MAT,Material line,13_Estimating,4,1,,active,SYS-0006,high,2026-07-31,Phase 2.1
+MAT,Material line,13_Estimating,4,7,MAT-0006,active,SYS-0006,high,2026-08-06,MAT-0001 to MAT-0006 migrated from legacy KB in Phase 1.1
 LAB,Labor rate,13_Estimating,4,1,,active,SYS-0006,high,2026-07-31,Phase 2.2; blocked on open question Q1
-PRD,Production rate,13_Estimating,4,5,PRD-0004,active,SYS-0006,high,2026-07-31,PRD-0001 to PRD-0004 exist in legacy Production_Rates_Template.csv
-UP,Unit price,13_Estimating,4,1,,active,SYS-0006,high,2026-07-31,Legacy rows use SW-## style; crosswalk via legacy_id column
+PRD,Production rate,13_Estimating,4,6,PRD-0005,active,SYS-0006,high,2026-08-06,PRD-0001 to PRD-0005 migrated from legacy KB in Phase 1.1
+UP,Unit price,13_Estimating,4,41,UP-0040,active,SYS-0006,high,2026-08-06,UP-0001 to UP-0040 migrated in Phase 1.1; legacy SW-## style IDs kept in legacy_id column
 HC,Historical cost,13_Estimating,5,1,,active,SYS-0006,high,2026-07-31,The feedback loop target; Phase 2.6
 DEF,Defect,16_Quality,4,1,,active,SYS-0006,high,2026-07-31,Defect library
-LL,Lessons learned,16_Quality,4,1,,active,SYS-0006,high,2026-07-31,Seed from legacy Post_Mortems.md
+LL,Lessons learned,16_Quality,4,2,LL-0001,active,SYS-0006,high,2026-08-06,LL-0001 is the legacy Post_Mortems log migrated in Phase 1.1
 RCA,Root cause analysis,16_Quality,4,1,,active,SYS-0006,high,2026-07-31,Formal RCA records
 PL,Punch list item,14_Projects,3,1,,active,SYS-0006,high,2026-07-31,Per-project sequence
 KPI,Key performance indicator,11_Executive,3,1,,active,SYS-0006,high,2026-07-31,Defined in KPI_Registry.csv

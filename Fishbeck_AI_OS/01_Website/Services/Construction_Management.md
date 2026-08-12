@@ -33,4 +33,4 @@ juggling subcontractors themselves.
 ## CTA
 Tell us about your project and we'll manage it start to finish.
 
-> Reference: `09_Knowledge_Base/Construction_Management/`.
+> Reference: `12_Operations/`.

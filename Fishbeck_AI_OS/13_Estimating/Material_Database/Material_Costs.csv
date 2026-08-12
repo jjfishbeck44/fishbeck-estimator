@@ -1,0 +1,7 @@
+id,category,trade,material,unit,cost_low,cost_high,supplier,region,effective_date,status,source,confidence,last_updated,notes
+MAT-0001,Flooring,flooring,LVP plank (mid-grade),sqft,1.80,3.50,[confirm],twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Excludes installation; needs-verification: no supplier quote on file
+MAT-0002,Paint,painting,Interior paint (gallon),gal,30,55,[confirm],twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Covers ~350 sqft/coat; needs-verification: no supplier quote on file
+MAT-0003,Drywall,drywall,"1/2"" drywall sheet 4x8",ea,12,18,[confirm],twin-cities,2026-06-21,active,[confirm],low,2026-08-06,needs-verification: no supplier quote on file
+MAT-0004,Plumbing,plumbing,Standard toilet,ea,120,350,[confirm],twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Mid-grade; needs-verification: no supplier quote on file
+MAT-0005,Fixtures,plumbing,Vanity 30-36in,ea,200,700,[confirm],twin-cities,2026-06-21,active,[confirm],low,2026-08-06,needs-verification: no supplier quote on file
+MAT-0006,Lumber,framing,2x4 stud 8ft,ea,3,6,[confirm],twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Price volatile; verify; needs-verification: no supplier quote on file

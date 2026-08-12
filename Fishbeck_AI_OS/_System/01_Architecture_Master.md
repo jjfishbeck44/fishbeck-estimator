@@ -4,10 +4,10 @@ title: Architecture Master
 type: standard
 domain: _System
 status: approved
-version: 1.0.0
+version: 1.1.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-06
 review_cycle: quarterly
 next_review: 2026-10-31
 tags: [governance, architecture, folder-structure]
@@ -52,7 +52,7 @@ Fishbeck_AI_OS/
 │
 │   ── INTELLIGENCE ──────────────────────────────────────────────
 ├── 08_AI_Agents/              Prompt library, agents, automations, scripts
-├── 09_Knowledge_Base/         Narrative reference layer (see Migration Map)
+├── 09_Knowledge_Base/         DEPRECATED — contents migrated (DEC-0012)
 ├── 10_Archive/                Deprecated material, kept for reference
 │
 │   ── COMPANY OPERATIONS ────────────────────────────────────────
@@ -88,15 +88,15 @@ Fishbeck_AI_OS/
 | 06 | Sales & Marketing | Outbound assets | Jimmy | Markdown | Built |
 | 07 | SaaS | Software product docs | Jimmy | PRDs | Scaffold |
 | 08 | AI | Prompts, agents, automation, scripts | Jimmy | Prompts + code | Partial |
-| 09 | Knowledge Base | Narrative reference | Jimmy | Markdown | Migrating |
+| 09 | Knowledge Base | **Retired** — contents migrated to 12/13/15/16/17 | Jimmy | Pointer only | **Deprecated** |
 | 10 | Archive | Deprecated material | Jimmy | Any | Built |
 | 11 | Executive | Strategy and performance | Jimmy | Markdown + CSV | Scaffold |
-| 12 | Operations | How work gets done | Jimmy | SOPs | Scaffold |
-| 13 | Estimating | Cost intelligence | Jimmy | CSV | Scaffold |
+| 12 | Operations | How work gets done | Jimmy | SOPs | Partial |
+| 13 | Estimating | Cost intelligence | Jimmy | CSV | Partial |
 | 14 | Projects | Job record of truth | Jimmy | Project folders | Scaffold |
-| 15 | Construction Knowledge | Technical authority | Jimmy | Markdown | Scaffold |
-| 16 | Quality | Defect prevention | Jimmy | Checklists + CSV | Scaffold |
-| 17 | Purchasing | Vendor and buying intelligence | Jimmy | CSV | Scaffold |
+| 15 | Construction Knowledge | Technical authority | Jimmy | Markdown | Partial |
+| 16 | Quality | Defect prevention | Jimmy | Checklists + CSV | Partial |
+| 17 | Purchasing | Vendor and buying intelligence | Jimmy | CSV | Partial |
 | 18 | Equipment | Asset management | Jimmy | CSV | Scaffold |
 | 19 | HR | People systems | Jimmy | Markdown | Scaffold |
 | 20 | CRM | Relationship record | Jimmy | CSV | Scaffold |
@@ -168,6 +168,7 @@ NN_Domain/
 | Date | Version | Change | Approver |
 |------|---------|--------|----------|
 | 2026-07-31 | 1.0.0 | Initial architecture ratified; domains 11–24 established alongside existing 00–10 | Jimmy Fishbeck |
+| 2026-08-06 | 1.1.0 | Phase 1.1 migration executed; `09_Knowledge_Base` retired per `DEC-0012` | Jimmy Fishbeck |
 
 ## Future automation ideas
 

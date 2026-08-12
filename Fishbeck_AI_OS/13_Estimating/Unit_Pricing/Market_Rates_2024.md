@@ -1,3 +1,22 @@
+---
+id: EST-0002
+title: 2024 Market Rates — Master Pricing Reference
+type: reference
+domain: 13_Estimating
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-07-03
+updated: 2026-08-06
+review_cycle: quarterly
+next_review: 2026-11-06
+tags: [pricing, estimating, reference, needs-verification]
+related: [EST-0001, DEC-0007]
+source_of_truth: false
+ai_usage: read-write
+confidence: medium
+---
+
 # 2024 Market Rates — Master Pricing Reference
 
 Full construction rate card imported from the **2024 Construction Bid Package**
@@ -5,10 +24,10 @@ Full construction rate card imported from the **2024 Construction Bid Package**
 
 **Twin Cities calibration:** Twin Cities is a moderate-to-slightly-above-average
 metro market. The national low–high ranges below are wide enough to serve as the
-Fishbeck baseline; refine with real job actuals via `../Post_Mortems.md`.
+Fishbeck baseline; refine with real job actuals via `../../16_Quality/Lessons_Learned/Post_Mortems.md`.
 
 **Scope key:** `in-scope` = Fishbeck self-performs · `sub` = via subcontractor
-(`../Subcontractor_Directory.md`) · `out-of-scope` = the estimator excludes these
+(`../../17_Purchasing/Vendor_Database/README.md`) · `out-of-scope` = the estimator excludes these
 (electrical, plumbing, HVAC, structural steel, site work).
 
 ## Rate table (per unit: low – high, national avg)

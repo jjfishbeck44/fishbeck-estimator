@@ -1,3 +1,22 @@
+---
+id: PUR-0001
+title: Subcontractor Directory
+type: database
+domain: 17_Purchasing
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-06
+review_cycle: quarterly
+next_review: 2026-11-06
+tags: [purchasing, procurement, database, legal, needs-verification]
+related: [PUR-0000, TPL-VENDOR-RECORD]
+source_of_truth: true
+ai_usage: read-write
+confidence: unverified
+---
+
 # Subcontractor Directory
 
 Vetted trade partners with Minnesota license verification, insurance tracking, and

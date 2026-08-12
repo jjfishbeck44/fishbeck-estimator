@@ -27,4 +27,4 @@ relationships and buying experience.
 ## CTA
 Ask how we can handle procurement for your project.
 
-> Reference: `09_Knowledge_Base/Material_Costs/`.
+> Reference: `13_Estimating/Material_Database/`.

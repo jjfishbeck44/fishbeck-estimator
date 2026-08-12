@@ -1,6 +1,6 @@
 # Rental Turn Pack
 
-Checklists, scope sheets, and pricing guides for fast rental turns. Built from 09_Knowledge_Base/SOPs and Production_Rates.
+Checklists, scope sheets, and pricing guides for fast rental turns. Built from `12_Operations/SOP_Library` and `13_Estimating/Production_Rates`.
 
 ## Contents (planned)
 - [ ] Core templates / checklists
