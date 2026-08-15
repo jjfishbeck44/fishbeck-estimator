@@ -1,15 +1,11 @@
 {
   "version": 2,
   "functions": {
-    "api/estimate.js": {
-      "maxDuration": 30
-    },
-    "api/travel-distance.js": {
-      "maxDuration": 15
-    },
-    "api/custom-quote.js": {
-      "maxDuration": 15
-    }
+    "api/estimate.js": { "maxDuration": 30 },
+    "api/work-order.js": { "maxDuration": 30 },
+    "api/bid-score.js": { "maxDuration": 30 },
+    "api/travel-distance.js": { "maxDuration": 15 },
+    "api/custom-quote.js": { "maxDuration": 15 }
   },
   "headers": [
     {
@@ -58,6 +54,8 @@
   ],
   "rewrites": [
     { "source": "/estimate", "destination": "/index.html" },
+    { "source": "/work-order", "destination": "/work-order.html" },
+    { "source": "/bid-score", "destination": "/bid-score.html" },
     { "source": "/instant-estimate", "destination": "/instant-estimate.html" },
     { "source": "/estimating", "destination": "/estimating.html" }
   ]
