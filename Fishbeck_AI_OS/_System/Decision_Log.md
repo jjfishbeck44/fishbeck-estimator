@@ -4,10 +4,10 @@ title: Decision Log
 type: index
 domain: _System
 status: approved
-version: 1.1.0
+version: 1.2.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-08-06
+updated: 2026-08-12
 review_cycle: as-needed
 next_review: 2026-12-31
 tags: [governance, standard, decision]
@@ -37,7 +37,7 @@ live directly in the table below.
 | DEC-0004 | 2026-07-31 | Extend `08_AI_Agents` with `Prompt_Library`, `Automation`, `Scripts`, `APIs` instead of a new AI domain | Same as DEC-0003; the folder already holds agent definitions | New `AI` domain at `25` | Jimmy Fishbeck |
 | DEC-0005 | 2026-07-31 | Versions live in front matter and git only — never in filenames | Filename versions produce `Final_v3_FINAL.md`; git already versions | `_v2` suffix convention | Jimmy Fishbeck |
 | DEC-0006 | 2026-07-31 | CSV rows are never edited in place; superseded rows are deprecated and replaced with `effective_date` | Past estimates must remain reproducible for accuracy scoring | In-place edits with git history as the only record | Jimmy Fishbeck |
-| DEC-0007 | 2026-07-31 | `13_Estimating` is the single source of pricing truth; `lib/prompt.js` and `public/js/calculators/pricing.js` become generated consumers | Three files currently hold pricing and can disagree about what a job costs | Keeping app pricing independent | Jimmy Fishbeck |
+| DEC-0007 | 2026-07-31 | `13_Estimating` is the single source of pricing truth; `lib/prompt.js`, `public/js/calculators/pricing.js` and `lib/workOrderPrompt.js` become generated consumers | Multiple files hold pricing and can disagree about what a job costs. **Confirmed live 2026-08-12:** `lib/workOrderPrompt.js` (added on master after this decision) prices LVP at $2.50–4.50/sqft while `MAT-0001` says $1.80–3.50/sqft — a ~40% gap on the low end, in the same repository | Keeping app pricing independent | Jimmy Fishbeck |
 | DEC-0008 | 2026-07-31 | Multi-value CSV columns use pipe delimiters | Commas break CSV parsing without quoting; pipes are unambiguous | Quoted comma lists; JSON in cells | Jimmy Fishbeck |
 | DEC-0009 | 2026-07-31 | OS stays inside `fishbeck-estimator` for now; split to a dedicated repo at ~500 files | Current volume doesn't justify the split cost; architecture is repo-agnostic | Immediate split; permanent co-location | Jimmy Fishbeck |
 | DEC-0010 | 2026-07-31 | A project is not "closed" until it emits 5 artifacts: historical costs, lessons learned, defects, vendor performance, photos | This feedback loop is the mechanism by which the company compounds | Optional closeout reporting | Jimmy Fishbeck |
@@ -59,6 +59,7 @@ assume an answer.
 | Q6 | What accounting system is in use (QuickBooks, spreadsheets, other)? | Phase 6.3 integration design | 2026-07-31 |
 | Q7 | The 3 subcontractors (`SUB-0001`–`0003`) have no company name, license number, or insurance on file. Who are they, and are their COIs current? | Scheduling any sub work; they are flagged `compliance_cleared: false` and must not be scheduled | 2026-08-06 |
 | Q8 | Are the 2024 national bid-package rates actually representative of what Fishbeck charges in the Twin Cities? | Promoting 40 `UP-####` rows above `confidence: medium` | 2026-08-06 |
+| Q9 | LVP per sqft: `MAT-0001` says $1.80–3.50, `lib/workOrderPrompt.js` says $2.50–4.50. Which is correct? | Phase 1.4 reconciliation; the work-order tool currently budgets ~40% high on the low end | 2026-08-12 |
 
 ## Future automation ideas
 

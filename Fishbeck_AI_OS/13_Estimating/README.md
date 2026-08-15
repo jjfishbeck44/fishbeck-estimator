@@ -4,10 +4,10 @@ title: 13_Estimating — Cost Intelligence
 type: readme
 domain: 13_Estimating
 status: draft
-version: 0.1.0
+version: 0.2.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-12
 review_cycle: quarterly
 next_review: 2026-10-31
 tags: [estimating, pricing, database, analytics]
@@ -43,10 +43,15 @@ are *consumers* and must be regenerated from here, never edited independently:
 |----------|------|------|
 | Estimator API prompt | `lib/prompt.js` | Manual today → `AUT-004` |
 | Calculator tools | `public/js/calculators/pricing.js` | Manual today → `AUT-004` |
+| Work order prep prompt | `lib/workOrderPrompt.js` | Manual today → `AUT-004` |
 | Proposals and bids | `06_Sales_Marketing/Bid_Templates/` | Manual |
 
-> **Highest-risk item in the OS.** Three files currently hold pricing and can
-> disagree about what a job costs. Resolving this is Phase 1.4.
+> **Live conflict, unresolved (Q9).** `lib/workOrderPrompt.js` prices LVP at
+> $2.50–4.50/sqft; `MAT-0001` says $1.80–3.50/sqft. Paint agrees ($30–55/gal).
+> Do not "fix" either until the owner says which is right.
+
+> **Highest-risk item in the OS.** Four files now hold pricing and at least two
+> already disagree. Resolving this is Phase 1.4.
 
 ## Structure
 
@@ -83,15 +88,18 @@ see exactly why.
 
 ## Contents
 
-| Database | ID prefix | Rows | Status | Phase |
-|----------|-----------|------|--------|-------|
-| Material | `MAT-####` | 0 | ⬜ | 2.1 |
-| Labor | `LAB-####` | 0 | ⬜ blocked on Q1 | 2.2 |
-| Production rates | `PRD-####` | 4 legacy | ◐ migrating | 2.3 |
-| Assemblies | `ASM-####` | 0 | ⬜ | 2.4 |
-| Unit pricing | `UP-####` | ~60 legacy (`SW-##` style) | ◐ migrating | 2.5 |
-| Historical costs | `HC-#####` | 0 | ⬜ | 2.6 |
-| Estimates | `EST-####` | 0 | ⬜ | — |
+| Database | ID prefix | Rows | Confidence | Status | Phase |
+|----------|-----------|------|-----------|--------|-------|
+| Unit pricing | `UP-####` | 40 | `medium` | ✅ migrated | 2.5 |
+| Material | `MAT-####` | 6 | `low` | ✅ migrated | 2.1 |
+| Production rates | `PRD-####` | 5 | `low` | ✅ migrated | 2.3 |
+| Labor | `LAB-####` | 0 | — | ⬜ blocked on Q1 | 2.2 |
+| Assemblies | `ASM-####` | 0 | — | ⬜ | 2.4 |
+| Historical costs | `HC-#####` | 0 | — | ⬜ | 2.6 |
+| Estimates | `EST-####` | 0 | — | ⬜ | — |
+
+**Nothing here is cleared to quote a client.** Every row is below
+`confidence: high` and tagged `needs-verification` (`SYS-0008`, `DEC-0011`).
 
 ## Required fields
 
@@ -107,14 +115,16 @@ Beyond the mandatory CSV columns in `SYS-0003`, cost rows require:
 
 ## Pricing gate
 
-Per `SYS-0008`, no pricing row becomes `active` without either:
+Per `SYS-0008` as amended by `DEC-0011`, the gate keys on **`confidence`, not
+`status`**. No pricing row reaches `confidence: high` — the only level quotable
+to a client — without either:
 
-- **(a)** three real job data points, or
+- **(a)** three real Fishbeck job data points, or
 - **(b)** a documented supplier quote.
 
-Otherwise it stays `confidence: low` and tagged `needs-verification`, and **may
-not be quoted to a client.** This gate is what stops the estimator from
-laundering guesses into confident-looking numbers.
+Industry reference data and national averages top out at `medium`. Anything
+below `high` carries `needs-verification`. This gate is what stops the estimator
+from laundering guesses into confident-looking numbers.
 
 ## Workflows
 
@@ -124,7 +134,7 @@ laundering guesses into confident-looking numbers.
 | Capture actuals | Project closeout | `HC-#####` rows linked to their `EST-####` |
 | Recalibrate rates | 3+ jobs disagree with a `PRD`/`MAT` row | Superseding row with new `effective_date` |
 | Quarterly price review | `next_review` | Verified or superseded rows |
-| Regenerate consumers | Any pricing change | Updated `lib/prompt.js`, `pricing.js` |
+| Regenerate consumers | Any pricing change | Updated `lib/prompt.js`, `pricing.js`, `workOrderPrompt.js` |
 
 ## Relationships
 
@@ -141,9 +151,9 @@ laundering guesses into confident-looking numbers.
 
 | Phase | Deliverable | Status |
 |-------|-------------|--------|
-| 1.1 | Absorb legacy KB pricing/materials/rates | ⬜ |
-| 1.4 | Resolve three-way pricing duplication | ⬜ |
-| 2.1–2.7 | Build the seven databases | ⬜ |
+| 1.1 | Absorb legacy KB pricing/materials/rates | ✅ 2026-08-06 |
+| 1.4 | Resolve four-way pricing duplication (Q9) | ⬜ |
+| 2.1–2.7 | Build out the seven databases | ◐ 3 of 7 seeded |
 
 ## Open questions
 
@@ -153,10 +163,13 @@ laundering guesses into confident-looking numbers.
 | Q2 (SYS-0012) | Preferred suppliers and negotiated discounts | `MAT` accuracy |
 | Q3 (SYS-0012) | Standard overhead and profit by project type | Estimate totals |
 | Q5 (SYS-0012) | Existing invoice history to seed `HC`? | Whether the loop starts warm or cold |
+| Q8 (SYS-0012) | Are the national bid-package rates representative of Twin Cities? | Promoting `UP-####` above `medium` |
+| Q9 (SYS-0012) | LVP: `MAT-0001` $1.80–3.50 vs `workOrderPrompt.js` $2.50–4.50 — which is right? | Phase 1.4 |
 
 ## Future automation ideas
 
-- `AUT-004` — generate `lib/prompt.js` and `pricing.js` from these CSVs.
+- `AUT-004` — generate `lib/prompt.js`, `pricing.js`, and `workOrderPrompt.js`
+  from these CSVs. Now priority 10; the four-way split is producing real conflicts.
 - `AUT-007` — automated estimate accuracy scoring by trade.
 - Supplier price feed ingestion to keep `MAT` current without manual entry.
 - Assembly builder that composes `ASM` rows from `MAT` + `LAB` + `PRD`.
