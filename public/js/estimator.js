@@ -58,6 +58,10 @@
   var confirmOkBtn = document.getElementById('confirm-ok');
   var confirmCancelBtn = document.getElementById('confirm-cancel');
   var footerYear = document.getElementById('footer-year');
+  var comparisonCard = document.getElementById('comparison-card');
+  var comparisonBody = document.getElementById('comparison-body');
+  var comparisonCount = document.getElementById('comparison-count');
+  var closeComparisonBtn = document.getElementById('close-comparison-btn');
 
   // --- Constants ---
   var STATES = {
@@ -65,7 +69,8 @@
     LOADING: 'loading',
     RESULTS: 'results',
     CLARIFICATION: 'clarification',
-    ERROR: 'error'
+    ERROR: 'error',
+    COMPARISON: 'comparison'
   };
 
   var HISTORY_KEY = 'fishbeck_estimates';
@@ -85,6 +90,7 @@
   var lastProjectName = '';
   var lastRefId = '';
   var loadingInterval = null;
+  var selectedForComparison = []; // Array of {index, entry} objects
 
   // --- Utilities ---
   function fmt(n) {
@@ -677,6 +683,7 @@
         : '';
 
       item.innerHTML =
+        '<input type="checkbox" class="history-checkbox" title="Select for comparison" aria-label="Select for comparison" />' +
         '<div class="history-content">' +
           '<div class="history-text">' +
             nameHtml +
@@ -689,14 +696,26 @@
         '</div>' +
         '<button class="history-delete" title="Remove" aria-label="Remove estimate" type="button">&times;</button>';
 
+      var checkbox = item.querySelector('.history-checkbox');
       var deleteBtn = item.querySelector('.history-delete');
+
+      checkbox.addEventListener('change', function (e) {
+        e.stopPropagation();
+        if (checkbox.checked) {
+          selectedForComparison.push({ index: idx, entry: entry });
+        } else {
+          selectedForComparison = selectedForComparison.filter(function (s) { return s.index !== idx; });
+        }
+        updateComparisonUI();
+      });
+
       deleteBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         removeFromHistory(idx);
       });
 
       item.addEventListener('click', function (e) {
-        if (e.target.closest('.history-delete')) return;
+        if (e.target.closest('.history-delete') || e.target.closest('.history-checkbox')) return;
         lastInput = entry.input;
         lastProjectName = entry.name || '';
         lastRefId = entry.refId || '';
@@ -722,6 +741,103 @@
 
       historyList.appendChild(item);
     });
+  }
+
+  // --- Estimate comparison ---
+  function updateComparisonUI() {
+    if (selectedForComparison.length >= 2) {
+      show(comparisonCard);
+      comparisonCount.textContent = selectedForComparison.length + ' selected';
+      buildComparisonTable();
+    } else {
+      hide(comparisonCard);
+      selectedForComparison = [];
+    }
+  }
+
+  function buildComparisonTable() {
+    var sorted = selectedForComparison.sort(function (a, b) {
+      return b.entry.timestamp - a.entry.timestamp;
+    });
+
+    var html = '<div class="comparison-wrapper">';
+
+    // Header with project info for each estimate
+    html += '<div class="comparison-header">';
+    sorted.forEach(function (item, idx) {
+      var entry = item.entry;
+      var total = fmtRange(num(entry.estimate.total_low), num(entry.estimate.total_high));
+      html += '<div class="comparison-column">';
+      html += '<div class="comparison-title">' + escHtml(entry.name || 'Estimate ' + (idx + 1)) + '</div>';
+      html += '<div class="comparison-ref">' + escHtml(entry.refId || '') + '</div>';
+      html += '<div class="comparison-desc">' + escHtml(entry.input.substring(0, 80)) + (entry.input.length > 80 ? '…' : '') + '</div>';
+      html += '<div class="comparison-total">' + total + '</div>';
+      html += '<div class="comparison-date">' + formatTimestamp(entry.timestamp) + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+    // Line items comparison table
+    var allItems = {};
+    sorted.forEach(function (item, idx) {
+      (item.entry.estimate.line_items || []).forEach(function (lineItem) {
+        var key = lineItem.label;
+        if (!allItems[key]) {
+          allItems[key] = { label: lineItem.label, cols: [] };
+        }
+        allItems[key].cols[idx] = lineItem;
+      });
+    });
+
+    html += '<div class="comparison-table-wrap">';
+    html += '<table class="comparison-table">';
+    html += '<thead><tr>';
+    html += '<th class="col-item">Item</th>';
+    sorted.forEach(function (item, idx) {
+      html += '<th class="col-range">Est ' + (idx + 1) + '</th>';
+    });
+    html += '</tr></thead>';
+    html += '<tbody>';
+
+    Object.keys(allItems).forEach(function (key) {
+      var item = allItems[key];
+      html += '<tr>';
+      html += '<td class="col-item"><strong>' + escHtml(item.label) + '</strong></td>';
+      sorted.forEach(function (sel, idx) {
+        var lineItem = item.cols[idx];
+        var cellContent = lineItem
+          ? fmtRange(num(lineItem.range_low), num(lineItem.range_high))
+          : '—';
+        html += '<td class="col-range">' + cellContent + '</td>';
+      });
+      html += '</tr>';
+      // Show description on next row if any estimate has it
+      var hasDesc = item.cols.some(function (li) { return li && li.description; });
+      if (hasDesc) {
+        html += '<tr class="desc-row">';
+        html += '<td colspan="1"></td>';
+        sorted.forEach(function (sel, idx) {
+          var lineItem = item.cols[idx];
+          var desc = lineItem ? (lineItem.description || '') : '';
+          html += '<td class="desc-cell">' + escHtml(desc) + '</td>';
+        });
+        html += '</tr>';
+      }
+    });
+
+    html += '</tbody>';
+    html += '<tfoot><tr>';
+    html += '<td class="col-item"><strong>Total</strong></td>';
+    sorted.forEach(function (item) {
+      var est = item.entry.estimate;
+      html += '<td class="col-range total-cell">' + fmtRange(num(est.total_low), num(est.total_high)) + '</td>';
+    });
+    html += '</tr></tfoot>';
+    html += '</table>';
+    html += '</div>';
+
+    html += '</div>';
+    comparisonBody.innerHTML = html;
   }
 
   // --- Draft persistence ---
@@ -886,6 +1002,13 @@
       return;
     }
     setState(STATES.INPUT);
+  });
+
+  closeComparisonBtn.addEventListener('click', function () {
+    selectedForComparison = [];
+    hide(comparisonCard);
+    comparisonBody.innerHTML = '';
+    renderHistory();
   });
 
   // --- Print ---

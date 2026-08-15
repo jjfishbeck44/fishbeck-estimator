@@ -135,6 +135,7 @@ At 100 estimates per month, expect roughly **$1-2/month** total.
 
 - **Example templates** — One-click project examples (unit turns, kitchen remodel, etc.) so users don't start from a blank page
 - **Estimate history** — Last 10 estimates saved locally with search filter, reference IDs, and individual delete
+- **Estimate comparison** — Select multiple estimates from history to compare costs and line items side-by-side
 - **Print and copy** — Print button with clean print styles, copy button for plain-text clipboard
 - **PDF export** — Download a professional PDF with Fishbeck branding, formatted as a ready-to-share document
 - **CSV export** — Download the estimate as a `.csv` spreadsheet for accounting or record-keeping

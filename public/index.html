@@ -306,6 +306,20 @@
 
       </div><!-- /results-section -->
 
+      <!-- Estimate comparison -->
+      <div class="card hidden" id="comparison-card">
+        <div class="card-header">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <h2 class="card-title">Compare Estimates</h2>
+            <span class="comparison-count" id="comparison-count"></span>
+          </div>
+          <button id="close-comparison-btn" class="btn-clear" type="button" title="Close comparison">Done</button>
+        </div>
+        <div class="card-body p-0" id="comparison-body">
+          <!-- Populated by JS with side-by-side table -->
+        </div>
+      </div>
+
       <!-- Recent estimates -->
       <div class="card hidden" id="history-card">
         <div class="card-header" style="display:flex;align-items:flex-start;justify-content:space-between;">

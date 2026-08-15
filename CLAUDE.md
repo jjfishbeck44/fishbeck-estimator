@@ -153,6 +153,7 @@ No CI pipeline is configured — run tests locally before pushing.
 - **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting, drywall, exterior work).
 - **Draft persistence:** Input text saved to `sessionStorage` (key: `fishbeck_draft`) so refreshing the page doesn't lose work. Cleared on successful estimate or new estimate.
 - **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen with date+time, ref IDs, and individual delete buttons. Click to revisit. Search filter appears when 4+ entries exist.
+- **Estimate comparison:** Select 2+ estimates from history to compare side-by-side. Shows all line items, costs, and descriptions in a table format for easy analysis and decision-making.
 - **Estimate reference IDs:** Each estimate gets a unique `FI-XXXXXX` reference code shown in the timestamp, history, and exports. Useful for referencing specific estimates in communication.
 - **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context. Phone CTA also available.
 - **Print/copy buttons:** Print opens browser print dialog with branded letterhead (company name, contact info). Copy formats estimate as plain text for clipboard.
