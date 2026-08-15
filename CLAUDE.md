@@ -15,7 +15,7 @@ Client (public/)  →  POST /api/estimate  →  api/estimate.js (handler)
                                                 └── lib/claude.js     (Claude API, 25s timeout)
 ```
 
-**Request flow:** CORS preflight → method guard (POST only) → rate limit → input validation (non-empty, ≤1000 chars) → Claude API call → JSON response.
+**Request flow:** CORS preflight → method guard (POST only) → rate limit → input validation (non-empty, ≤1000 chars) → input sanitization (strip control chars) → Claude API call → response normalization → JSON response.
 
 **Frontend state machine:** INPUT → LOADING → RESULTS / CLARIFICATION / ERROR
 
@@ -77,6 +77,11 @@ lib/
   ratelimit.js         # Upstash sliding-window rate limiter (fails open)
 public/
   index.html           # Single-page app (form, results table, loading states)
+  favicon.svg          # SVG favicon (FI logo, navy + gold)
+  apple-touch-icon.svg # iOS home screen icon
+  manifest.json        # PWA manifest for "Add to Home Screen"
+  robots.txt           # Blocks /api/ from crawlers, references sitemap
+  sitemap.xml          # Single URL entry for main page
   css/style.css        # Custom design system (navy #1B3A5C, gold #C8963E)
   js/estimator.js      # Frontend logic (IIFE, state machine, fetch API)
 tests/
@@ -84,6 +89,7 @@ tests/
   claude.test.js       # Claude wrapper tests (mocked SDK)
   prompt.test.js       # System prompt content validation
   ratelimit.test.js    # Rate limiter tests (fail-open behavior)
+  mulch-math.test.js   # Mulch math unit tests (pure functions, no mocks)
 ```
 
 ## Development Setup
@@ -102,6 +108,8 @@ No build step required. Vercel serves `public/` as static files and `api/` as se
 | `ANTHROPIC_API_KEY` | Anthropic API key for Claude |
 | `UPSTASH_REDIS_REST_URL` | Upstash Redis REST endpoint |
 | `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis auth token |
+| `RESEND_API_KEY` | Resend API key for the custom-quote email (optional; falls back to `mailto:`) |
+| `RESEND_FROM` | Verified sender for custom-quote email (optional; defaults to `onboarding@resend.dev`) |
 
 ## Commands
 
@@ -145,6 +153,74 @@ No CI pipeline is configured — run tests locally before pushing.
 - **25s timeout via `Promise.race`:** Stays within Vercel's 30s function limit. Throws typed `api_timeout` error.
 - **XSS prevention:** Frontend uses `escHtml()` to sanitize all user-provided text before rendering.
 - **JSON-only Claude responses:** System prompt instructs Claude to return structured JSON matching the response schema above. Model: `claude-sonnet-4-6`, `max_tokens: 1024`.
+- **Example templates:** Clickable chips pre-fill the textarea with common project descriptions (unit turns, kitchen/bath remodel, roofing, painting, drywall, exterior work).
+- **Draft persistence:** Input text saved to `sessionStorage` (key: `fishbeck_draft`) so refreshing the page doesn't lose work. Cleared on successful estimate or new estimate.
+- **Estimate history:** Saved to `localStorage` (key: `fishbeck_estimates`, max 10 entries). Shown on the input screen with date+time, ref IDs, and individual delete buttons. Click to revisit. Search filter appears when 4+ entries exist.
+- **Estimate reference IDs:** Each estimate gets a unique `FI-XXXXXX` reference code shown in the timestamp, history, and exports. Useful for referencing specific estimates in communication.
+- **Smart proposal email:** The "Request My Proposal" CTA pre-fills the email body with the formatted estimate so Jimmy receives full context. Phone CTA also available.
+- **Print/copy buttons:** Print opens browser print dialog with branded letterhead (company name, contact info). Copy formats estimate as plain text for clipboard.
+- **CSV export:** Download button exports estimate as `fishbeck-estimate.csv` spreadsheet with Item, Description, Low, High columns.
+- **Project name labels:** Optional project name field (e.g., "123 Main St") saved with estimates, shown in banner and history.
+- **Styled confirm modal:** Custom modal replaces native `confirm()` for clearing history. Dismissible via Cancel, Escape, or backdrop click.
+- **Cost breakdown chart:** Horizontal bar chart visualizing relative cost of each line item. Auto-hidden for single-item estimates.
+- **FAQ accordion:** Five common questions about estimates, service area, and Fishbeck's capabilities. Uses native `<details>` elements.
+- **Reduced motion:** `prefers-reduced-motion: reduce` media query disables all CSS animations and transitions for users who prefer reduced motion.
+- **Rotating loading messages:** Cycles through 5 progressive messages every 2.5s during the API call. Animated progress bar fills to 90% over 12s with decelerating ease.
+- **Network retry:** `fetchWithRetry` automatically retries once after 1.5s on network failure before showing the error state.
+- **PWA manifest:** `manifest.json` enables "Add to Home Screen" on mobile devices.
+- **SEO files:** `robots.txt` blocks `/api/` from crawlers and references `sitemap.xml`.
+- **Accessibility:** Skip-to-content link, focus management on results, shake animation on empty submit, JSON-LD structured data, `role="alert"` on error card, `aria-label` feedback on copy button. Escape key dismisses error/clarification states.
+- **Error retry:** "Try Again" re-submits the same input instead of resetting to blank form.
+- **Re-estimate:** "Re-estimate" button in results view re-submits the same project description for a fresh estimate.
+- **Estimate timestamp:** Results view shows when the estimate was generated (date + time).
+- **Share button:** Uses Web Share API on mobile for native sharing, clipboard fallback on desktop.
+- **Dark mode:** Automatic via `prefers-color-scheme: dark` media query. Full color scheme for all elements. Print styles force light colors regardless of mode.
+- **Auto-resize textarea:** Grows as user types, resets on new estimate.
+- **Fade-in animation:** Results section slides up with a subtle CSS animation.
+- **Response validation:** `num()` helper safely coerces non-numeric values in cost ranges to prevent `$NaN` display.
+- **Error logging:** API catch block logs `console.error('[estimate]', ...)` for production debugging.
+
+## Calculator Tools
+
+Standalone, client-side construction calculators (mulch, paint, drywall, etc.) live alongside
+the estimator. They are pure static pages — no API, no build step — and follow one repeatable
+template, first established by the **Mulch Calculator**. To add a new tool, clone the pattern:
+
+1. **Math module** — `public/js/calculators/<tool>-math.js`. Pure functions, no DOM. Use the
+   UMD guard from `mulch-math.js` so the file works as a browser global (`window.FCalc.<tool>`)
+   **and** is `require()`-able by Jest. Name and comment all magic numbers/constants.
+2. **Page** — `public/<tool>-calculator.html`. Reuse the header/hero/footer markup and the
+   existing design-system classes (`.card`, `.btn`, `.form-row`/`.form-field`/`.form-input`,
+   `.result-grid`/`.result-stat`, `.cta-block`). Give it a unique `<title>`, meta description,
+   OG tags, a `<link rel="canonical">`, and JSON-LD (`@type: "SoftwareApplication"`). Include a
+   short "How it's calculated" section for SEO.
+3. **UI logic** — `public/js/<tool>-calculator.js`. IIFE + `'use strict'`, mirroring
+   `mulch-calculator.js`: read inputs, call the math module, render results, persist a capped
+   localStorage history (key `fishbeck_<tool>_calcs`, max 10, try/catch wrapped).
+4. **Lead hand-off** — every tool ends with a "Get a Real Quote" CTA whose link is
+   `/?prefill=<encodeURIComponent(projectDescription)>`. `estimator.js` reads the `prefill`
+   query param on load and pre-populates the textarea, turning calculator traffic into leads.
+5. **Wire it up** — add the tool to the `tools.html` grid, `sitemap.xml`, and a clean-URL
+   rewrite in `vercel.json` (e.g. `/tools/<tool>-calculator` → `/<tool>-calculator.html`).
+6. **Test** — add `tests/<tool>-math.test.js` asserting the math (Jest node env, no DOM/mocks).
+
+**Dollar-based tools** (unit-turn, snow, repair-vs-replace, fix-n-flip, DIY-vs-hire,
+project-schedule, tool-rental, 3D-print) read all rates from a single editable file,
+`public/js/calculators/pricing.js` (UMD: `window.FCalc.pricing` + CommonJS). Their math
+modules take `pricing` as a UMD dependency, so the HTML must load `pricing.js` **before** the
+tool's math module. To change pricing, edit only `pricing.js` — every calculator updates.
+The 3D-print tool is a collect-and-email request (builds a `mailto:` to Jimmy).
+
+**Backend-backed tools** add two serverless endpoints:
+- **Property assessment** (`/tools/property-assessment-calculator`) → `POST /api/travel-distance`
+  geocodes the address via OpenStreetMap Nominatim (`lib/geocode.js`, no API key) and returns
+  road-adjusted miles from St. Paul. `property-assessment-math.js` then prices it locally
+  (base + travel + scope options from `pricing.js`).
+- **Custom quote** (`/tools/custom-quote`) → `POST /api/custom-quote` emails the request to
+  Jimmy via Resend (`lib/email.js`, REST API, no SDK). Needs `RESEND_API_KEY` (optional
+  `RESEND_FROM`); if unset, `sendEmail` throws `email_not_configured` and the frontend falls
+  back to a `mailto:`. No file storage — the customer attaches files in their reply (reply-to
+  is set to the customer). Both endpoints reuse `lib/ratelimit.js` (fail-open).
 
 ## Updating Pricing
 
@@ -156,5 +232,8 @@ All pricing ranges and service categories live in `lib/prompt.js`. Edit the `PRI
 - **Auto-deploy:** Push to `master` triggers deployment
 - **Function timeout:** 30 seconds (configured in `vercel.json`)
 - **CORS:** Open (`*`) for API routes
-- **CSP:** `frame-ancestors *.fishbeckinnovations.com`
+- **CSP:** Full directive set (`default-src 'self'`, `script-src`, `style-src`, `font-src`, `img-src`, `connect-src`, `frame-ancestors`, `base-uri`, `form-action`)
+- **Security headers:** `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`
+- **Input sanitization:** Control characters stripped before Claude API call (newlines/tabs preserved)
+- **Static caching:** CSS/JS cached 1 day with `stale-while-revalidate`, favicon cached 1 week
 - **Full guide:** See `DEPLOY.md`

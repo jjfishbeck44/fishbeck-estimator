@@ -1,0 +1,16 @@
+{
+  "name": "Fishbeck Project Estimator",
+  "short_name": "Estimator",
+  "description": "Get an instant AI-powered cost estimate for your construction or property maintenance project.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1B3A5C",
+  "theme_color": "#1B3A5C",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

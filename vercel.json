@@ -1,9 +1,11 @@
 {
   "version": 2,
   "functions": {
-    "api/estimate.js": {
-      "maxDuration": 30
-    }
+    "api/estimate.js": { "maxDuration": 30 },
+    "api/work-order.js": { "maxDuration": 30 },
+    "api/bid-score.js": { "maxDuration": 30 },
+    "api/travel-distance.js": { "maxDuration": 15 },
+    "api/custom-quote.js": { "maxDuration": 15 }
   },
   "headers": [
     {
@@ -19,12 +21,42 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "frame-ancestors *.fishbeckinnovations.com"
+          "value": "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors *.fishbeckinnovations.com; base-uri 'self'; form-action 'self'"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/(css|js)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    },
+    {
+      "source": "/favicon.svg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800"
         }
       ]
     }
   ],
   "rewrites": [
-    { "source": "/estimate", "destination": "/index.html" }
+    { "source": "/estimate", "destination": "/index.html" },
+    { "source": "/work-order", "destination": "/work-order.html" },
+    { "source": "/bid-score", "destination": "/bid-score.html" },
+    { "source": "/instant-estimate", "destination": "/instant-estimate.html" },
+    { "source": "/estimating", "destination": "/estimating.html" }
   ]
 }

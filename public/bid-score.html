@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Paste a bid notification and get an instant BID / REVIEW / SKIP verdict based on Fishbeck's scoring rubric." />
+  <title>Bid Scorer — Fishbeck Innovations</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .verdict-banner {
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+    .verdict-banner.bid    { background: #D4EDDA; border: 2px solid #28A745; }
+    .verdict-banner.review { background: #FFF3CD; border: 2px solid #FFC107; }
+    .verdict-banner.skip   { background: #F8D7DA; border: 2px solid #DC3545; }
+    .verdict-label { font-size: 2.5rem; font-weight: 800; letter-spacing: 0.04em; }
+    .verdict-banner.bid    .verdict-label { color: #155724; }
+    .verdict-banner.review .verdict-label { color: #856404; }
+    .verdict-banner.skip   .verdict-label { color: #721C24; }
+    .verdict-liner { font-size: 1rem; margin-top: 0.35rem; font-style: italic; }
+    .verdict-banner.bid    .verdict-liner { color: #155724; }
+    .verdict-banner.review .verdict-liner { color: #856404; }
+    .verdict-banner.skip   .verdict-liner { color: #721C24; }
+    .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+    .score-card { background: #F4F6F9; border-radius: 10px; padding: 1rem; text-align: center; }
+    .score-dim  { font-size: 0.72rem; color: #6B7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+    .score-num  { font-size: 2rem; font-weight: 800; color: #1B3A5C; line-height: 1; }
+    .score-num.high   { color: #155724; }
+    .score-num.medium { color: #856404; }
+    .score-num.low    { color: #721C24; }
+    .score-reason { font-size: 0.78rem; color: #4B5563; margin-top: 0.4rem; line-height: 1.4; }
+    .bid-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; margin-bottom: 1.25rem; }
+    .bid-meta-item { background: #F4F6F9; border-radius: 8px; padding: 0.75rem; }
+    .bid-meta-label { font-size: 0.72rem; color: #6B7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .bid-meta-value { font-size: 0.9rem; font-weight: 600; color: #1B3A5C; margin-top: 0.2rem; }
+    .flags-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .flag-chip { background: #E8EEF5; color: #1B3A5C; border-radius: 20px; padding: 0.2rem 0.65rem; font-size: 0.75rem; font-weight: 500; }
+    .flag-chip.positive { background: #D4EDDA; color: #155724; }
+    .flag-chip.caution  { background: #FFF3CD; color: #856404; }
+    .oos-list { padding-left: 1.25rem; color: #6B7280; font-size: 0.875rem; }
+    .oos-list li { padding: 0.2rem 0; }
+    @media (max-width: 520px) { .score-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text">
+            <span class="logo-name">Fishbeck Innovations</span>
+            <span class="logo-tagline">Construction &amp; Property Maintenance</span>
+          </div>
+        </div>
+        <nav style="display:flex;gap:0.75rem;align-items:center;">
+          <a href="/work-order" style="color:rgba(255,255,255,0.75);font-size:0.85rem;text-decoration:none;">Work Order Prep</a>
+          <a href="/" style="color:rgba(255,255,255,0.75);font-size:0.85rem;text-decoration:none;">← Estimator</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" style="padding: 2.5rem 0 1.5rem;">
+    <div class="container container-narrow">
+      <h1 class="hero-title" style="font-size:1.75rem;">Bid Scorer</h1>
+      <p class="hero-sub" style="font-size:1rem;">Paste any RFP, IFB, or bid notification email. Get an instant <strong>BID / REVIEW / SKIP</strong> verdict scored on spec flexibility, trade fit, and bid friendliness.</p>
+    </div>
+  </section>
+
+  <main class="main-content" style="flex:1; padding-bottom: 3rem;">
+    <div class="container container-narrow">
+
+      <!-- Input -->
+      <div class="card" id="input-card">
+        <div class="card-header">
+          <div class="card-icon">📄</div>
+          <div>
+            <div class="card-title">Paste Bid Notification</div>
+            <div class="card-subtitle">Email text, web posting, or PDF excerpt — the more text the more accurate the score.</div>
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <textarea
+            id="bid-input"
+            class="project-textarea"
+            placeholder="IFB #2026-042&#10;Minneapolis Public Housing Authority&#10;&#10;MPHA invites sealed bids for interior painting of 48 vacant units at Plymouth Towers. Paints shall be contractor's choice, latex, washable. LVP flooring replacement in living areas, contractor's choice of brand and color. Work to begin July 1, 2026. Bids due June 20, 2026 at 2:00 PM CST..."
+            maxlength="8000"
+            rows="10"
+          ></textarea>
+          <div class="char-counter" id="char-count">0 / 8000</div>
+        </div>
+        <div class="input-footer">
+          <button class="btn btn-primary" id="score-btn">Score This Bid</button>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div class="card loading-card" id="loading-card" style="display:none;">
+        <div class="loading-inner">
+          <div class="spinner"></div>
+          <div class="loading-text">Scoring bid…</div>
+          <div class="loading-sub">Evaluating spec flexibility, trade fit, and bid friendliness</div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results-section" style="display:none;">
+
+        <!-- Verdict banner -->
+        <div class="verdict-banner" id="verdict-banner">
+          <div class="verdict-label" id="verdict-label"></div>
+          <div class="verdict-liner" id="verdict-liner"></div>
+        </div>
+
+        <!-- Bid metadata -->
+        <div class="bid-meta" id="bid-meta"></div>
+
+        <!-- Score grid -->
+        <div class="score-grid" id="score-grid"></div>
+
+        <!-- Flags -->
+        <div class="card" id="flags-card" style="margin-bottom:1.25rem;display:none;">
+          <div class="card-header">
+            <div class="card-icon">🏷️</div>
+            <div><div class="card-title">Flags</div></div>
+          </div>
+          <div class="flags-row" id="flags-row"></div>
+        </div>
+
+        <!-- Out of scope -->
+        <div class="card" id="oos-card" style="margin-bottom:1.25rem;display:none;">
+          <div class="card-header">
+            <div class="card-icon">🚫</div>
+            <div><div class="card-title">Out of Scope</div><div class="card-subtitle">Items Fishbeck can't cover as prime.</div></div>
+          </div>
+          <ul class="oos-list" id="oos-list"></ul>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;">
+          <button class="btn btn-secondary" id="new-bid-btn">Score Another</button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div class="card error-card" id="error-card" style="display:none;">
+        <div class="error-inner">
+          <div class="error-icon">⚠️</div>
+          <div class="error-message" id="error-message"></div>
+          <button class="btn btn-secondary" id="error-retry-btn">Try Again</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2025 Fishbeck Innovations LLC — Twin Cities, MN</span>
+        <span>Licensed &amp; Insured</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/bid-score.js"></script>
+</body>
+</html>

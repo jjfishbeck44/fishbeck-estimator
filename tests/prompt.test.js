@@ -32,4 +32,54 @@ describe('buildSystemPrompt', () => {
     expect(prompt).toContain('No prose');
     expect(prompt.toLowerCase()).toContain('json');
   });
+
+  test('includes all major service categories', () => {
+    const prompt = buildSystemPrompt();
+    const categories = [
+      'Bathroom', 'Kitchen', 'Roofing', 'Demolition',
+      'Flooring', 'Painting', 'Drywall', 'Fixtures',
+      'Exterior', 'General'
+    ];
+    categories.forEach(cat => {
+      expect(prompt).toContain(cat);
+    });
+  });
+
+  test('includes out_of_scope instructions', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('out_of_scope');
+    expect(prompt).toContain('HVAC');
+    expect(prompt).toContain('structural');
+    expect(prompt).toContain('window replacement');
+  });
+
+  test('includes arithmetic verification rule', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('Double-check');
+    expect(prompt).toContain('whole dollar');
+  });
+
+  test('includes separate line item rule', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('separate line items');
+    expect(prompt).toContain('Never lump');
+  });
+
+  test('includes multi-unit multiplication rule', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('multiply');
+    expect(prompt).toContain('Show the math');
+  });
+
+  test('includes Twin Cities location context', () => {
+    const prompt = buildSystemPrompt();
+    expect(prompt).toContain('Twin Cities');
+    expect(prompt).toContain('Minnesota');
+  });
+
+  test('returns identical string on repeated calls', () => {
+    const prompt1 = buildSystemPrompt();
+    const prompt2 = buildSystemPrompt();
+    expect(prompt1).toBe(prompt2);
+  });
 });

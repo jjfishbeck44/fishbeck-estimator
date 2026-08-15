@@ -5,3 +5,7 @@ node_modules/
 
 # Bid-scorer runtime state (dedupe history, rendered digests)
 bid-scorer/.cache/
+.vercel
+.DS_Store
+*.log
+coverage/
