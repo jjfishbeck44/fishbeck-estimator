@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Paste an Ascent work order to get a structured scope sheet, pre-arrival checklist, and clearance material budget." />
+  <title>Work Order Prep — Fishbeck Innovations</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Work-order-specific overrides */
+    .scope-table th, .scope-table td { padding: 0.6rem 0.75rem; font-size: 0.875rem; }
+    .badge-clearance { background: #D4EDDA; color: #155724; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+    .badge-retail    { background: #F8D7DA; color: #721C24; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+    .checklist { list-style: none; padding: 0; }
+    .checklist li { display: flex; align-items: flex-start; gap: 0.5rem; padding: 0.35rem 0; border-bottom: 1px solid #EEF0F4; font-size: 0.9rem; }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before { content: "☐"; font-size: 1rem; flex-shrink: 0; color: #1B3A5C; }
+    .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .budget-card { background: #F4F6F9; border-radius: 10px; padding: 1rem; text-align: center; }
+    .budget-label { font-size: 0.78rem; color: #6B7280; font-weight: 500; margin-bottom: 0.25rem; }
+    .budget-amount { font-size: 1.5rem; font-weight: 700; color: #1B3A5C; }
+    .budget-card.clearance .budget-amount { color: #155724; }
+    .budget-card.savings { background: #C8963E; }
+    .budget-card.savings .budget-label { color: rgba(255,255,255,0.8); }
+    .budget-card.savings .budget-amount { color: #fff; }
+    .flags-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }
+    .flag-chip { background: #E8EEF5; color: #1B3A5C; border-radius: 20px; padding: 0.2rem 0.65rem; font-size: 0.75rem; font-weight: 500; }
+    .flag-chip.alert { background: #FFF3CD; color: #856404; }
+    .wo-meta { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+    .wo-meta-item { background: #F4F6F9; border-radius: 8px; padding: 0.75rem; }
+    .wo-meta-label { font-size: 0.72rem; color: #6B7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .wo-meta-value { font-size: 0.95rem; font-weight: 600; color: #1B3A5C; margin-top: 0.2rem; }
+    .hours-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: #1B3A5C; color: #fff; border-radius: 8px; padding: 0.35rem 0.85rem; font-size: 0.9rem; font-weight: 600; }
+    .oos-list { padding-left: 1.25rem; color: #6B7280; font-size: 0.875rem; }
+    .oos-list li { padding: 0.2rem 0; }
+    @media (max-width: 520px) { .budget-grid { grid-template-columns: 1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-mark">FI</span>
+          <div class="logo-text">
+            <span class="logo-name">Fishbeck Innovations</span>
+            <span class="logo-tagline">Construction &amp; Property Maintenance</span>
+          </div>
+        </div>
+        <nav style="display:flex;gap:0.75rem;align-items:center;">
+          <a href="/" style="color:rgba(255,255,255,0.75);font-size:0.85rem;text-decoration:none;">← Estimator</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" style="padding: 2.5rem 0 1.5rem;">
+    <div class="container container-narrow">
+      <h1 class="hero-title" style="font-size:1.75rem;">Work Order Prep</h1>
+      <p class="hero-sub" style="font-size:1rem;">Paste an Ascent (or any property manager) work order — get a scope sheet, pre-arrival checklist, and clearance vs. retail material budget instantly.</p>
+    </div>
+  </section>
+
+  <main class="main-content" style="flex:1; padding-bottom: 3rem;">
+    <div class="container container-narrow">
+
+      <!-- Input card -->
+      <div class="card" id="input-card">
+        <div class="card-header">
+          <div class="card-icon">📋</div>
+          <div>
+            <div class="card-title">Paste Work Order</div>
+            <div class="card-subtitle">Copy the full work order text from Ascent and paste it below.</div>
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <textarea
+            id="wo-input"
+            class="project-textarea"
+            placeholder="Work Order #490864-02&#10;Property: 2181 Burr Street, Maplewood MN 55117&#10;Client: Ascent&#10;&#10;Scope:&#10;- Paint all rooms, contractor's choice of color and brand&#10;- Replace LVP flooring in living room (approx 220 sqft)&#10;- Professional carpet cleaning, 2 bedrooms&#10;- Replace cabinet hardware throughout kitchen"
+            maxlength="5000"
+            rows="10"
+          ></textarea>
+          <div class="char-counter" id="char-count">0 / 5000</div>
+        </div>
+        <div class="input-footer">
+          <button class="btn btn-primary" id="parse-btn">Parse Work Order</button>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div class="card loading-card" id="loading-card" style="display:none;">
+        <div class="loading-inner">
+          <div class="spinner"></div>
+          <div class="loading-text">Parsing work order…</div>
+          <div class="loading-sub">Building scope sheet and checklist</div>
+        </div>
+      </div>
+
+      <!-- Results -->
+      <div id="results-section" style="display:none;">
+
+        <!-- WO metadata -->
+        <div class="wo-meta" id="wo-meta"></div>
+
+        <!-- Flags -->
+        <div id="flags-section" style="display:none; margin-bottom: 1.25rem;">
+          <div style="font-size:0.8rem;color:#6B7280;font-weight:600;margin-bottom:0.4rem;">FLAGS</div>
+          <div class="flags-row" id="flags-row"></div>
+        </div>
+
+        <!-- Scope table -->
+        <div class="card" style="margin-bottom:1.25rem;">
+          <div class="card-header">
+            <div class="card-icon">🔧</div>
+            <div>
+              <div class="card-title">Scope of Work</div>
+              <div class="card-subtitle">Green = clearance-sourceable (your margin). Red = brand-locked.</div>
+            </div>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="scope-table results-table" style="width:100%;border-collapse:collapse;">
+              <thead>
+                <tr style="background:#F4F6F9;">
+                  <th style="text-align:left;">Task</th>
+                  <th style="text-align:left;">Area</th>
+                  <th style="text-align:left;">Qty</th>
+                  <th style="text-align:center;">Clearance?</th>
+                  <th style="text-align:left;">Materials</th>
+                </tr>
+              </thead>
+              <tbody id="scope-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pre-arrival checklist -->
+        <div class="card" id="checklist-card" style="margin-bottom:1.25rem;">
+          <div class="card-header">
+            <div class="card-icon">✅</div>
+            <div>
+              <div class="card-title">Pre-Arrival Checklist</div>
+              <div class="card-subtitle">Complete before showing up on site.</div>
+            </div>
+          </div>
+          <ul class="checklist" id="checklist-list"></ul>
+        </div>
+
+        <!-- Material budget -->
+        <div class="card" id="budget-card" style="margin-bottom:1.25rem;">
+          <div class="card-header">
+            <div class="card-icon">💰</div>
+            <div>
+              <div class="card-title">Material Budget</div>
+              <div class="card-subtitle">Clearance sourcing vs. retail — your edge on this job.</div>
+            </div>
+          </div>
+          <div class="budget-grid" id="budget-grid"></div>
+        </div>
+
+        <!-- Labor estimate + OOS -->
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-start;margin-bottom:1.25rem;">
+          <div class="card" style="flex:1;min-width:200px;">
+            <div class="card-header">
+              <div class="card-icon">⏱️</div>
+              <div><div class="card-title">Labor Estimate</div></div>
+            </div>
+            <div id="hours-display"></div>
+          </div>
+          <div class="card" id="oos-card" style="flex:1;min-width:200px;display:none;">
+            <div class="card-header">
+              <div class="card-icon">🚫</div>
+              <div><div class="card-title">Out of Scope</div></div>
+            </div>
+            <ul class="oos-list" id="oos-list"></ul>
+          </div>
+        </div>
+
+        <!-- PM notes -->
+        <div class="card" id="pm-notes-card" style="display:none;margin-bottom:1.25rem;">
+          <div class="card-header">
+            <div class="card-icon">📝</div>
+            <div><div class="card-title">PM Notes</div></div>
+          </div>
+          <p id="pm-notes-text" style="font-size:0.9rem;color:#4B5563;"></p>
+        </div>
+
+        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+          <button class="btn btn-secondary" id="new-wo-btn">Parse Another</button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div class="card error-card" id="error-card" style="display:none;">
+        <div class="error-inner">
+          <div class="error-icon">⚠️</div>
+          <div class="error-message" id="error-message"></div>
+          <button class="btn btn-secondary" id="error-retry-btn">Try Again</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <span>© 2025 Fishbeck Innovations LLC — Twin Cities, MN</span>
+        <span>Licensed &amp; Insured</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/work-order.js"></script>
+</body>
+</html>

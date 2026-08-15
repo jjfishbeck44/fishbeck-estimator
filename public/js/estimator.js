@@ -2,61 +2,63 @@
 // Client-side logic for the Fishbeck Project Estimator
 // Handles: form interaction, API call, result rendering, state management
 
-(function () {
+function createEstimator(doc, opts) {
   'use strict';
+  opts = opts || {};
+  var fetchImpl = opts.fetch || (typeof fetch !== 'undefined' ? fetch : null);
 
   // --- DOM refs ---
-  var projectNameInput = document.getElementById('project-name');
-  var textarea = document.getElementById('project-input');
-  var charCount = document.getElementById('char-count');
-  var estimateBtn = document.getElementById('estimate-btn');
-  var inputCard = document.getElementById('input-card');
-  var loadingCard = document.getElementById('loading-card');
-  var clarificationCard = document.getElementById('clarification-card');
-  var clarificationMsg = document.getElementById('clarification-message');
-  var clarificationBackBtn = document.getElementById('clarification-back-btn');
-  var resultsSection = document.getElementById('results-section');
-  var projectSummaryCard = document.getElementById('project-summary-card');
-  var projectSummaryText = document.getElementById('project-summary-text');
-  var bannerRange = document.getElementById('banner-range');
-  var scopeTbody = document.getElementById('scope-tbody');
-  var totalRangeCell = document.getElementById('total-range-cell');
-  var estimateTimestamp = document.getElementById('estimate-timestamp');
-  var chartCard = document.getElementById('chart-card');
-  var chartBars = document.getElementById('chart-bars');
-  var notesCard = document.getElementById('notes-card');
-  var notesText = document.getElementById('notes-text');
-  var outOfScopeCard = document.getElementById('out-of-scope-card');
-  var outOfScopeList = document.getElementById('out-of-scope-list');
-  var newEstimateBtn = document.getElementById('new-estimate-btn');
-  var reEstimateBtn = document.getElementById('re-estimate-btn');
-  var printBtn = document.getElementById('print-btn');
-  var copyBtn = document.getElementById('copy-btn');
-  var bannerProjectName = document.getElementById('banner-project-name');
-  var estimateStats = document.getElementById('estimate-stats');
-  var statItems = document.getElementById('stat-items');
-  var statMidpoint = document.getElementById('stat-midpoint');
-  var statSpread = document.getElementById('stat-spread');
-  var shareBtn = document.getElementById('share-btn');
-  var downloadCsvBtn = document.getElementById('download-csv-btn');
-  var proposalLink = document.getElementById('proposal-link');
-  var errorCard = document.getElementById('error-card');
-  var errorMessage = document.getElementById('error-message');
-  var errorRetryBtn = document.getElementById('error-retry-btn');
-  var historyCard = document.getElementById('history-card');
-  var historyList = document.getElementById('history-list');
-  var clearHistoryBtn = document.getElementById('clear-history-btn');
-  var exportHistoryBtn = document.getElementById('export-history-btn');
-  var historySearchWrap = document.getElementById('history-search-wrap');
-  var historySearchInput = document.getElementById('history-search');
-  var templatesEl = document.getElementById('templates');
-  var loadingText = document.getElementById('loading-text');
-  var progressFill = document.getElementById('progress-fill');
-  var toast = document.getElementById('toast');
-  var confirmModal = document.getElementById('confirm-modal');
-  var confirmOkBtn = document.getElementById('confirm-ok');
-  var confirmCancelBtn = document.getElementById('confirm-cancel');
-  var footerYear = document.getElementById('footer-year');
+  var projectNameInput = doc.getElementById('project-name');
+  var textarea = doc.getElementById('project-input');
+  var charCount = doc.getElementById('char-count');
+  var estimateBtn = doc.getElementById('estimate-btn');
+  var inputCard = doc.getElementById('input-card');
+  var loadingCard = doc.getElementById('loading-card');
+  var clarificationCard = doc.getElementById('clarification-card');
+  var clarificationMsg = doc.getElementById('clarification-message');
+  var clarificationBackBtn = doc.getElementById('clarification-back-btn');
+  var resultsSection = doc.getElementById('results-section');
+  var projectSummaryCard = doc.getElementById('project-summary-card');
+  var projectSummaryText = doc.getElementById('project-summary-text');
+  var bannerRange = doc.getElementById('banner-range');
+  var scopeTbody = doc.getElementById('scope-tbody');
+  var totalRangeCell = doc.getElementById('total-range-cell');
+  var estimateTimestamp = doc.getElementById('estimate-timestamp');
+  var chartCard = doc.getElementById('chart-card');
+  var chartBars = doc.getElementById('chart-bars');
+  var notesCard = doc.getElementById('notes-card');
+  var notesText = doc.getElementById('notes-text');
+  var outOfScopeCard = doc.getElementById('out-of-scope-card');
+  var outOfScopeList = doc.getElementById('out-of-scope-list');
+  var newEstimateBtn = doc.getElementById('new-estimate-btn');
+  var reEstimateBtn = doc.getElementById('re-estimate-btn');
+  var printBtn = doc.getElementById('print-btn');
+  var copyBtn = doc.getElementById('copy-btn');
+  var bannerProjectName = doc.getElementById('banner-project-name');
+  var estimateStats = doc.getElementById('estimate-stats');
+  var statItems = doc.getElementById('stat-items');
+  var statMidpoint = doc.getElementById('stat-midpoint');
+  var statSpread = doc.getElementById('stat-spread');
+  var shareBtn = doc.getElementById('share-btn');
+  var downloadCsvBtn = doc.getElementById('download-csv-btn');
+  var proposalLink = doc.getElementById('proposal-link');
+  var errorCard = doc.getElementById('error-card');
+  var errorMessage = doc.getElementById('error-message');
+  var errorRetryBtn = doc.getElementById('error-retry-btn');
+  var historyCard = doc.getElementById('history-card');
+  var historyList = doc.getElementById('history-list');
+  var clearHistoryBtn = doc.getElementById('clear-history-btn');
+  var exportHistoryBtn = doc.getElementById('export-history-btn');
+  var historySearchWrap = doc.getElementById('history-search-wrap');
+  var historySearchInput = doc.getElementById('history-search');
+  var templatesEl = doc.getElementById('templates');
+  var loadingText = doc.getElementById('loading-text');
+  var progressFill = doc.getElementById('progress-fill');
+  var toast = doc.getElementById('toast');
+  var confirmModal = doc.getElementById('confirm-modal');
+  var confirmOkBtn = doc.getElementById('confirm-ok');
+  var confirmCancelBtn = doc.getElementById('confirm-cancel');
+  var footerYear = doc.getElementById('footer-year');
 
   // --- Constants ---
   var STATES = {
@@ -112,8 +114,8 @@
   }
 
   function escHtml(str) {
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(str));
+    var div = doc.createElement('div');
+    div.appendChild(doc.createTextNode(str));
     return div.innerHTML;
   }
 
@@ -126,12 +128,12 @@
     else if (len > 750) counter.classList.add('warn');
   }
 
-  async function fetchWithRetry(url, opts) {
+  async function fetchWithRetry(url, fetchOpts) {
     try {
-      return await fetch(url, opts);
+      return await fetchImpl(url, fetchOpts);
     } catch (firstErr) {
       await new Promise(function (r) { setTimeout(r, 1500); });
-      return fetch(url, opts);
+      return fetchImpl(url, fetchOpts);
     }
   }
 
@@ -232,10 +234,10 @@
       hide(projectSummaryCard);
     }
 
-    var fragment = document.createDocumentFragment();
+    var fragment = doc.createDocumentFragment();
     (estimate.line_items || []).forEach(function (item) {
       if (!item || !item.label) return;
-      var tr = document.createElement('tr');
+      var tr = doc.createElement('tr');
       tr.innerHTML =
         '<td>' +
           '<div class="item-label">' + escHtml(item.label) + '</div>' +
@@ -276,7 +278,7 @@
     if (oos.length > 0) {
       outOfScopeList.innerHTML = '';
       oos.forEach(function (item) {
-        var li = document.createElement('li');
+        var li = doc.createElement('li');
         li.textContent = item;
         outOfScopeList.appendChild(li);
       });
@@ -304,7 +306,7 @@
     void resultsSection.offsetWidth;
     resultsSection.classList.add('fade-up');
 
-    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (resultsSection.scrollIntoView) resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     bannerRange.setAttribute('tabindex', '-1');
     bannerRange.focus({ preventScroll: true });
   }
@@ -333,7 +335,7 @@
       var pct = Math.round((high / maxHigh) * 100);
       var color = CHART_COLORS[i % CHART_COLORS.length];
 
-      var row = document.createElement('div');
+      var row = doc.createElement('div');
       row.className = 'chart-row';
       row.innerHTML =
         '<div class="chart-label">' + escHtml(item.label) + '</div>' +
@@ -402,7 +404,7 @@
     var csv = buildEstimateCsv(est);
     var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
+    var a = doc.createElement('a');
     a.href = url;
     var filename = 'fishbeck-estimate';
     if (lastRefId) filename += '-' + lastRefId;
@@ -501,7 +503,7 @@
     filtered.forEach(function (item) {
       var entry = item.entry;
       var idx = item.idx;
-      var item = document.createElement('div');
+      var item = doc.createElement('div');
       item.className = 'history-item';
       item.setAttribute('role', 'button');
       item.setAttribute('tabindex', '0');
@@ -640,6 +642,11 @@
         body: JSON.stringify({ input: input })
       });
 
+      if (!response) {
+        setState(STATES.ERROR, { message: 'A network error occurred. Please check your connection and try again.' });
+        return;
+      }
+
       var data;
       try {
         data = await response.json();
@@ -689,7 +696,7 @@
     setState(STATES.INPUT);
   });
 
-  document.addEventListener('keydown', function (e) {
+  doc.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
       if (!confirmModal.classList.contains('hidden')) {
         hideConfirm();
@@ -793,10 +800,10 @@
       var focusable = [confirmCancelBtn, confirmOkBtn];
       var first = focusable[0];
       var last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
+      if (e.shiftKey && doc.activeElement === first) {
         e.preventDefault();
         last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
+      } else if (!e.shiftKey && doc.activeElement === last) {
         e.preventDefault();
         first.focus();
       }
@@ -824,7 +831,7 @@
     var csv = rows.map(function (r) { return r.join(','); }).join('\n');
     var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
+    var a = doc.createElement('a');
     a.href = url;
     a.download = 'fishbeck-estimates-history.csv';
     a.click();
@@ -853,7 +860,7 @@
     textarea.value = prefill.slice(0, 1000);
     updateCharCount();
     textarea.focus();
-    textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (textarea.scrollIntoView) textarea.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   // --- Init ---
@@ -862,4 +869,11 @@
   renderHistory();
   applyPrefill();
 
-})();
+  return { STATES: STATES, escHtml: escHtml, fmt: fmt, fmtRange: fmtRange, setState: setState, renderResults: renderResults, submitEstimate: submitEstimate, getCurrentState: function () { return currentState; } };
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { createEstimator: createEstimator };
+} else {
+  createEstimator(document);
+}
