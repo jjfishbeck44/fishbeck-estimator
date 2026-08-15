@@ -1,0 +1,183 @@
+{
+  "tier1_twin_cities": {
+    "description": "Highest-value Twin Cities sources to subscribe to first. Each has free bid notification email subscriptions.",
+    "sources": [
+      {
+        "name": "Minnesota Office of State Procurement",
+        "url": "https://mn.gov/admin/osp/vendors/solicitations-and-contract-opportunities/",
+        "signup_url": "https://supplier.mn.gov",
+        "notes": "Register in the Supplier Portal; select commodity codes for paint, flooring, multi-family maintenance.",
+        "estimated_volume_per_week": 5
+      },
+      {
+        "name": "Minneapolis Public Housing Authority (MPHA)",
+        "url": "https://mphaonline.org/contracting-opportunities/",
+        "signup_url": "https://mphaonline.org/contracting-opportunities/",
+        "notes": "eProcurement registration; PRIMARY unit-turn source — register as paint, flooring, general maintenance vendor.",
+        "estimated_volume_per_week": 3
+      },
+      {
+        "name": "Saint Paul Public Housing Agency (SPPHA)",
+        "url": "https://www.stpha.org/benefits?view=article&id=37:doing-business",
+        "signup_url": "https://www.stpha.org/benefits?view=article&id=37:doing-business",
+        "notes": "PRIMARY unit-turn source. Section 3 contractor program available.",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Hennepin County Procurement",
+        "url": "https://hennepin.procureware.com/Bids",
+        "signup_url": "https://hennepin.procureware.com/Bids",
+        "notes": "ProcureWare platform; can subscribe to specific commodity categories.",
+        "estimated_volume_per_week": 4
+      },
+      {
+        "name": "Ramsey County Procurement",
+        "url": "https://www.ramseycounty.us/businesses/contracts-bids",
+        "signup_url": "https://www.ramseycounty.us/businesses/contracts-bids",
+        "notes": "Email notification list available.",
+        "estimated_volume_per_week": 3
+      },
+      {
+        "name": "City of Minneapolis",
+        "url": "https://www.minneapolismn.gov/business-services/doing-business-with-the-city/bids-rfps/",
+        "signup_url": "https://www.minneapolismn.gov/business-services/doing-business-with-the-city/bids-rfps/",
+        "notes": "Subscribe via City eSupplier portal.",
+        "estimated_volume_per_week": 3
+      },
+      {
+        "name": "City of Saint Paul",
+        "url": "https://www.stpaul.gov/departments/human-rights-equal-economic-opportunity/procurement/bidding",
+        "signup_url": "https://www.stpaul.gov/departments/human-rights-equal-economic-opportunity/procurement/bidding",
+        "notes": "Vendor registration with HREEO.",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Minneapolis Public Schools",
+        "url": "https://www.mpls.k12.mn.us/departments/finance/purchasing",
+        "signup_url": "https://www.mpls.k12.mn.us/departments/finance/purchasing",
+        "notes": "Summer maintenance season is peak.",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Saint Paul Public Schools (SPPS)",
+        "url": "https://www.spps.org/page/12832",
+        "signup_url": "https://www.spps.org/page/12832",
+        "notes": "Summer maintenance season is peak.",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Dakota County Procurement",
+        "url": "https://www.co.dakota.mn.us/Government/Departments/EmployeeRelations/Purchasing",
+        "signup_url": "https://www.co.dakota.mn.us/Government/Departments/EmployeeRelations/Purchasing",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Anoka County Procurement",
+        "url": "https://www.anokacountymn.gov/164/Purchasing",
+        "signup_url": "https://www.anokacountymn.gov/164/Purchasing",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Washington County Procurement",
+        "url": "https://www.co.washington.mn.us/199/Purchasing",
+        "signup_url": "https://www.co.washington.mn.us/199/Purchasing",
+        "estimated_volume_per_week": 1
+      }
+    ]
+  },
+  "tier2_statewide_expansion": {
+    "description": "Add after Tier 1 is validated. Targets the unit-turn-heavy verticals where material-clearance arbitrage compounds.",
+    "sources": [
+      {
+        "name": "All Minnesota Public Housing Authorities (~150 county/city PHAs)",
+        "url": "https://www.hud.gov/states/minnesota/renting/hawebsites",
+        "notes": "Each PHA runs its own procurement. Goldmine for unit turns — every PHA has constant turn work.",
+        "estimated_volume_per_week": 30
+      },
+      {
+        "name": "Minnesota school districts (~330 districts)",
+        "url": "https://education.mn.gov/MDE/dse/data/dirdist/",
+        "notes": "Summer paint/flooring season. Many use SourceWell or BidNet.",
+        "estimated_volume_per_week": 20
+      },
+      {
+        "name": "Aeon (nonprofit affordable housing)",
+        "url": "https://www.aeon.org/contact/",
+        "notes": "Owns/manages 5,300+ apartments in MN. Major unit turn volume.",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "CommonBond Communities",
+        "url": "https://commonbond.org/contact-us/",
+        "notes": "13,000+ affordable units across MN/WI/IA.",
+        "estimated_volume_per_week": 3
+      },
+      {
+        "name": "Project for Pride in Living (PPL)",
+        "url": "https://www.ppl-inc.org/",
+        "notes": "Mpls-based, affordable housing + workforce training.",
+        "estimated_volume_per_week": 1
+      },
+      {
+        "name": "Beacon Interfaith Housing Collaborative",
+        "url": "https://beaconinterfaith.org/",
+        "estimated_volume_per_week": 1
+      },
+      {
+        "name": "Dominium Apartments",
+        "url": "https://dominiumapartments.com/",
+        "notes": "Major MN-based multifamily owner/operator.",
+        "estimated_volume_per_week": 3
+      },
+      {
+        "name": "Ecumen (senior living)",
+        "url": "https://www.ecumen.org/",
+        "notes": "50+ senior communities across MN.",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Presbyterian Homes & Services",
+        "url": "https://preshomes.org/",
+        "estimated_volume_per_week": 2
+      },
+      {
+        "name": "Cassia (senior living)",
+        "url": "https://www.cassialife.org/",
+        "estimated_volume_per_week": 1
+      },
+      {
+        "name": "Minnesota State (MnSCU)",
+        "url": "https://www.minnstate.edu/vendors/",
+        "notes": "Dorm turns, classroom paint, athletic facility refresh.",
+        "estimated_volume_per_week": 3
+      },
+      {
+        "name": "University of Minnesota Purchasing",
+        "url": "https://purchasing.umn.edu/suppliers",
+        "estimated_volume_per_week": 4
+      },
+      {
+        "name": "Mille Lacs Corporate Ventures (Grand Casino, etc.)",
+        "url": "https://www.millelacscorporateventures.com/",
+        "notes": "Hotel and casino paint, flooring, room renovation work.",
+        "estimated_volume_per_week": 1
+      },
+      {
+        "name": "SAM.gov (federal)",
+        "url": "https://sam.gov/",
+        "notes": "VA hospitals (Mpls VA), Fort Snelling federal buildings. Requires SAM registration.",
+        "estimated_volume_per_week": 5
+      },
+      {
+        "name": "Insurance carrier vendor programs (State Farm, USAA, Allstate)",
+        "url": null,
+        "notes": "Periodically open new-vendor calls. Track press releases / industry newsletters.",
+        "estimated_volume_per_week": 0.5
+      }
+    ]
+  },
+  "tier3_productized": {
+    "description": "Once the tool is reliable for Fishbeck internally, package as a SaaS for non-competing contractors (HVAC, electrical, plumbing, roofing) or out-of-state markets (WI/IA/Dakotas).",
+    "notes": "Multi-tenant architecture: every record carries tenant_id from day one so this is a flip-the-switch upgrade, not a rewrite."
+  }
+}
