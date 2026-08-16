@@ -1,9 +1,27 @@
+---
+id: WEB-0012
+title: Estimating
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Estimating
 
 > **STATUS: SHIPPED** — live at `/estimating` (`public/estimating.html`). Audience:
 > mix of all (homeowners, investors, property managers). Ties into the AI estimator
 > (`/`) and the instant price calculator (`/instant-estimate`). Backed by 2024
-> Twin Cities pricing (`09_Knowledge_Base/Pricing/Market_Rates_2024`). Keep this
+> Twin Cities pricing (`13_Estimating/Unit_Pricing/Market_Rates_2024`). Keep this
 > file and the live page in sync when either changes.
 
 ## Meta
@@ -37,5 +55,5 @@ Homeowners budgeting a project and investors underwriting deals fast.
 ## CTA
 Get your estimate now.
 
-> Reference: `09_Knowledge_Base/Estimating/` and `09_Knowledge_Base/Pricing/`.
+> Reference: `13_Estimating/` and `13_Estimating/Unit_Pricing/`.
 > The estimator product itself lives in the Fishbeck Estimator app (this repo).

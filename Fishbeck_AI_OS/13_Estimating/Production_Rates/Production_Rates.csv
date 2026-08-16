@@ -1,0 +1,6 @@
+id,trade,task,unit,rate_low,rate_high,rate_unit,crew_size,region,effective_date,status,source,confidence,last_updated,notes
+PRD-0001,painting,Roll walls (cut & roll),sqft,150,250,sqft_per_hr,1,twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Per painter; needs-verification: no job data captured yet
+PRD-0002,flooring,Install LVP,sqft,200,400,sqft_per_day,1,twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Per installer; needs-verification: no job data captured yet
+PRD-0003,drywall,Hang drywall,sqft,400,600,sqft_per_day,2,twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Two-person crew; needs-verification: no job data captured yet
+PRD-0004,demolition,Interior selective demo,sqft,300,600,sqft_per_day,2,twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Excludes disposal time; needs-verification: no job data captured yet
+PRD-0005,general-labor,Full standard turn,ea,1,2,units_per_crew_day,2,twin-cities,2026-06-21,active,[confirm],low,2026-08-06,Size dependent; needs-verification: no job data captured yet

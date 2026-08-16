@@ -1,3 +1,21 @@
+---
+id: WEB-0011
+title: Demolition & Repairs
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Demolition & Repairs
 
 ## Meta
@@ -27,4 +45,4 @@ backlog.
 ## CTA
 Tell us what needs to come out or get fixed, and get a fast estimate.
 
-> Reference: `09_Knowledge_Base/Production_Rates/`.
+> Reference: `13_Estimating/Production_Rates/`.

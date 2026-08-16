@@ -1,3 +1,21 @@
+---
+id: WEB-0016
+title: Renovations
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Renovations
 
 ## Meta
@@ -38,4 +56,4 @@ Pull relevant questions from `00_Brand/FAQ_Master.md`.
 ## CTA
 Describe your project for a fast estimate, or contact us for a consultation.
 
-> Pricing data: `09_Knowledge_Base/Pricing/` and `09_Knowledge_Base/Production_Rates/`.
+> Pricing data: `13_Estimating/Unit_Pricing/` and `13_Estimating/Production_Rates/`.

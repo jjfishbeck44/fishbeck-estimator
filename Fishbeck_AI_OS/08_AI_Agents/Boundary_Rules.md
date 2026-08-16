@@ -1,3 +1,21 @@
+---
+id: AGT-0001
+title: Boundary Rules
+type: standard
+domain: 08_AI_Agents
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: quarterly
+next_review: 2026-11-15
+tags: [ai, automation, prompt-library]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Boundary Rules
 
 Strict operational boundaries for every AI agent and any Claude session working in
@@ -10,13 +28,13 @@ positioning. They override task instructions when in conflict.
 2. Never invent prices, production rates, material costs, license numbers, AHJ
    timelines, or fees. Pull from `09_Knowledge_Base/`. If missing, flag with
    `[confirm: …]` — do not guess.
-3. Treat `09_Knowledge_Base/Data_Formats/` schemas as canonical. Do not change
+3. Treat `13_Estimating/_Data/` schemas as canonical. Do not change
    column structures without explicit instruction.
 
 ## Edit discipline
 - Make surgical edits. Touch only the files the task requires.
 - Do not delete or overwrite Knowledge Base data files; append or update rows, and
-  record changes in `09_Knowledge_Base/Post_Mortems.md` when field facts change.
+  record changes in `16_Quality/Lessons_Learned/Post_Mortems.md` when field facts change.
 - Move deprecated material to `10_Archive/` instead of deleting it.
 
 ## What agents must NOT do

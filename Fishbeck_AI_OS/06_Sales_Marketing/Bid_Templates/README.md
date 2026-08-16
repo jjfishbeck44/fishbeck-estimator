@@ -1,7 +1,25 @@
+---
+id: SM-0001
+title: Bid Templates
+type: readme
+domain: 06_Sales_Marketing
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [sales, marketing, index]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Bid Templates
 
 Standardized, execution-ready bid structures, separated by trade and project type.
-Bids pull pricing from `09_Knowledge_Base/Data_Formats/` and follow the formatting
+Bids pull pricing from `13_Estimating/_Data/` and follow the formatting
 rules in `00_Brand/AI_Communication_Style.md` and `00_Brand/Print_Collateral_Specs.md`.
 
 ## Files

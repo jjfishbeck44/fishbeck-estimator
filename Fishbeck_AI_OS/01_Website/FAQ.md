@@ -1,3 +1,21 @@
+---
+id: WEB-0004
+title: Website FAQ
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Website FAQ
 
 > The public-facing FAQ page. Source answers from `00_Brand/FAQ_Master.md` and keep

@@ -1,3 +1,21 @@
+---
+id: CS-0009
+title: Case Study Template
+type: template
+domain: 04_Case_Studies
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: as-needed
+next_review: 2027-08-15
+tags: [case-study, marketing, sales, template]
+source_of_truth: false
+ai_usage: read-write
+confidence: medium
+---
+
 # Case Study Template
 
 Copy this file for each project. Real projects here become website copy, blog posts,
@@ -31,7 +49,7 @@ LinkedIn posts, and video scripts.
 - **After photos:** [Cloudinary links]
 
 ### Lessons learned
-- Feeds `09_Knowledge_Base/Post_Mortems.md`
+- Feeds `16_Quality/Lessons_Learned/Post_Mortems.md`
 
 ### Repurposing
 - [ ] Website service/area page

@@ -1,3 +1,21 @@
+---
+id: BRD-0006
+title: Elevator Pitches
+type: reference
+domain: 00_Brand
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: annual
+next_review: 2027-08-15
+tags: [marketing, reference]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Elevator Pitches
 
 Ready-to-use pitches at different lengths. Pull from these for intros, bios, and openers.

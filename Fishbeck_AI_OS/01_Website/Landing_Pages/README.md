@@ -1,3 +1,21 @@
+---
+id: WEB-0006
+title: Landing Pages
+type: readme
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo, index]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Landing Pages
 
 Campaign- and offer-specific landing pages live here (one file per page).

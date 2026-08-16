@@ -1,3 +1,21 @@
+---
+id: WEB-0013
+title: Investor Rehab Consulting
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Investor Rehab Consulting
 
 ## Meta
@@ -31,5 +49,5 @@ the work.
 ## CTA
 Send us the property and we'll help you scope and price the rehab.
 
-> Reference: `09_Knowledge_Base/Estimating/`, `09_Knowledge_Base/Pricing/`, and
+> Reference: `13_Estimating/`, `13_Estimating/Unit_Pricing/`, and
 > investor case studies in `04_Case_Studies/Investors/`.

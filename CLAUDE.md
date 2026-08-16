@@ -222,9 +222,34 @@ The 3D-print tool is a collect-and-email request (builds a `mailto:` to Jimmy).
   back to a `mailto:`. No file storage — the customer attaches files in their reply (reply-to
   is set to the customer). Both endpoints reuse `lib/ratelimit.js` (fail-open).
 
+## Fishbeck OS
+
+The company operating system lives in `Fishbeck_AI_OS/` — a governed, versioned
+knowledge base that is the single source of truth for the business (pricing,
+SOPs, projects, vendors, codes, CRM, finance). It is documentation only; it does
+not deploy and the app does not import from it at runtime.
+
+**Before doing any work inside `Fishbeck_AI_OS/`, read
+`Fishbeck_AI_OS/_System/08_AI_Operating_Protocol.md`.** Key rules: never invent a
+number, an ID, or a folder; take IDs from `_Registry/Entity_ID_Registry.csv`;
+every document needs YAML front matter per `_System/03_Metadata_Standard.md`.
+
 ## Updating Pricing
 
-All pricing ranges and service categories live in `lib/prompt.js`. Edit the `PRICING REFERENCE` section in `buildSystemPrompt()` to change cost ranges. Push to `master` to auto-deploy.
+**Source of truth:** `Fishbeck_AI_OS/13_Estimating/` (per decision `DEC-0007`).
+`lib/prompt.js` and `public/js/calculators/pricing.js` are *consumers* — they
+must be kept in sync with the estimating database, not edited as independent
+sources.
+
+Today the sync is manual: edit the `PRICING REFERENCE` section in
+`buildSystemPrompt()` (`lib/prompt.js`) and `pricing.js`, and make the matching
+change in `13_Estimating`. Automating this is tracked as `AUT-004` in
+`Fishbeck_AI_OS/_Registry/Automation_Backlog.csv`.
+
+> Until `AUT-004` ships, three files hold pricing and can disagree. Changing one
+> without the others is the most likely way to quote a wrong number.
+
+Push to `master` to auto-deploy.
 
 ## Deployment
 

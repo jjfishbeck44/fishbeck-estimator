@@ -1,3 +1,21 @@
+---
+id: BRD-0005
+title: Company Overview
+type: reference
+domain: 00_Brand
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: annual
+next_review: 2027-08-15
+tags: [marketing, reference]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Company Overview
 
 > Fill in any `[bracketed]` placeholders with confirmed details. This file is a
@@ -41,4 +59,4 @@ See `Ideal_Client_Profiles.md` for detailed personas.
 - Local Twin Cities knowledge of codes, suppliers, and labor.
 
 > Note: Fishbeck also operates an AI cost estimator tool (the Fishbeck Estimator).
-> See `09_Knowledge_Base/Estimating/` and `09_Knowledge_Base/Pricing/`.
+> See `13_Estimating/` and `13_Estimating/Unit_Pricing/`.

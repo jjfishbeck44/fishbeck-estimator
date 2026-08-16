@@ -1,3 +1,21 @@
+---
+id: WEB-0017
+title: Rental Turnovers
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Rental Turnovers
 
 ## Meta
@@ -30,5 +48,5 @@ tenants happy.
 ## CTA
 Schedule a turn or set up a recurring turnover partnership.
 
-> Reference: `09_Knowledge_Base/Production_Rates/` and rental-turn case studies in
+> Reference: `13_Estimating/Production_Rates/` and rental-turn case studies in
 > `04_Case_Studies/Investors/`. Related digital product: `05_Digital_Products/Rental_Turn_Pack`.
