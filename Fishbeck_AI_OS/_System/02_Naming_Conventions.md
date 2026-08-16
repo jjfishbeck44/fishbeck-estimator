@@ -10,7 +10,7 @@ created: 2026-07-31
 updated: 2026-07-31
 review_cycle: annual
 next_review: 2027-07-31
-tags: [governance, naming, standards]
+tags: [governance, naming, standard]
 related: [SYS-0002, SYS-0003, SYS-0006]
 source_of_truth: true
 ai_usage: read-only

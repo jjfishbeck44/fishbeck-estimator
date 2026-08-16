@@ -1,3 +1,21 @@
+---
+id: DP-0002
+title: Change Order Pack
+type: readme
+domain: 05_Digital_Products
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, sales, template, index, needs-verification]
+source_of_truth: false
+ai_usage: read-write
+confidence: low
+---
+
 # Change Order Pack
 
 Change-order forms, process, and templates so scope changes are priced and approved cleanly.

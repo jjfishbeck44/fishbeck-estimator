@@ -1,3 +1,21 @@
+---
+id: AGT-0005
+title: Property Analysis Agent
+type: agent
+domain: 08_AI_Agents
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: quarterly
+next_review: 2026-11-15
+tags: [ai, automation, prompt-library]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Property Analysis Agent
 
 Instructions Claude follows for property assessment and analysis work.

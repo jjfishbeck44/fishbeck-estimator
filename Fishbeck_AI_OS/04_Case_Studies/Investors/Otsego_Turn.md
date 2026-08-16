@@ -1,3 +1,21 @@
+---
+id: CS-0005
+title: Otsego Turn
+type: case-study
+domain: 04_Case_Studies
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: as-needed
+next_review: 2027-08-15
+tags: [case-study, marketing, sales, needs-verification]
+source_of_truth: false
+ai_usage: read-write
+confidence: low
+---
+
 # Otsego Turn
 
 > Stub — fill in using `../Template.md`. Pull costs from `09_Knowledge_Base/`.

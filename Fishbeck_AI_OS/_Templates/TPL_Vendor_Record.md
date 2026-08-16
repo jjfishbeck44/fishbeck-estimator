@@ -11,7 +11,7 @@ updated: 2026-07-31
 review_cycle: annual
 next_review: 2027-07-31
 tags: [template, purchasing, procurement, database]
-related: [SYS-0006, TPL-DATABASE_SCHEMA]
+related: [SYS-0006, TPL-DATABASE-SCHEMA]
 source_of_truth: true
 ai_usage: read-only
 confidence: high

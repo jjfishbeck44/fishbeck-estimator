@@ -1,14 +1,14 @@
 prefix,entity,home_domain,digits,next_number,last_issued,status,source,confidence,last_updated,notes
-PRJ,Project,14_Projects,4,1,,active,SYS-0006,high,2026-07-31,Job folders; see naming standard for folder pattern
+PRJ,Project,14_Projects,4,1,PRJ-0000,active,SYS-0006,high,2026-08-15,Job folders; see naming standard for folder pattern
 CLI,Client,20_CRM,4,1,,active,SYS-0006,high,2026-07-31,Converted leads
 LED,Lead,20_CRM,4,1,,active,SYS-0006,high,2026-07-31,Pre-conversion pipeline
 PRP,Property,23_Real_Estate,4,1,,active,SYS-0006,high,2026-07-31,Physical addresses tracked for investment
 VEN,Vendor,17_Purchasing,4,1,,active,SYS-0006,high,2026-07-31,Suppliers and material vendors
 SUB,Subcontractor,17_Purchasing,4,4,SUB-0003,active,SYS-0006,high,2026-08-06,SUB-0001 to SUB-0003 migrated in Phase 1.1; none compliance-cleared
 EMP,Employee,19_HR,4,1,,active,SYS-0006,high,2026-07-31,W-2 and 1099 crew
-EQP,Equipment,18_Equipment,4,1,,active,SYS-0006,high,2026-07-31,Tools and assets; QR-tracked
+EQP,Equipment,18_Equipment,4,1,EQP-0000,active,SYS-0006,high,2026-08-15,Tools and assets; QR-tracked
 PTR,Referral partner,20_CRM,4,1,,active,SYS-0006,high,2026-07-31,Realtors and referral sources
-EST,Estimate,13_Estimating,4,1,,active,SYS-0006,high,2026-07-31,Client-facing estimates
+EST,Estimate,13_Estimating,4,6,EST-0005,active,SYS-0006,high,2026-08-15,Client-facing estimates
 PRO,Proposal,06_Sales_Marketing,4,1,,active,SYS-0006,high,2026-07-31,Formal proposals
 CON,Contract,24_Legal_Risk,4,1,,active,SYS-0006,high,2026-07-31,Executed agreements
 CO,Change order,14_Projects,2,1,,active,SYS-0006,high,2026-07-31,Per-project sequence; restarts each project
@@ -38,19 +38,30 @@ PL,Punch list item,14_Projects,3,1,,active,SYS-0006,high,2026-07-31,Per-project 
 KPI,Key performance indicator,11_Executive,3,1,,active,SYS-0006,high,2026-07-31,Defined in KPI_Registry.csv
 OKR,Objective and key result,11_Executive,3,1,,active,SYS-0006,high,2026-07-31,Quarterly cycle
 PMT,Prompt library entry,08_AI_Agents,4,1,,active,SYS-0006,high,2026-07-31,Phase 8.1
-AGT,AI agent definition,08_AI_Agents,3,1,,active,SYS-0006,high,2026-07-31,Existing agent files to be renumbered in Phase 1
+AGT,AI agent definition,08_AI_Agents,3,8,AGT-007,active,SYS-0006,high,2026-08-15,Existing agent files to be renumbered in Phase 1
 AUT,Automation,08_AI_Agents,3,10,AUT-009,active,SYS-0006,high,2026-07-31,AUT-001 to AUT-009 seeded in Automation_Backlog.csv
 SCR,Script,08_AI_Agents,3,1,,active,SYS-0006,high,2026-07-31,Executable automation
 IMG,Catalogued photo,14_Projects,5,1,,active,SYS-0006,high,2026-07-31,High volume; see media strategy in SYS-0007
-CS,Case study,04_Case_Studies,3,1,,active,SYS-0006,high,2026-07-31,Three legacy case studies to be renumbered in Phase 1
+CS,Case study,04_Case_Studies,3,10,CS-009,active,SYS-0006,high,2026-08-15,Three legacy case studies to be renumbered in Phase 1
 EXEC,Domain index (README only),11_Executive,4,1,EXEC-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
-OPS,Domain index (README only),12_Operations,4,1,OPS-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
-CK,Domain index (README only),15_Construction_Knowledge,4,1,CK-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
+OPS,Domain index (README only),12_Operations,4,3,OPS-0002,active,SYS-0006,high,2026-08-15,Reserved -0000 domain index per SYS-0006; not issued to entities
+CK,Domain index (README only),15_Construction_Knowledge,4,4,CK-0003,active,SYS-0006,high,2026-08-15,Reserved -0000 domain index per SYS-0006; not issued to entities
 QLT,Domain index (README only),16_Quality,4,1,QLT-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
-PUR,Domain index (README only),17_Purchasing,4,1,PUR-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
+PUR,Domain index (README only),17_Purchasing,4,2,PUR-0001,active,SYS-0006,high,2026-08-15,Reserved -0000 domain index per SYS-0006; not issued to entities
 HR,Domain index (README only),19_HR,4,1,HR-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
 CRM,Domain index (README only),20_CRM,4,1,CRM-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
 FIN,Domain index (README only),21_Finance,4,1,FIN-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
 ANL,Domain index (README only),22_Analytics,4,1,ANL-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
 RE,Domain index (README only),23_Real_Estate,4,1,RE-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
 LEG,Domain index (README only),24_Legal_Risk,4,1,LEG-0000,active,SYS-0006,high,2026-07-31,Reserved -0000 domain index per SYS-0006; not issued to entities
+TPL,Template,_Templates,name-based,0,TPL-DOMAIN-README,active,SYS-0006,high,2026-08-15,Name-based not numeric; 15 templates issued in Phase 0
+OS,Root index (README only),Fishbeck_AI_OS,4,1,OS-0000,active,SYS-0006,high,2026-08-15,Reserved -0000 root index; not issued to entities
+KB,Domain index (retired domain README),09_Knowledge_Base,4,1,KB-0000,deprecated,SYS-0006,high,2026-08-15,Domain retired per DEC-0012; prefix kept so the pointer README resolves
+BRD,Go-to-market document,00_Brand,4,12,BRD-0011,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README
+WEB,Go-to-market document,01_Website,4,19,WEB-0018,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README
+SEO,Go-to-market document,02_SEO,4,6,SEO-0005,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README
+CNT,Go-to-market document,03_Content,4,17,CNT-0016,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README
+DP,Go-to-market document,05_Digital_Products,4,8,DP-0007,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README
+SM,Go-to-market document,06_Sales_Marketing,4,9,SM-0008,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README
+SAAS,Go-to-market document,07_SaaS,4,10,SAAS-0009,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README
+ARC,Go-to-market document,10_Archive,4,5,ARC-0004,active,SYS-0006,high,2026-08-15,Registered in Phase 1.2 front-matter backfill; -0000 reserved for the domain README

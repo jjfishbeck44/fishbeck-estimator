@@ -1,3 +1,21 @@
+---
+id: OS-0000
+title: Fishbeck OS
+type: readme
+domain: Fishbeck_AI_OS
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: quarterly
+next_review: 2026-11-15
+tags: [governance, index, needs-verification]
+source_of_truth: true
+ai_usage: read-write
+confidence: low
+---
+
 # Fishbeck OS
 
 The complete operating system and single source of truth for

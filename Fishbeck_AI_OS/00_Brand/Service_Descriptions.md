@@ -1,3 +1,21 @@
+---
+id: BRD-0011
+title: Service Descriptions
+type: reference
+domain: 00_Brand
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: annual
+next_review: 2027-08-15
+tags: [marketing, reference]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Service Descriptions
 
 Master descriptions for each service. The website service pages in

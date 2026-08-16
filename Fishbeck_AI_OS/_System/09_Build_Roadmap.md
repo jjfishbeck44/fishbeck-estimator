@@ -4,10 +4,10 @@ title: Build Roadmap
 type: standard
 domain: _System
 status: approved
-version: 1.1.0
+version: 1.2.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-08-06
+updated: 2026-08-15
 review_cycle: monthly
 next_review: 2026-08-31
 tags: [governance, strategy, automation]
@@ -27,7 +27,7 @@ Dependency-ordered build plan. Each phase's outputs are the next phase's inputs.
 | Phase | Name | Status | Blocks |
 |-------|------|--------|--------|
 | 0 | Foundation & Governance | ✅ **Complete** (2026-07-31) | Everything |
-| 1 | Migration & Registry Population | ◐ In progress (1.1 done) | Phases 2–8 |
+| 1 | Migration & Registry Population | ◐ 1.1–1.3, 1.5 done; **1.4 blocks on Q9** | Phases 2–8 |
 | 2 | Estimating Core | ⬜ Pending | 3, 5, 7 |
 | 3 | Operations & SOP Library | ⬜ Pending | 4, 5 |
 | 4 | Project Execution System | ⬜ Pending | 5, 6, 7 |
@@ -59,13 +59,14 @@ Dependency-ordered build plan. Each phase's outputs are the next phase's inputs.
 | # | Deliverable | Priority |
 |---|-------------|----------|
 | 1.1 | ✅ **Done 2026-08-06** — KB migrated into `12`/`13`/`15`/`16`/`17`; `09` retired | 10 |
-| 1.2 | Backfill front matter on all 117 legacy files | 9 |
-| 1.3 | Populate `_Registry/Document_Registry.csv` from front matter | 9 |
+| 1.2 | ✅ **Done 2026-08-15** — 96 legacy files backfilled; 152/152 now validate | 9 |
+| 1.3 | ✅ **Done 2026-08-15** — registry generated from front matter (152 rows) | 9 |
 | 1.4 | Reconcile `lib/prompt.js` pricing against `13_Estimating` as consumer | 8 |
-| 1.5 | Write `validate-metadata.js` + wire into `npm test` | 7 |
+| 1.5 | ✅ **Done 2026-08-15** — `scripts/validate-os.js` (AUT-001) wired into `npm test` | 7 |
 
-**Exit criteria:** Zero files without front matter. Zero duplicated facts. Every
-document in the registry.
+**Exit criteria:** Zero files without front matter ✅. Every document in the
+registry ✅. Zero duplicated facts — **not met**: pricing still lives in four
+places (`DEC-0007`, Q9). That is the whole of 1.4.
 
 ---
 

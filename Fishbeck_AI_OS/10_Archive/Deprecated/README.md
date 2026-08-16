@@ -1,3 +1,21 @@
+---
+id: ARC-0001
+title: Archive — Deprecated
+type: readme
+domain: 10_Archive
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: as-needed
+next_review: 2027-08-15
+tags: [archived, reference, index]
+source_of_truth: false
+ai_usage: read-write
+confidence: medium
+---
+
 # Archive — Deprecated
 
 Deprecated material kept for reference. Move things here instead of deleting them

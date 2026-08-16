@@ -4,10 +4,10 @@ title: Taxonomy and Controlled Tag Vocabulary
 type: standard
 domain: _System
 status: approved
-version: 1.0.0
+version: 1.1.0
 owner: Jimmy Fishbeck
 created: 2026-07-31
-updated: 2026-07-31
+updated: 2026-08-15
 review_cycle: quarterly
 next_review: 2026-10-31
 tags: [governance, taxonomy, metadata, ai-searchable]
@@ -46,7 +46,7 @@ Every document carries **2–8 tags**, drawn from at least two facets:
 `marketing` · `content` · `seo` · `crm` · `finance` · `accounting` ·
 `job-costing` · `hr` · `training` · `hiring` · `legal` · `insurance` ·
 `equipment` · `maintenance` · `analytics` · `strategy` · `governance` ·
-`automation` · `ai` · `software`
+`automation` · `ai` · `software` · `policy` · `analysis`
 
 ## Facet 3 — Client type
 
@@ -70,7 +70,9 @@ Every document carries **2–8 tags**, drawn from at least two facets:
 `template` · `checklist` · `database` · `standard` · `sop` · `reference` ·
 `code-compliance` · `minnesota` · `twin-cities` · `saint-paul` ·
 `minneapolis` · `lessons-learned` · `root-cause` · `case-study` ·
-`prompt-library` · `needs-verification` · `high-value` · `recurring`
+`prompt-library` · `needs-verification` · `high-value` · `recurring` ·
+`index` · `architecture` · `foundation` · `folder-structure` · `naming` ·
+`metadata` · `ai-searchable` · `taxonomy` · `decision`
 
 ## Tag hygiene rules
 
