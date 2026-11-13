@@ -1,11 +1,11 @@
-Keyword,Search Intent,Priority,Monthly Volume,Difficulty,Target Page,Status
-Twin Cities construction company,Commercial,High,,,01_Website/Homepage.md,Planned
-Saint Paul construction company,Commercial,High,,,01_Website/Service_Areas/Saint_Paul.md,Planned
-Minneapolis construction company,Commercial,High,,,01_Website/Service_Areas/Minneapolis.md,Planned
-Twin Cities home renovations,Commercial,High,,,01_Website/Services/Renovations.md,Planned
-Twin Cities rental turnover service,Commercial,High,,,01_Website/Services/Rental_Turnovers.md,Planned
-Twin Cities property assessment,Commercial,Medium,,,01_Website/Services/Property_Assessments.md,Planned
-Twin Cities construction estimate,Transactional,High,,,01_Website/Services/Estimating.md,Planned
-rehab consulting for investors Twin Cities,Commercial,Medium,,,01_Website/Services/Investor_Rehab_Consulting.md,Planned
-cost to renovate a bathroom Twin Cities,Informational,Medium,,,01_Website/Blog/,Planned
-rental turnover checklist Minnesota,Informational,Medium,,,01_Website/Blog/,Planned
+id,keyword,search_intent,priority,monthly_volume,difficulty,target_page,status,source,confidence,last_updated,notes
+SEO-K001,Twin Cities construction company,Commercial,High,,,01_Website/Homepage.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K002,Saint Paul construction company,Commercial,High,,,01_Website/Service_Areas/Saint_Paul.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K003,Minneapolis construction company,Commercial,High,,,01_Website/Service_Areas/Minneapolis.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K004,Twin Cities home renovations,Commercial,High,,,01_Website/Services/Renovations.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K005,Twin Cities rental turnover service,Commercial,High,,,01_Website/Services/Rental_Turnovers.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K006,Twin Cities property assessment,Commercial,Medium,,,01_Website/Services/Property_Assessments.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K007,Twin Cities construction estimate,Transactional,High,,,01_Website/Services/Estimating.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K008,rehab consulting for investors Twin Cities,Commercial,Medium,,,01_Website/Services/Investor_Rehab_Consulting.md,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K009,cost to renovate a bathroom Twin Cities,Informational,Medium,,,01_Website/Blog/,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured
+SEO-K010,rental turnover checklist Minnesota,Informational,Medium,,,01_Website/Blog/,planned,legacy SEO research,low,2026-08-15,needs-verification: no volume or difficulty data captured

@@ -1,6 +1,24 @@
+---
+id: DP-0001
+title: Assessment Pack
+type: readme
+domain: 05_Digital_Products
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, sales, template, index, needs-verification]
+source_of_truth: false
+ai_usage: read-write
+confidence: low
+---
+
 # Assessment Pack
 
-Property assessment checklists and report templates. Built from 09_Knowledge_Base/Assessments.
+Property assessment checklists and report templates. Built from `12_Operations/SOP_Library`.
 
 ## Contents (planned)
 - [ ] Core templates / checklists

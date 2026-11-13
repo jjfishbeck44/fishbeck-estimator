@@ -1,0 +1,8 @@
+id,category,item,unit,price_low,price_high,basis,status,source,confidence,last_updated,notes
+PR-0001,Painting,Interior wall & ceiling paint,sqft,2.50,4.50,labor+materials,active,[confirm],low,2026-08-06,Two coats; standard ceiling height; SCHEMA EXAMPLE ONLY - not quotable; see Unit_Pricing/ for real data
+PR-0002,Flooring,LVP installation,sqft,4.00,7.00,labor+materials,active,[confirm],low,2026-08-06,Includes underlayment; SCHEMA EXAMPLE ONLY - not quotable; see Unit_Pricing/ for real data
+PR-0003,Drywall,Hang/tape/finish,sqft,2.00,3.50,labor+materials,active,[confirm],low,2026-08-06,Level 4 finish; SCHEMA EXAMPLE ONLY - not quotable; see Unit_Pricing/ for real data
+PR-0004,Bath,Standard bathroom remodel,ea,8000,15000,turnkey,active,[confirm],low,2026-08-06,Mid-grade finishes; SCHEMA EXAMPLE ONLY - not quotable; see Unit_Pricing/ for real data
+PR-0005,Kitchen,Mid-range kitchen remodel,ea,20000,45000,turnkey,active,[confirm],low,2026-08-06,Cabinets/counters/appliances vary; SCHEMA EXAMPLE ONLY - not quotable; see Unit_Pricing/ for real data
+PR-0006,Rental Turn,Standard unit turn,ea,1500,4500,turnkey,active,[confirm],low,2026-08-06,Clean/paint/repairs; size dependent; SCHEMA EXAMPLE ONLY - not quotable; see Unit_Pricing/ for real data
+PR-0007,Demolition,Selective interior demo,sqft,2.00,5.00,labor+disposal,active,[confirm],low,2026-08-06,Excludes hazmat; SCHEMA EXAMPLE ONLY - not quotable; see Unit_Pricing/ for real data

@@ -1,3 +1,21 @@
+---
+id: SAAS-0006
+title: Rehab Calculator — PRD
+type: spec
+domain: 07_SaaS
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: quarterly
+next_review: 2026-11-15
+tags: [software, strategy, needs-verification]
+source_of_truth: false
+ai_usage: read-write
+confidence: low
+---
+
 # Rehab Calculator — PRD
 
 ## Problem
@@ -15,7 +33,7 @@ Real estate investors (buy-and-hold, flip), wholesalers.
 Fast, defensible rehab numbers grounded in real local pricing.
 
 ## Data source
-`09_Knowledge_Base/Data_Formats/` (pricing, material costs, production rates).
+`13_Estimating/_Data/` (pricing, material costs, production rates).
 
 ## Success metrics
 [confirm — e.g., estimates generated, conversion to consults]

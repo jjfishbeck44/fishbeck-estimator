@@ -1,8 +1,26 @@
+---
+id: WEB-0018
+title: Subcontractor Onboarding (Recruiting Page)
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Subcontractor Onboarding (Recruiting Page)
 
 > Public website page content for recruiting and vetting reliable, MN-licensed
 > trades. Goal: a steady pipeline of qualified subcontractors. Operational vetting
-> data lives in `09_Knowledge_Base/Subcontractor_Directory.md`.
+> data lives in `17_Purchasing/Vendor_Database/README.md`.
 
 ## Meta
 - **Title tag:** Subcontractors — Partner With Fishbeck Innovations | Twin Cities
@@ -43,4 +61,4 @@ carpentry, demolition/haul, cleaning, and exterior.
 Apply to join our trade network — [form/contact link].
 
 > Keep messaging aligned with `00_Brand/AI_Communication_Style.md`. Submitted
-> applicants get recorded and vetted per `09_Knowledge_Base/Subcontractor_Directory.md`.
+> applicants get recorded and vetted per `17_Purchasing/Vendor_Database/README.md`.

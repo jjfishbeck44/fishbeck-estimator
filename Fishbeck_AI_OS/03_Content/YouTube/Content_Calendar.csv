@@ -1,3 +1,3 @@
-date,platform,title,format,topic,status,owner,source
-2026-07-01,YouTube,Rental turn start to finish,long-form,rental turn,planned,,04_Case_Studies/Investors
-2026-07-08,YouTube,Bathroom remodel cost breakdown,long-form,pricing,planned,,09_Knowledge_Base/Pricing
+id,date,platform,title,format,topic,owner,status,source,confidence,last_updated,notes
+CNT-C001,2026-07-01,YouTube,Rental turn start to finish,long-form,rental turn,Jimmy Fishbeck,planned,04_Case_Studies/Investors,medium,2026-08-15,
+CNT-C002,2026-07-08,YouTube,Bathroom remodel cost breakdown,long-form,pricing,Jimmy Fishbeck,planned,13_Estimating/Unit_Pricing,medium,2026-08-15,

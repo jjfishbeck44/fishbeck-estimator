@@ -1,3 +1,21 @@
+---
+id: WEB-0015
+title: Property Assessments
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Property Assessments
 
 ## Meta
@@ -33,4 +51,4 @@ Homebuyers, investors evaluating deals, and property managers planning maintenan
 ## CTA
 Schedule a property assessment or get a fast estimate on recommended work.
 
-> Reference: `09_Knowledge_Base/Assessments/`.
+> Reference: `12_Operations/SOP_Library/`.

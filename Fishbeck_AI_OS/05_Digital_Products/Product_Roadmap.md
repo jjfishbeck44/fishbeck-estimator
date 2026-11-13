@@ -1,3 +1,21 @@
+---
+id: DP-0004
+title: Digital Products Roadmap
+type: reference
+domain: 05_Digital_Products
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, sales, template, needs-verification]
+source_of_truth: false
+ai_usage: read-write
+confidence: low
+---
+
 # Digital Products Roadmap
 
 Plan for packs sold or used as lead magnets. Each pack draws from the Knowledge Base

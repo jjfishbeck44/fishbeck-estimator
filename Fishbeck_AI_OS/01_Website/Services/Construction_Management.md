@@ -1,3 +1,21 @@
+---
+id: WEB-0010
+title: Construction Management
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Construction Management
 
 ## Meta
@@ -33,4 +51,4 @@ juggling subcontractors themselves.
 ## CTA
 Tell us about your project and we'll manage it start to finish.
 
-> Reference: `09_Knowledge_Base/Construction_Management/`.
+> Reference: `12_Operations/`.

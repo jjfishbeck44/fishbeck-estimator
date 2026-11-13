@@ -1,3 +1,21 @@
+---
+id: WEB-0008
+title: Saint Paul
+type: reference
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Saint Paul
 
 ## Meta

@@ -1,3 +1,21 @@
+---
+id: WEB-0002
+title: Website Blog
+type: readme
+domain: 01_Website
+status: review
+version: 0.9.0
+owner: Jimmy Fishbeck
+created: 2026-06-21
+updated: 2026-08-15
+review_cycle: semiannual
+next_review: 2027-02-15
+tags: [marketing, content, seo, index]
+source_of_truth: true
+ai_usage: read-write
+confidence: medium
+---
+
 # Website Blog
 
 Published and draft blog posts (one file per post). The blog drives SEO and
