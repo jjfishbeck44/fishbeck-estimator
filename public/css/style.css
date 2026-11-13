@@ -1185,6 +1185,19 @@ body {
   .project-summary-text { color: #374151 !important; }
 }
 
+/* --- Estimate comparison --- */
+.history-compare { flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; accent-color: #E31E24; }
+.comparison-scroll { overflow-x: auto; }
+.comparison-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 480px; }
+.comparison-table th,
+.comparison-table td { padding: 0.7rem 1rem; text-align: right; border-bottom: 1px solid #F3F4F6; white-space: nowrap; }
+.comparison-table th { background: #F9FAFB; color: #374151; font-weight: 700; vertical-align: bottom; }
+.comparison-table .cmp-item { text-align: left; white-space: normal; min-width: 140px; font-weight: 600; }
+.comparison-table .cmp-sub { display: block; font-size: 0.7rem; font-weight: 500; color: #6B7280; }
+.comparison-table .cmp-none { color: #9CA3AF; }
+.comparison-table .cmp-total td { font-weight: 700; border-top: 2px solid #E5E7EB; border-bottom: none; background: #F9FAFB; }
+.comparison-table .cmp-best { display: inline-block; margin-left: 0.35rem; padding: 0.05rem 0.4rem; border-radius: 100px; background: #DCFCE7; color: #166534; font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; }
+
 /* --- Dark mode --- */
 @media (prefers-color-scheme: dark) {
   body { background: #111827; color: #E5E7EB; }
@@ -1336,4 +1349,17 @@ body {
   .faq-question::after { color: #6B7280; }
   .faq-item[open] .faq-question::after { color: #93C5FD; }
   .faq-answer { color: #D1D5DB; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .comparison-table th { background: #111827; color: #D1D5DB; }
+  .comparison-table th,
+  .comparison-table td { border-bottom-color: #374151; }
+  .comparison-table .cmp-sub { color: #9CA3AF; }
+  .comparison-table .cmp-total td { background: #111827; border-top-color: #374151; }
+  .comparison-table .cmp-best { background: #14532D; color: #86EFAC; }
+}
+
+@media print {
+  #comparison-card, .history-compare { display: none !important; }
 }

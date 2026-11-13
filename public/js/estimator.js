@@ -41,6 +41,11 @@ function createEstimator(doc, opts) {
   var statSpread = doc.getElementById('stat-spread');
   var shareBtn = doc.getElementById('share-btn');
   var downloadCsvBtn = doc.getElementById('download-csv-btn');
+  var downloadPdfBtn = doc.getElementById('download-pdf-btn');
+  var comparisonCard = doc.getElementById('comparison-card');
+  var comparisonBody = doc.getElementById('comparison-body');
+  var comparisonCount = doc.getElementById('comparison-count');
+  var closeComparisonBtn = doc.getElementById('close-comparison-btn');
   var proposalLink = doc.getElementById('proposal-link');
   var errorCard = doc.getElementById('error-card');
   var errorMessage = doc.getElementById('error-message');
@@ -86,6 +91,8 @@ function createEstimator(doc, opts) {
   var lastProjectName = '';
   var lastRefId = '';
   var loadingInterval = null;
+  var MAX_COMPARE = 4;
+  var selectedRefs = []; // timestamps of history entries ticked for comparison
 
   // --- Utilities ---
   function fmt(n) {
@@ -414,6 +421,32 @@ function createEstimator(doc, opts) {
     URL.revokeObjectURL(url);
   }
 
+  // --- Export estimate as PDF (self-hosted writer; CSP blocks CDN scripts) ---
+  function downloadPdf(est) {
+    var lib = (typeof FPdf !== 'undefined' && FPdf) || (typeof window !== 'undefined' && window.FPdf) || null;
+    if (!lib && typeof require === 'function') {
+      try { lib = require('./pdf-export'); } catch (e) { lib = null; }
+    }
+    if (!lib) { showToast('PDF export unavailable'); return false; }
+    var pdf = lib.buildEstimatePdf(est, {
+      refId: lastRefId,
+      projectName: lastProjectName,
+      description: lastInput,
+      date: new Date().toLocaleDateString('en-US')
+    });
+    var blob = new Blob([lib.toBytes(pdf)], { type: 'application/pdf' });
+    var url = URL.createObjectURL(blob);
+    var a = doc.createElement('a');
+    a.href = url;
+    var filename = 'fishbeck-estimate';
+    if (lastRefId) filename += '-' + lastRefId;
+    if (lastProjectName) filename += '-' + lastProjectName.replace(/[^a-zA-Z0-9-_ ]/g, '').replace(/\s+/g, '-').substring(0, 40);
+    a.download = filename + '.pdf';
+    a.click();
+    URL.revokeObjectURL(url);
+    return true;
+  }
+
   // --- Email proposal link ---
   function updateProposalLink(estimate) {
     var body = buildEstimateText(estimate);
@@ -461,6 +494,7 @@ function createEstimator(doc, opts) {
       localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
     } catch {}
     renderHistory();
+    renderComparison();
   }
 
   function formatTimestamp(ts) {
@@ -515,7 +549,9 @@ function createEstimator(doc, opts) {
         ? '<span class="history-ref">' + escHtml(entry.refId) + '</span>'
         : '';
 
+      var checked = selectedRefs.indexOf(entry.timestamp) !== -1;
       item.innerHTML =
+        '<input type="checkbox" class="history-compare" aria-label="Select for comparison"' + (checked ? ' checked' : '') + ' />' +
         '<div class="history-content">' +
           '<div class="history-text">' +
             nameHtml +
@@ -529,13 +565,19 @@ function createEstimator(doc, opts) {
         '<button class="history-delete" title="Remove" aria-label="Remove estimate" type="button">&times;</button>';
 
       var deleteBtn = item.querySelector('.history-delete');
+      var compareBox = item.querySelector('.history-compare');
+      compareBox.addEventListener('click', function (e) { e.stopPropagation(); });
+      compareBox.addEventListener('keydown', function (e) { e.stopPropagation(); });
+      compareBox.addEventListener('change', function () {
+        toggleCompare(entry.timestamp, compareBox);
+      });
       deleteBtn.addEventListener('click', function (e) {
         e.stopPropagation();
         removeFromHistory(idx);
       });
 
       item.addEventListener('click', function (e) {
-        if (e.target.closest('.history-delete')) return;
+        if (e.target.closest('.history-delete') || e.target.closest('.history-compare')) return;
         lastInput = entry.input;
         lastProjectName = entry.name || '';
         lastRefId = entry.refId || '';
@@ -547,7 +589,7 @@ function createEstimator(doc, opts) {
       });
 
       item.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.target.closest('.history-delete')) {
+        if (e.key === 'Enter' && !e.target.closest('.history-delete') && !e.target.closest('.history-compare')) {
           lastInput = entry.input;
           lastProjectName = entry.name || '';
           lastRefId = entry.refId || '';
@@ -561,6 +603,67 @@ function createEstimator(doc, opts) {
 
       historyList.appendChild(item);
     });
+  }
+
+  // --- Estimate comparison ---
+  function toggleCompare(ts, box) {
+    var pos = selectedRefs.indexOf(ts);
+    if (box.checked) {
+      if (pos === -1) {
+        if (selectedRefs.length >= MAX_COMPARE) {
+          box.checked = false;
+          showToast('Compare up to ' + MAX_COMPARE + ' estimates at a time');
+          return;
+        }
+        selectedRefs.push(ts);
+      }
+    } else if (pos !== -1) {
+      selectedRefs.splice(pos, 1);
+    }
+    renderComparison();
+  }
+
+  function renderComparison() {
+    var entries = getHistory().filter(function (e) { return selectedRefs.indexOf(e.timestamp) !== -1; });
+    // drop selections whose entries were deleted
+    selectedRefs = entries.map(function (e) { return e.timestamp; });
+    if (entries.length < 2) {
+      hide(comparisonCard);
+      comparisonBody.innerHTML = '';
+      return;
+    }
+    comparisonCount.textContent = entries.length + ' estimates selected';
+
+    // Union of line-item labels, in first-seen order.
+    var labels = [];
+    entries.forEach(function (e) {
+      (e.estimate.line_items || []).forEach(function (li) {
+        if (labels.indexOf(li.label) === -1) labels.push(li.label);
+      });
+    });
+
+    var head = '<th class="cmp-item">Item</th>' + entries.map(function (e, i) {
+      return '<th>' + escHtml(e.name || ('Estimate ' + (i + 1))) +
+        '<span class="cmp-sub">' + escHtml(e.refId || '') + '</span></th>';
+    }).join('');
+
+    var rows = labels.map(function (label) {
+      return '<tr><td class="cmp-item">' + escHtml(label) + '</td>' + entries.map(function (e) {
+        var li = (e.estimate.line_items || []).filter(function (x) { return x.label === label; })[0];
+        return '<td>' + (li ? fmtRange(li.range_low, li.range_high) : '<span class="cmp-none">—</span>') + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+
+    var totals = entries.map(function (e) { return (num(e.estimate.total_low) + num(e.estimate.total_high)) / 2; });
+    var lowest = Math.min.apply(null, totals);
+    var foot = '<tr class="cmp-total"><td class="cmp-item">Total</td>' + entries.map(function (e, i) {
+      var best = totals[i] === lowest ? ' <span class="cmp-best">lowest</span>' : '';
+      return '<td>' + fmtRange(e.estimate.total_low, e.estimate.total_high) + best + '</td>';
+    }).join('') + '</tr>';
+
+    comparisonBody.innerHTML = '<table class="comparison-table"><thead><tr>' + head + '</tr></thead><tbody>' +
+      rows + '</tbody><tfoot>' + foot + '</tfoot></table>';
+    show(comparisonCard);
   }
 
   // --- Draft persistence ---
@@ -753,6 +856,19 @@ function createEstimator(doc, opts) {
     showToast('CSV downloaded');
   });
 
+  // --- Download PDF ---
+  downloadPdfBtn.addEventListener('click', function () {
+    if (!lastEstimate) return;
+    if (downloadPdf(lastEstimate)) showToast('PDF downloaded');
+  });
+
+  // --- Close comparison ---
+  closeComparisonBtn.addEventListener('click', function () {
+    selectedRefs = [];
+    renderComparison();
+    renderHistory();
+  });
+
   // --- Share estimate ---
   shareBtn.addEventListener('click', function () {
     if (!lastEstimate) return;
@@ -843,7 +959,9 @@ function createEstimator(doc, opts) {
   clearHistoryBtn.addEventListener('click', function () {
     showConfirm(function () {
       try { localStorage.removeItem(HISTORY_KEY); } catch {}
+      selectedRefs = [];
       renderHistory();
+      renderComparison();
     });
   });
 
